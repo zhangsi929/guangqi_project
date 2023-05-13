@@ -23,8 +23,11 @@ const TextInput: React.FC = () => {
       
       
         //const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api/chat' : 'http://ip/api/chat';
+
+        // prod http://13.229.92.81:8080/api/chat
+        // test http://localhost:3001/api/chat
       console.log('Submitting message:', inputValue); // log to console
-      const response = await axios.post('http://localhost:3001/api/chat', {
+      const response = await axios.post('http://13.229.92.81:8080/api/chat', {
         message: inputValue,
       });
       console.log('Received response:', response); 
