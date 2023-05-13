@@ -27,7 +27,7 @@ const TextInput: React.FC = () => {
         // prod http://13.229.92.81:8080/api/chat // 443 is for ssl port
         // test http://localhost:3001/api/chat
       console.log('Submitting message:', inputValue); // log to console
-      const response = await axios.post('https://www.siyuhub.com:443/api/chat', {
+      const response = await axios.post('https://api.siyuhub.com:443/api/chat', {
         message: inputValue,
       });
       console.log('Received response:', response); 
