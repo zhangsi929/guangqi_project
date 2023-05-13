@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend
+  name: frontend-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend
+      app: frontend-pod
   template:
     metadata:
       labels:
-        app: frontend
+        app: frontend-pod
     spec:
       containers:
-      - name: frontend
+      - name: nextjs
         image: docker.io/ethan929/nextjs:011
         ports:
         - containerPort: 3000

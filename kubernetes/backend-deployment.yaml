@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: backend-deployment
 spec:
-  replicas: 1
+  replicas: 1 # 1 pod
   selector:
     matchLabels:
-      app: backend
+      app: backend-pod
   template:
     metadata:
       labels:
-        app: backend
+        app: backend-pod
     spec:
       containers:
-      - name: backend
+      - name: nodejs
         image: docker.io/ethan929/nodejs:011
         ports:
         - containerPort: 3001

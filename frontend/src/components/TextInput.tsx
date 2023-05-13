@@ -18,10 +18,13 @@ const TextInput: React.FC = () => {
     try {
         // backend:3001/api/chat is used when running app in k8s cluster
         // when we in devleopment mode we use 'http://localhost:3001/api/chat'
-        // when in k8s cluster in production whe use 'http://backend:80/api/chat'
-      //const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api/chat' : 'http://backend:80/api/chat';
+        // give up running it in minikube, too lazy to cofig it. probaly need to use ingress
+        // when in k8s cluster in production whe use 'http://backend:80/api/chat' this cannot be used, because the frontend is running in the browser and the browser cannot resolve the name backend
+      
+      
+        //const url = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api/chat' : 'http://ip/api/chat';
       console.log('Submitting message:', inputValue); // log to console
-      const response = await axios.post('http://backend:80/api/chat', {
+      const response = await axios.post('http://localhost:3001/api/chat', {
         message: inputValue,
       });
       console.log('Received response:', response); 
