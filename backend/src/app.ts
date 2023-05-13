@@ -25,7 +25,20 @@ app.use((req, res, next) => {
 app.use('/api', chatRouter);
 
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server hahaha listening on port ${port}`);
+
+// app.listen(port, () => {
+//   console.log(`Server hahaha listening on port ${port}`);
+// });
+
+// start https server
+const https = require('https');
+const fs = require('fs');
+// Load SSL certificate and private key files
+const options = {
+  key: fs.readFileSync('private-key.key'),
+  cert: fs.readFileSync('certificate.crt')
+};
+// Start the HTTPS server
+https.createServer(options, app).listen(port, () => {
+  console.log(`Server listening on port ${port}`);
 });
