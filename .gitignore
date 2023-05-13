@@ -10,5 +10,8 @@
 # Ignore the frontend build output directory
 frontend/build
 
+# Ignore the .next folder
+**/.next
+
 # Ignore .DS_Store files (macOS)
 **/.DS_Store

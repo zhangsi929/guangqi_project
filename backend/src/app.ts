@@ -11,11 +11,15 @@ console.log(process.env.OPENAI_API_KEY);
 
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3001; // backend port
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: true }));
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  next();
+});
 
 // Routes
 app.use('/api', chatRouter);
@@ -23,5 +27,5 @@ app.use('/api', chatRouter);
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+  console.log(`Server hahaha listening on port ${port}`);
 });
