@@ -3,12 +3,12 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import chatRouter from './routes/chat';
 import dotenv from 'dotenv';
-// dotenv.config({ path: __dirname+'/.env' });
+import fs from 'fs';
+import https from 'https';
 
 dotenv.config();
 
 console.log(process.env.OPENAI_API_KEY);
-
 
 const app = express();
 const port = 3001; // backend port
@@ -24,21 +24,27 @@ app.use((req, res, next) => {
 // Routes
 app.use('/api', chatRouter);
 
-
-
+// test route
 // app.listen(port, () => {
 //   console.log(`Server hahaha listening on port ${port}`);
 // });
 
-// start https server
-const https = require('https');
-const fs = require('fs');
-// Load SSL certificate and private key files
+// SSL Certificate files
+const privateKey = fs.readFileSync('dist/ssl/private.key', 'utf8');
+const certificate = fs.readFileSync('dist/ssl/api_siyuhub_com.crt', 'utf8');
+const ca = [
+    fs.readFileSync('dist/ssl/Sectigo_RSA_Domain_Validation_Secure_Server_CA.crt', 'utf8'),
+    fs.readFileSync('dist/ssl/USERTrust_RSA_Certification_Authority.crt', 'utf8')
+];
+
+// HTTPS server options
 const options = {
-  key: fs.readFileSync('private-key.key'),
-  cert: fs.readFileSync('certificate.crt')
+    key: privateKey,
+    cert: certificate,
+    ca: ca
 };
+
 // Start the HTTPS server
 https.createServer(options, app).listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+    console.log(`Server listening on port ${port}`);
 });

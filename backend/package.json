@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
-    "build": "tsc && cp certificate.crt private-key.key dist/",
+    "build": "tsc && cp -r src/ssl dist/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
