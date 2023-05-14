@@ -1,72 +1,65 @@
 .logo {
-    font-family: 'Roboto', sans-serif;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-right: auto;
-    margin-left: 2rem;
-  }
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding-top: 3rem;
-    font-family: 'Roboto', sans-serif;
-  }
-  
-  .chat-box {
-    flex-grow: 1;
-    overflow-y: scroll;
-    padding: 32px;
-    position: absolute;
-    top: calc(10rem + 1.5rem + 1.5rem); /* Add top value */
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  
-  .input-group {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    top: 8rem;
-    left: 2rem;
-    right: 2rem;
-    padding: 1rem 0.5rem 1rem 0.5rem; /* Add bottom padding */
-    background-color: #ffffff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    z-index: 1;
-  }
-  
-  .input-group input {
-    flex-grow: 1;
-    height: 2rem;
-    width: 50%;
-    font-size: 1rem;
-    border: none;
-    outline: none;
-  }
-  
-  .input-group button {
-    margin-left: 0.5rem;
-    background-color: #1a73e8;
-    color: #ffffff;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-  }
-  
-  .message-container {
-    background-color: #ffffff;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    margin-bottom: 16px;
-  }
-  
+  font-family: 'Roboto', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-right: auto;
+  margin-left: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* To separate chat-box and input-group */
+  width: 100vw;
+  height: 100vh;
+  padding-top: 3rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.chat-box {
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding: 32px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Add this line */
+  padding: 1rem 0.5rem 1rem 0.5rem; 
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  z-index: 1;
+}
+
+.input-group form {
+  display: flex; /* Add this line */
+  width: 100%; /* Add this line */
+}
+
+.input-group input {
+  flex-grow: 1;
+  height: 2rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+}
+
+.input-group button {
+  margin-left: 0.5rem;
+  background-color: #1a73e8;
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.message-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  margin-bottom: 16px;
+}

@@ -5,7 +5,7 @@ import { FaPaperPlane, FaTrash } from 'react-icons/fa';
 const Chat: React.FC = () => {
     const [inputValue, setInputValue] = useState('');
     const [messages, setMessages] = useState<string[]>([]);
-    const chatboxContainerRef = useRef<HTMLDivElement>(null);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
@@ -22,42 +22,37 @@ const Chat: React.FC = () => {
     };
 
     useEffect(() => {
-        if (chatboxContainerRef.current) {
-            chatboxContainerRef.current.scrollTop = chatboxContainerRef.current.scrollHeight;
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [messages]);
 
     return (
-        <div>
-
-            <div className="flex flex-col min-h-screen">
-                <div className="container flex flex-col h-screen">
-                    <div className="logo">ChatGPT API Demo</div>
-                    <div className="flex-grow flex flex-col-reverse">
-                        <div className="chatbox overflow-y-auto">
-                            {messages.map((message, index) => (
-                                <ChatBox key={index} inputValue={message} />
-                            ))}
-                        </div>
+        <div className="container">
+            <div className="logo">ChatGPT API Demo</div>
+            <div className="chat-box">
+                {messages.map((message, index) => (
+                    <div key={index} ref={index === messages.length - 1 ? messagesEndRef : null}>
+                        <ChatBox inputValue={message} />
                     </div>
-                </div>
-                <div className="fixed bottom-0 left-0 right-0 bg-gray-200 py-4 px-6">
-                    <form onSubmit={handleSubmit} className="input-group absolute bottom-0">
-                        <input
-                            type="text"
-                            placeholder="Type your message here..."
-                            value={inputValue}
-                            onChange={handleInputChange}
-                            className="mr-2"
-                        />
-                        <button type="submit" className="px-3 py-2 rounded-md bg-blue-500 text-white">
-                            <FaPaperPlane />
-                        </button>
-                        <button type="button" onClick={handleClearMessages} className="px-3 py-2 rounded-md bg-red-500 text-white">
-                            <FaTrash />
-                        </button>
-                    </form>
-                </div>
+                ))}
+            </div>
+            <div className="input-group">
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        placeholder="Type your message here..."
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        className="mr-2"
+                    />
+                    <button type="submit">
+                        <FaPaperPlane />
+                    </button>
+                    <button type="button" onClick={handleClearMessages}>
+                        <FaTrash />
+                    </button>
+                </form>
             </div>
         </div>
     );
