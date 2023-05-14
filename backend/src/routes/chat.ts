@@ -33,5 +33,75 @@ router.post('/chat', async (req, res) => {
   }
 });
 
+
+// router.get('/streamChat', async (req, res) => {
+//   // Set response header for server-sent events
+//   res.setHeader('Content-Type', 'text/event-stream');
+//   res.setHeader('Cache-Control', 'no-cache');
+//   res.setHeader('Connection', 'keep-alive');
+//   res.flushHeaders();
+
+//   try {
+//     const { message } = req.body;
+//     // Call OpenAI API with stream parameter set to true
+//     const chatCompletionStream = await openai.client.createChatCompletion({
+//       model: "gpt-3.5-turbo",
+//       messages: [{role: "user", content: message}],
+//       stream: true,
+//     });
+
+//     // Stream data back to client
+//     for await (const line of chatCompletionStream) {
+//       const chunk = line.choices[0]?.delta?.content;
+//       if (chunk) {
+//         res.write(`data: ${chunk}\n\n`);
+//       }
+//     }
+
+//     res.write('event: end\ndata: [DONE]\n\n');
+//     res.end();
+
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Internal server error');
+//   }
+// });
+
+
+router.get('/streamChat', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders(); // flush the headers to establish SSE with client
+  // const { message } = req.body;
+  const response = openai.client.createCompletion({
+      model: "text-davinci-003",
+      prompt: "please introduce who is the bill gates",
+      max_tokens: 100,
+      temperature: 0,
+      stream: true,
+  }, { responseType: 'stream' });
+
+  response.then(resp => {
+      resp.data.on('data', data => {
+          const lines = data.toString().split('\n').filter(line => line.trim() !== '');
+          for (const line of lines) {
+              const message = line.replace(/^data: /, '');
+              if (message === '[DONE]') {
+                  res.end();
+                  return
+              }
+              const parsed = JSON.parse(message);
+              // debug
+              console.log(parsed);  // Log the parsed data
+              res.write(`data: ${parsed.choices[0].text}\n\n`)
+          }
+      });
+  })
+})
+
+
+
 export default router;
 
