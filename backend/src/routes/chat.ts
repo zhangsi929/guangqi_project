@@ -34,50 +34,15 @@ router.post('/chat', async (req, res) => {
 });
 
 
-// router.get('/streamChat', async (req, res) => {
-//   // Set response header for server-sent events
-//   res.setHeader('Content-Type', 'text/event-stream');
-//   res.setHeader('Cache-Control', 'no-cache');
-//   res.setHeader('Connection', 'keep-alive');
-//   res.flushHeaders();
-
-//   try {
-//     const { message } = req.body;
-//     // Call OpenAI API with stream parameter set to true
-//     const chatCompletionStream = await openai.client.createChatCompletion({
-//       model: "gpt-3.5-turbo",
-//       messages: [{role: "user", content: message}],
-//       stream: true,
-//     });
-
-//     // Stream data back to client
-//     for await (const line of chatCompletionStream) {
-//       const chunk = line.choices[0]?.delta?.content;
-//       if (chunk) {
-//         res.write(`data: ${chunk}\n\n`);
-//       }
-//     }
-
-//     res.write('event: end\ndata: [DONE]\n\n');
-//     res.end();
-
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Internal server error');
-//   }
-// });
-
-
 router.get('/streamChat', (req, res) => {
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Connection', 'keep-alive');
   res.flushHeaders(); // flush the headers to establish SSE with client
-  // const { message } = req.body;
   const response = openai.client.createCompletion({
       model: "text-davinci-003",
-      prompt: "hello",
+      prompt: req.query.prompt,
       max_tokens: 100,
       temperature: 0,
       stream: true,
