@@ -77,7 +77,7 @@ router.get('/streamChat', (req, res) => {
   // const { message } = req.body;
   const response = openai.client.createCompletion({
       model: "text-davinci-003",
-      prompt: "please introduce who is the bill gates",
+      prompt: "hello",
       max_tokens: 100,
       temperature: 0,
       stream: true,
@@ -89,6 +89,7 @@ router.get('/streamChat', (req, res) => {
           for (const line of lines) {
               const message = line.replace(/^data: /, '');
               if (message === '[DONE]') {
+                  res.write(`data: AIChatTermination20230514flexva\n\n`)
                   res.end();
                   return
               }
