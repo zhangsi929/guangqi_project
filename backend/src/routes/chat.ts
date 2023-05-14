@@ -40,10 +40,9 @@ router.get('/streamChat', (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Connection', 'keep-alive');
   res.flushHeaders(); // flush the headers to establish SSE with client
-  const response = openai.client.createCompletion({
-      model: "text-davinci-003",
-      prompt: req.query.prompt,
-      max_tokens: 100,
+  const response = openai.client.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{role: "user", content: req.query.prompt}],
       temperature: 0,
       stream: true,
   }, { responseType: 'stream' });
@@ -60,8 +59,10 @@ router.get('/streamChat', (req, res) => {
               }
               const parsed = JSON.parse(message);
               // debug
-              console.log(parsed);  // Log the parsed data
-              res.write(`data: ${parsed.choices[0].text}\n\n`)
+              // console.log(parsed);  // Log the parsed data, will show data one by one
+              if (parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content) { // else will print the undefined
+                res.write(`data: ${parsed.choices[0].delta.content}\n\n`)
+              }
           }
       });
   })
