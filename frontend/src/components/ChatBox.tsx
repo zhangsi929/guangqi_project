@@ -33,7 +33,7 @@ const ChatBox: React.FC<ChatBoxProps> = ({ inputValue }) => {
   }, [inputValue]);
 
   return (
-    <div className="chat-box">
+    <div className="chatbox-message" style={{ marginBottom: '10px' }}>
       <div className="message-container">
         <p className="text-lg">{currentMessage}</p>
       </div>
