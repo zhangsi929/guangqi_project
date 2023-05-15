@@ -8,7 +8,7 @@ interface Message {
 }
 const Chat: React.FC = () => {
     const [inputValue, setInputValue] = useState('');
-    const [messages, setMessages] = useState<Message[]>([]);
+    const [messages, setMessages] = useState<Message[]>([{ show: 'bot', text: '你好 是谁 你有什么功能' }]);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +33,7 @@ const Chat: React.FC = () => {
 
     return (
         <div className="container">
-            <div className="logo">ChatGPT 3.5 Turbo</div>
+            <div className="logo">思鱼AI平台 - ChatGPT 3.5 Turbo</div>
             <div className="chat-boxes-container">
                 <div className="chat-box">
                     {messages.map((message, index) => (
@@ -47,7 +47,7 @@ const Chat: React.FC = () => {
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        placeholder="Type your message here..."
+                        placeholder="请输入..."
                         value={inputValue}
                         onChange={handleInputChange}
                         className="mr-2"
