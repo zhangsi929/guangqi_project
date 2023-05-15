@@ -34,12 +34,14 @@ const Chat: React.FC = () => {
     return (
         <div className="container">
             <div className="logo">ChatGPT 3.5 Turbo</div>
-            <div className="chat-box">
-                {messages.map((message, index) => (
-                    <div key={index} ref={index === messages.length - 1 ? messagesEndRef : null}>
-                        <ChatBox show={message.show} text={message.text} />
-                    </div>
-                ))}
+            <div className="chat-boxes-container">
+                <div className="chat-box">
+                    {messages.map((message, index) => (
+                        <div key={index} ref={index === messages.length - 1 ? messagesEndRef : null}>
+                            <ChatBox show={message.show} text={message.text} />
+                        </div>
+                    ))}
+                </div>
             </div>
             <div className="input-group">
                 <form onSubmit={handleSubmit}>

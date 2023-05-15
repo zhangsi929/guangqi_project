@@ -2,8 +2,9 @@
   font-family: 'Roboto', sans-serif;
   font-size: 2rem;
   font-weight: bold;
-  margin-right: auto;
-  margin-left: 2rem;
+  position: fixed;
+  top: 2%;
+  left: 4%;
 }
 
 .container {
@@ -14,6 +15,17 @@
   height: 100vh;
   padding-top: 3rem;
   font-family: 'Roboto', sans-serif;
+}
+
+.chat-boxes-container {
+  flex-grow: 1;
+  overflow-y: auto; /* allow scrolling */
+  padding: 32px;
+  position: fixed;
+  bottom: 13%;
+  top: 7%;
+  right: 2%;
+  left: 2%;
 }
 
 .chat-box {
@@ -36,6 +48,8 @@
   width: calc(100% - 50px); /* Subtract 50px from the full width */
   max-width: 1200px; /* This is an example, adjust it to fit your needs */
   z-index: 1;
+  margin-top: 20px; /* Add this line */
+
 }
 
 .input-group form {
