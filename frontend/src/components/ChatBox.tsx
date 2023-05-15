@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { FaUser, FaRobot } from 'react-icons/fa';
 // import { ReactComponent as UserIcon } from '../../public/hugging.png';
 // import { ReactComponent as BotIcon } from '../../public/gpt.png';
 
@@ -19,7 +18,11 @@ const ChatBox: React.FC<ChatBoxProps> = ({ show, text }) => {
             return
         }
         if (esRef.current) esRef.current.close();
-        esRef.current = new EventSource(`http://localhost:3001/api/streamChat?prompt=${encodeURIComponent(text)}`);
+        // if env is test, use http://localhost:3001/api/streamChat?prompt=${encodeURIComponent(text)}
+        // else use 'https://api.siyuhub.com:443/api/chat'
+        const prefix = process.env.NODE_ENV === 'test' ? 'http://localhost:3001' : 'https://api.siyuhub.com:443';
+        esRef.current = new EventSource(`${prefix}/api/streamChat?prompt=${encodeURIComponent(text)}`);
+        // esRef.current = new EventSource(`http://localhost:3001/api/streamChat?prompt=${encodeURIComponent(text)}`);
 
         esRef.current.onmessage = function (event) {
             const message = event.data;

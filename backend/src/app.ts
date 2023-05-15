@@ -28,13 +28,15 @@ app.use('/api', chatRouter);
 
 
 // test http mode
-const isTest = process.env.NODE_ENV === 'production';
+const isTest = process.env.NODE_ENV === 'test';
+console.log(process.env.NODE_ENV ); 
 if (isTest) {
+    console.log('test mode');
     app.listen(port, () => {
     console.log(`Server hahaha listening on port ${port}`);
     });
-    
 } else {
+    console.log('production mode');
     // SSL Certificate files
     const privateKey = fs.readFileSync('dist/ssl/private.key', 'utf8');
     const certificate = fs.readFileSync('dist/ssl/api_siyuhub_com.crt', 'utf8');
