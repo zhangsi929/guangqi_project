@@ -10,10 +10,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* To separate chat-box and input-group */
   width: 100vw;
   height: 100vh;
-  padding-top: 3rem;
+  padding-top: 1rem;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -22,16 +21,16 @@
   overflow-y: auto; /* allow scrolling */
   padding: 32px;
   position: fixed;
-  bottom: 13%;
-  top: 7%;
-  right: 2%;
-  left: 2%;
+  bottom: 12%;
+  top: 5%;
+  right: 1%;
+  left: 1%;
 }
 
 .chat-box {
   flex-grow: 1;
   overflow-y: scroll;
-  padding: 32px;
+  padding: 5px;
 }
 
 .input-group {

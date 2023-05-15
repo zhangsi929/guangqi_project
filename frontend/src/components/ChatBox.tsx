@@ -48,16 +48,16 @@ const ChatBox: React.FC<ChatBoxProps> = ({ show, text }) => {
         <div className="chatbox-message" style={{ marginBottom: '10px', display: 'flex', alignItems: 'flex-start' }}>
         {renderIcon()}
             <div className="message-container">
-                <p className="text-lg">{currentMessage}</p>
+                <div className="text-lg">{currentMessage}</div>
             </div>
         </div>
     );
     
     function renderIcon() {
         if (show === 'user') {
-            return <img src='/hugging.png' alt="User Icon" style={{ marginRight: '20px', width: '40px', height: '40px' }} />;
+            return <img src='/hugging.png' alt="User Icon" style={{ marginRight: '20px', width: '30px', height: '30px' }} />;
         } else if (show === 'bot') {
-            return <img src='/gpt.png' alt="Bot Icon" style={{ marginRight: '20px', width: '40px', height: '40px' }} />;
+            return <img src='/gpt.png' alt="Bot Icon" style={{ marginRight: '20px', width: '30px', height: '30px' }} />;
         }
         return null;
     }
