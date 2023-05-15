@@ -11,7 +11,7 @@ const router = express.Router();
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY
 const ORGANIZATION_KEY = process.env.ORGANIZATION_KEY
 
-const openai =  (OPENAI_API_KEY && ORGANIZATION_KEY)? new OpenAI(OPENAI_API_KEY, ORGANIZATION_KEY) : null;
+const openai = (OPENAI_API_KEY && ORGANIZATION_KEY) ? new OpenAI(OPENAI_API_KEY, ORGANIZATION_KEY) : null;
 
 if (!openai) {
   throw new Error("OPENAI_API_KEY not defined");
@@ -41,30 +41,42 @@ router.get('/streamChat', (req, res) => {
   res.flushHeaders(); // flush the headers to establish SSE with client
   const prompt = typeof req.query.prompt === 'string' ? req.query.prompt : '';
   const response = openai.client.createChatCompletion({
-      model: "gpt-3.5-turbo",
-      messages: [{role: "user", content: prompt}],
-      temperature: 0,
-      stream: true,
+    model: "gpt-3.5-turbo",
+    messages: [{ role: "user", content: prompt }],
+    temperature: 0,
+    stream: true,
   }, { responseType: 'stream' });
 
   response.then(resp => {
-      resp.data.on('data', (data: any) => {
-        const lines = data.toString().split('\n').filter((line: any) => line.trim() !== '');
-        for (const line of lines) {
-              const message = line.replace(/^data: /, '');
-              if (message === '[DONE]') {
-                  res.write(`data: AIChatTermination20230514flexva\n\n`)
-                  res.end();
-                  return
-              }
-              const parsed = JSON.parse(message);
-              // debug
-              // console.log(parsed);  // Log the parsed data, will show data one by one
-              if (parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content) { // else will print the undefined
-                res.write(`data: ${parsed.choices[0].delta.content}\n\n`)
-              }
+    let leftover = ''; // store leftover data from chunked responses
+    resp.data.on('data', (data: any) => {
+      if (leftover) {
+        console.log('Leftover data from previous chunk', leftover);
+        console.log('New chunk', data.toString());
+      }
+      const fullData = leftover + data.toString();
+      const lines = fullData.toString().split('\n').filter((line: any) => line.trim() !== '');
+      leftover = ''; // reset leftover
+      for (const line of lines) {
+        const message = line.replace(/^data: /, '');
+        if (message === '[DONE]') {
+          res.write(`data: AIChatTermination20230514flexva\n\n`)
+          res.end();
+          return
+        }
+        try {
+          const parsed = JSON.parse(message);
+          if (parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content) {
+            res.write(`data: ${parsed.choices[0].delta.content}\n\n`)
           }
-      });
+        } catch (err) {
+          // The line couldn't be parsed as JSON - it's probably a chunked response
+          console.log('Error parsing JSON', err);
+          console.log('Erro data that can not be parsed is:', message);
+          leftover += message;
+        }
+      }
+    });
   })
 })
 
