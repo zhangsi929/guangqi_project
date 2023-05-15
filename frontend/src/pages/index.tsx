@@ -6,11 +6,12 @@
  */
 import React from 'react';
 import TextInput from '../components/TextInput';
+import Chat from '../components/chat';
 
 const Home: React.FC = () => {
   return (
     <div className="container mx-auto p-4">
-      <TextInput />
+      <Chat />
     </div>
   );
 };

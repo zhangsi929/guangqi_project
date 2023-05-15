@@ -33,5 +33,42 @@ router.post('/chat', async (req, res) => {
   }
 });
 
+
+router.get('/streamChat', (req, res) => {
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders(); // flush the headers to establish SSE with client
+  const response = openai.client.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{role: "user", content: req.query.prompt}],
+      temperature: 0,
+      stream: true,
+  }, { responseType: 'stream' });
+
+  response.then(resp => {
+      resp.data.on('data', data => {
+          const lines = data.toString().split('\n').filter(line => line.trim() !== '');
+          for (const line of lines) {
+              const message = line.replace(/^data: /, '');
+              if (message === '[DONE]') {
+                  res.write(`data: AIChatTermination20230514flexva\n\n`)
+                  res.end();
+                  return
+              }
+              const parsed = JSON.parse(message);
+              // debug
+              // console.log(parsed);  // Log the parsed data, will show data one by one
+              if (parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content) { // else will print the undefined
+                res.write(`data: ${parsed.choices[0].delta.content}\n\n`)
+              }
+          }
+      });
+  })
+})
+
+
+
 export default router;
 

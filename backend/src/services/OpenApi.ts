@@ -1,7 +1,7 @@
 import { ChatCompletionResponseMessage, Configuration, OpenAIApi } from 'openai';
 
 class OpenAI {
-  private client: OpenAIApi;
+  public client: OpenAIApi;
 
   constructor(apiKey: string, organization: string) {
     const configuration = new Configuration({ 
