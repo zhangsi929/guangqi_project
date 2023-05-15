@@ -1,3 +1,5 @@
+// deprecated, use chat.tsx instead
+
 import React, { useState, useEffect} from 'react';
 import { FaPaperPlane } from 'react-icons/fa';
 

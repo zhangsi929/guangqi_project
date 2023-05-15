@@ -2,9 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import ChatBox from './ChatBox';
 import { FaPaperPlane, FaTrash } from 'react-icons/fa';
 
+interface Message {
+    show: string;
+    text: string;
+}
 const Chat: React.FC = () => {
     const [inputValue, setInputValue] = useState('');
-    const [messages, setMessages] = useState<string[]>([]);
+    const [messages, setMessages] = useState<Message[]>([]);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +21,7 @@ const Chat: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setMessages((prevMessages) => [...prevMessages, inputValue]);
+        setMessages((prevMessages) => [...prevMessages, { show: 'user', text: inputValue }, { show: 'bot', text: inputValue }]);
         setInputValue('');
     };
 
@@ -29,11 +33,11 @@ const Chat: React.FC = () => {
 
     return (
         <div className="container">
-            <div className="logo">ChatGPT API Demo</div>
+            <div className="logo">ChatGPT 3.5 Turbo</div>
             <div className="chat-box">
                 {messages.map((message, index) => (
                     <div key={index} ref={index === messages.length - 1 ? messagesEndRef : null}>
-                        <ChatBox inputValue={message} />
+                        <ChatBox show={message.show} text={message.text} />
                     </div>
                 ))}
             </div>

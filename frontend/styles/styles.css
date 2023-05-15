@@ -25,10 +25,16 @@
 .input-group {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Add this line */
-  padding: 1rem 0.5rem 1rem 0.5rem; 
+  justify-content: space-between;
+  padding: 1rem 0.5rem 1rem 0.5rem;
   background-color: #ffffff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  position: fixed; /* Use 'fixed' instead of 'absolute' to position it in the middle of the viewport */
+  left: 50%; /* Center the element horizontally */
+  top: 90%; /* Center the element vertically */
+  transform: translate(-50%, -50%); /* This offsets the element's own dimensions to ensure it's truly centered */
+  width: calc(100% - 50px); /* Subtract 50px from the full width */
+  max-width: 1200px; /* This is an example, adjust it to fit your needs */
   z-index: 1;
 }
 
