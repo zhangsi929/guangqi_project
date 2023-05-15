@@ -33,7 +33,7 @@ const Chat: React.FC = () => {
 
     return (
         <div className="container">
-            <div className="logo">思鱼AI平台 - ChatGPT 3.5 Turbo</div>
+            <div className="logo">ChatGPT 3.5 Turbo</div>
             <div className="chat-boxes-container">
                 <div className="chat-box">
                     {messages.map((message, index) => (

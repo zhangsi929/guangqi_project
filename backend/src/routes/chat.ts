@@ -77,7 +77,12 @@ router.get('/streamChat', (req, res) => {
         }
       }
     });
-  })
+  }).catch((err: any) => {
+    console.log('Error in streamChat', err);
+    res.write(`error: ${err}\n\n`)
+    res.write(`data: AIChatTermination20230514flexva\n\n`)
+    res.end();
+  });
 })
 
 
