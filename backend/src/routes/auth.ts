@@ -100,15 +100,16 @@ authRouter.post("/auth/mailcode", async (req, res) => {
 });
 
 
-
 authRouter.post("/auth/signup", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   const verificationCode = req.body.verificationCode;
 
-  const client = await pool.connect();
+  console.log(`Processing signup for email: ${email}`);
 
   try {
+    const client = await pool.connect();
+
     // Check verification code and timestamp
     const result = await client.query(
       "SELECT verification_code, verification_code_timestamp, is_verified FROM users WHERE email = $1",
@@ -116,16 +117,24 @@ authRouter.post("/auth/signup", async (req, res) => {
     );
     const user = result.rows[0];
 
-    if (
-      !user ||
-      user.verification_code !== verificationCode ||
-      Date.now() - user.verification_code_timestamp > 60000 ||
-      user.is_verified
-    ) {
-      res.status(400).json({
-        error: "Invalid or expired verification code or email already verified",
-      });
-      return;
+    if (!user) {
+      console.error(`User not found for email: ${email}`);
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (user.verification_code !== verificationCode) {
+      console.error(`Invalid verification code for email: ${email}`);
+      return res.status(400).json({ error: "Invalid verification code" });
+    }
+
+    if (Date.now() - user.verification_code_timestamp > 60000) {
+      console.error(`Expired verification code for email: ${email}`);
+      return res.status(400).json({ error: "Expired verification code" });
+    }
+
+    if (user.is_verified) {
+      console.error(`Email already verified for email: ${email}`);
+      return res.status(400).json({ error: "Email already verified and registered" });
     }
 
     // Hash password
@@ -137,6 +146,8 @@ authRouter.post("/auth/signup", async (req, res) => {
       [hashedPassword, email]
     );
 
+    console.log(`Updated user record with hashed password for email: ${email}`);
+
     // Generate JWT
     if (!process.env.JWT_SECRET) {
       throw new Error('JWT_SECRET is not defined');
@@ -145,13 +156,21 @@ authRouter.post("/auth/signup", async (req, res) => {
       expiresIn: "1h",
     });
 
+    console.log(`Generated JWT for email: ${email}`);
+
     res.status(200).json({ token });
   } catch (err) {
-    res.status(500).json({ error: "DB error" });
-  } finally {
-    client.release();
+    if (err instanceof Error) {
+      console.error(`Error during signup for email: ${email}, Error: ${err.message}`);
+      res.status(500).json({ error: err.message });
+    } else {
+      console.error(`Unknown error during signup for email: ${email}`);
+      res.status(500).json({ error: "Unknown error" });
+    }
   }
 });
+
+
 
 authRouter.post("/auth/login", async (req, res) => {
   const { email, password } = req.body;
