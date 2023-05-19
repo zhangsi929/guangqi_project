@@ -148,17 +148,17 @@ authRouter.post("/auth/signup", async (req, res) => {
 
     console.log(`Updated user record with hashed password for email: ${email}`);
 
-    // Generate JWT
-    if (!process.env.JWT_SECRET) {
-      throw new Error('JWT_SECRET is not defined');
-    }
-    const token = jwt.sign({ email }, process.env.JWT_SECRET!, {
-      expiresIn: "1h",
-    });
+    // // Generate JWT
+    // if (!process.env.JWT_SECRET) {
+    //   throw new Error('JWT_SECRET is not defined');
+    // }
+    // const token = jwt.sign({ email }, process.env.JWT_SECRET!, {
+    //   expiresIn: "1h",
+    // });
 
-    console.log(`Generated JWT for email: ${email}`);
+    // console.log(`Generated JWT for email: ${email}`);
 
-    res.status(200).json({ token });
+    res.status(200).json({ message: "Sign up succeed" });
   } catch (err) {
     if (err instanceof Error) {
       console.error(`Error during signup for email: ${email}, Error: ${err.message}`);
@@ -177,32 +177,40 @@ authRouter.post("/auth/login", async (req, res) => {
 
   const client = await pool.connect();
   try {
+    console.log(`Processing login for email: ${email}`);
+
     const result = await client.query(
       "SELECT * FROM users WHERE email = $1 AND is_verified = true",
       [email]
     );
-    const user = result.rows[0];
 
-    if (!user) {
+    if (result.rows.length === 0) {
+      console.warn(`Login attempt failed for email: ${email}, Error: No user found or email not verified`);
       return res.status(401).json({
         error: "No user found with this email, or the email is not verified",
       });
     }
 
+    const user = result.rows[0];
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
+      console.warn(`Login attempt failed for email: ${email}, Error: Incorrect password`);
       return res.status(401).json({ error: "Incorrect password" });
     }
+
     if (!process.env.JWT_SECRET) {
       throw new Error('JWT_SECRET is not defined');
     }
-    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET!, {
+
+    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
+    console.log(`Successful login for email: ${email}`);
     res.status(200).json({ token });
   } catch (err) {
+    console.error(`Database error for email: ${email}, Error: ${err}`);
     res.status(500).json({ error: "DB error" });
   } finally {
     client.release();
