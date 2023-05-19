@@ -1,10 +1,11 @@
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import chatRouter from './routes/chat';
-import dotenv from 'dotenv';
-import fs from 'fs';
-import https from 'https';
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import chatRouter from "./routes/chat";
+import dotenv from "dotenv";
+import fs from "fs";
+import https from "https";
+import authRouter from "./routes/auth"; // Import the auth.ts file
 
 dotenv.config();
 
@@ -22,40 +23,42 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use('/api', chatRouter);
-
-
-
+app.use("/api", chatRouter);
+app.use("/auth", authRouter);
 
 // test http mode
-const isTest = process.env.NODE_ENV === 'test';
-console.log(process.env.NODE_ENV ); 
+const isTest = process.env.NODE_ENV === "test";
+console.log(process.env.NODE_ENV);
 if (isTest) {
-    console.log('test mode');
-    app.listen(port, () => {
+  console.log("test mode haha");
+  app.listen(port, () => {
     console.log(`Server hahaha listening on port ${port}`);
-    });
+  });
 } else {
-    console.log('production mode');
-    // SSL Certificate files
-    const privateKey = fs.readFileSync('dist/ssl/private.key', 'utf8');
-    const certificate = fs.readFileSync('dist/ssl/api_siyuhub_com.crt', 'utf8');
-    const ca = [
-        fs.readFileSync('dist/ssl/Sectigo_RSA_Domain_Validation_Secure_Server_CA.crt', 'utf8'),
-        fs.readFileSync('dist/ssl/USERTrust_RSA_Certification_Authority.crt', 'utf8')
-    ];
+  console.log("production mode");
+  // SSL Certificate files
+  const privateKey = fs.readFileSync("dist/ssl/private.key", "utf8");
+  const certificate = fs.readFileSync("dist/ssl/api_siyuhub_com.crt", "utf8");
+  const ca = [
+    fs.readFileSync(
+      "dist/ssl/Sectigo_RSA_Domain_Validation_Secure_Server_CA.crt",
+      "utf8"
+    ),
+    fs.readFileSync(
+      "dist/ssl/USERTrust_RSA_Certification_Authority.crt",
+      "utf8"
+    ),
+  ];
 
-    // HTTPS server options
-    const options = {
-        key: privateKey,
-        cert: certificate,
-        ca: ca
-    };
+  // HTTPS server options
+  const options = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca,
+  };
 
-    // Start the HTTPS server
-    https.createServer(options, app).listen(port, () => {
-        console.log(`Server listening on port ${port}`);
-    });
+  // Start the HTTPS server
+  https.createServer(options, app).listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
 }
-
-

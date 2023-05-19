@@ -19,6 +19,7 @@ if (!openai) {
 
 
 router.post('/chat', async (req, res) => {
+  console.log("chat: haha")
   try {
     const { message } = req.body;
     // Call the ChatGPT API with the user's message

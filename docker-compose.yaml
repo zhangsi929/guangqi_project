@@ -1,0 +1,50 @@
+# docker-compose.yml
+# The - "3000:3000" syntax in the Docker Compose file is used to 
+# map ports between the container and the host machine.
+# The format is - "<host-port>:<container-port>".
+
+
+# PostgreSQL, by default, listens on port 5432.
+# So if you want to access your PostgreSQL database service from your Express application or any other service, you would typically use port 5432.
+
+
+version: '3'
+services:
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: zhangsi929
+      POSTGRES_PASSWORD: zhangsi110
+      POSTGRES_DB: duke
+    volumes:
+      - ./db/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+    ports:
+      - "5432:5432"
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: ethan929/nodejs:100
+    # volumes:
+    #   - ./backend:/app  # This mounts the backend directory to /app in the container
+    restart: always
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    environment:
+      - JWT_SECRET=f7b2a411c71a3b45a846ba1a57d7e44e8f5b344ef1a64eb8b9fe7e3be7b9f3d8a1b92ea71a8456e8d60db55b9b75c1feae8db56cabb117fca8f5a11a7c5e3b3Z
+      - EMAIL_USER=suppport@siyuhub.com
+      - EMAIL_PASSWORD=zhangsi110
+      - DB_HOST=db # service name can help find the place
+      - DB_PORT=5432
+      - DB_USER=zhangsi929
+      - DB_PASSWORD=zhangsi110
+      - DB_NAME=duke
+      - NODE_ENV=test
+      - OPENAI_API_KEY=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
+      - ORGANIZATION_KEY=org-lN3L6w6YK9cubsEzZo8U7rHE
+
+
+# The volumes section for the db service mounts your setup.sql file in the special directory /docker-entrypoint-initdb.d/. Any .sql files in this directory will be automatically executed in alphabetical order when the container starts.
