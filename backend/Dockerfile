@@ -10,10 +10,10 @@ COPY package*.json ./
 # Install dependencies in Docker
 RUN npm ci
 
-# Copy the rest of the code
+# Copy the rest of the code, but we already ignore some folder and files in .dockerignore
 COPY . .
 
-# Now compile the problematic bcrypt
+# we do this hack is because bcrypt buit on macos, we don't want use the one build by ipackage*.json, s not compatible with node 16
 RUN npm uninstall bcrypt
 RUN npm install bcrypt
 

@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import chatRouter from "./routes/chat";
 import dotenv from "dotenv";
 import fs from "fs";
 import https from "https";
+import chatRouter from "./routes/chat";
 import authRouter from "./routes/auth"; // Import the auth.ts file
 
 dotenv.config();
@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api", chatRouter);
-app.use("/auth", authRouter);
+app.use("/api", authRouter);
 
 // test http mode
 const isTest = process.env.NODE_ENV === "test";
