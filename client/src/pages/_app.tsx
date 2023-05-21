@@ -1,12 +1,3 @@
-/*
- * @Author: Ethan Zhang
- * @Date: 2023-05-19 23:18:49
- * @LastEditTime: 2023-05-20 17:50:03
- * @FilePath: /guangqi/client/src/pages/_app.tsx
- * @Description:
- *
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
- */
 // pages/_app.tsx
 import "../styles/style.css";
 import "../styles/mobile.css";
@@ -24,7 +15,6 @@ import { RecoilRoot } from "recoil";
 import { ThemeProvider } from "../hooks/ThemeContext";
 import { ScreenshotProvider } from "../utils/screenshotContext";
 import type { AppProps } from "next/app";
-import { useRouter } from "next/router";
 import React from "react";
 
 type MyError = {
@@ -68,11 +58,16 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-function MyApp({ Component, pageProps }) {
+//TIP:
+//AppProps is a type exported by the Next.js framework, and it's used to type the properties of the App component.
+//This App component is a top-level component which is common across all different pages.
+//It's similar to a layout component and is often used to keep state and functions that are accessible across all pages.
+function MyApp(props: AppProps) {
   return (
     <ApiErrorBoundaryProvider>
-      <App Component={Component} pageProps={pageProps} />
+      <App {...props} />
     </ApiErrorBoundaryProvider>
   );
 }
+
 export default MyApp;
