@@ -1,18 +1,16 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useRegisterUserMutation, TRegisterUser } from '~/data-provider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { useRegisterUserMutation, TRegisterUser } from '../../data-provider';
 
 function Registration() {
-  const SERVER_URL = import.meta.env.DEV
-    ? import.meta.env.VITE_SERVER_URL_DEV
-    : import.meta.env.VITE_SERVER_URL_PROD;
-  const showGoogleLogin = import.meta.env.VITE_SHOW_GOOGLE_LOGIN_OPTION === 'true';
+  const SERVER_URL = process.env.NEXT_PUBLIC_DEV
+    ? process.env.NEXT_PUBLIC_SERVER_URL_DEV
+    : process.env.NEXT_PUBLIC_SERVER_URL_PROD;
+  const showGoogleLogin = process.env.NEXT_PUBLIC_SHOW_GOOGLE_LOGIN_OPTION === 'true'; // 我们不需要这个
 
-  const navigate = useNavigate();
+  const router = useRouter();
+
   const {
     register,
     watch,
@@ -21,6 +19,7 @@ function Registration() {
   } = useForm<TRegisterUser>({ mode: 'onChange' });
   const [error, setError] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
+
   const registerUser = useRegisterUserMutation();
 
   const password = watch('password');
@@ -28,9 +27,9 @@ function Registration() {
   const onRegisterUserFormSubmit = (data: TRegisterUser) => {
     registerUser.mutate(data, {
       onSuccess: () => {
-        navigate('/chat/new');
+        router.push('/chat/new');
       },
-      onError: (error) => {
+      onError: (error: any) => {
         setError(true);
         if (error.response?.data?.message) {
           setErrorMessage(error.response?.data?.message);
@@ -42,18 +41,18 @@ function Registration() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white pt-6 sm:pt-0">
       <div className="mt-6 w-96 overflow-hidden bg-white px-6 py-4 sm:max-w-md sm:rounded-lg">
-        <h1 className="mb-4 text-center text-3xl font-semibold">Create your account</h1>
+        <h1 className="mb-4 text-center text-3xl font-semibold">创建您的账号</h1>
         {error && (
           <div
             className="relative mt-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
             role="alert"
           >
-            There was an error attempting to register your account. Please try again. {errorMessage}
+            创建您的账号时出现错误，请重试。{errorMessage}
           </div>
         )}
         <form
           className="mt-6"
-          aria-label="Registration form"
+          aria-label="注册表单"
           method="POST"
           onSubmit={handleSubmit((data) => onRegisterUserFormSubmit(data))}
         >
@@ -63,21 +62,21 @@ function Registration() {
                 id="name"
                 type="text"
                 autoComplete="name"
-                aria-label="Name"
-                // uncomment to prevent pasting in confirm field
+                aria-label="姓名"
+                // 取消下面的注释以防止在确认字段中粘贴
                 onPaste={(e) => {
                   e.preventDefault();
                   return false;
                 }}
                 {...register('name', {
-                  required: 'Name is required',
+                  required: '姓名是必填项',
                   minLength: {
                     value: 3,
-                    message: 'Name must be at least 3 characters'
+                    message: '姓名至少需要3个字符'
                   },
                   maxLength: {
                     value: 80,
-                    message: 'Name must be less than 80 characters'
+                    message: '姓名不能超过80个字符'
                   }
                 })}
                 aria-invalid={!!errors.name}
@@ -88,7 +87,7 @@ function Registration() {
                 htmlFor="name"
                 className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
               >
-                Full Name
+                姓名
               </label>
             </div>
 
@@ -104,16 +103,16 @@ function Registration() {
               <input
                 type="text"
                 id="username"
-                aria-label="Username"
+                aria-label="用户名"
                 {...register('username', {
-                  required: 'Username is required',
+                  required: '用户名是必填项',
                   minLength: {
                     value: 3,
-                    message: 'Username must be at least 3 characters'
+                    message: '用户名至少需要3个字符'
                   },
                   maxLength: {
                     value: 20,
-                    message: 'Username must be less than 20 characters'
+                    message: '用户名不能超过20个字符'
                   }
                 })}
                 aria-invalid={!!errors.username}
@@ -125,7 +124,7 @@ function Registration() {
                 htmlFor="username"
                 className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
               >
-                Username
+                用户名
               </label>
             </div>
 
@@ -142,20 +141,20 @@ function Registration() {
                 type="email"
                 id="email"
                 autoComplete="email"
-                aria-label="Email"
+                aria-label="电子邮件"
                 {...register('email', {
-                  required: 'Email is required',
+                  required: '电子邮件是必填项',
                   minLength: {
                     value: 3,
-                    message: 'Email must be at least 6 characters'
+                    message: '电子邮件至少需要6个字符'
                   },
                   maxLength: {
                     value: 120,
-                    message: 'Email should not be longer than 120 characters'
+                    message: '电子邮件长度不能超过120个字符'
                   },
                   pattern: {
                     value: /\S+@\S+\.\S+/,
-                    message: 'You must enter a valid email address'
+                    message: '请输入有效的电子邮件地址'
                   }
                 })}
                 aria-invalid={!!errors.email}
@@ -166,7 +165,7 @@ function Registration() {
                 htmlFor="email"
                 className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
               >
-                Email
+                电子邮件
               </label>
             </div>
             {errors.email && (
@@ -182,16 +181,16 @@ function Registration() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                aria-label="Password"
+                aria-label="密码"
                 {...register('password', {
-                  required: 'Password is required',
+                  required: '密码是必填项',
                   minLength: {
                     value: 8,
-                    message: 'Password must be at least 8 characters'
+                    message: '密码至少需要8个字符'
                   },
                   maxLength: {
                     value: 40,
-                    message: 'Password must be less than 40 characters'
+                    message: '密码长度不能超过40个字符'
                   }
                 })}
                 aria-invalid={!!errors.password}
@@ -202,7 +201,7 @@ function Registration() {
                 htmlFor="password"
                 className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
               >
-                Password
+                密码
               </label>
             </div>
 
@@ -218,14 +217,14 @@ function Registration() {
               <input
                 type="password"
                 id="confirm_password"
-                aria-label="Confirm Password"
-                // uncomment to prevent pasting in confirm field
+                aria-label="确认密码"
+                // 取消下面的注释以防止在确认字段中粘贴
                 onPaste={(e) => {
                   e.preventDefault();
                   return false;
                 }}
                 {...register('confirm_password', {
-                  validate: (value) => value === password || 'Passwords do not match'
+                  validate: (value) => value === password || '密码不匹配'
                 })}
                 aria-invalid={!!errors.confirm_password}
                 className="peer block w-full appearance-none rounded-t-md border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-green-500 focus:outline-none focus:ring-0"
@@ -235,7 +234,7 @@ function Registration() {
                 htmlFor="confirm_password"
                 className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
               >
-                Confirm Password
+                确认密码
               </label>
             </div>
 
@@ -256,29 +255,29 @@ function Registration() {
                 !!errors.confirm_password
               }
               type="submit"
-              aria-label="Submit registration"
+              aria-label="提交注册"
               className="w-full transform rounded-sm bg-green-500 px-4 py-3 tracking-wide text-white transition-colors duration-200 hover:bg-green-600 focus:bg-green-600 focus:outline-none"
             >
-              Continue
+              继续
             </button>
           </div>
         </form>
         <p className="my-4 text-center text-sm font-light text-gray-700">
           {' '}
-          Already have an account?{' '}
+          已经有账号了吗?{' '}
           <a href="/login" className="p-1 font-medium text-green-500 hover:underline">
-            Login
+            登录
           </a>
         </p>
         {showGoogleLogin && (
           <>
             <div className="relative mt-6 flex w-full items-center justify-center border border-t uppercase">
-              <div className="absolute bg-white px-3 text-xs">Or</div>
+              <div className="absolute bg-white px-3 text-xs">或者</div>
             </div>
 
             <div className="mt-4 flex gap-x-2">
               <a
-                aria-label="Login with Google"
+                aria-label="使用Google登录"
                 href={`${SERVER_URL}/oauth/google`}
                 className="justify-left flex w-full items-center space-x-3 rounded-md border border-gray-300 px-5 py-3 hover:bg-gray-50 focus:ring-2 focus:ring-violet-600 focus:ring-offset-1"
               >
@@ -305,19 +304,8 @@ function Registration() {
                     d="m419.404 58.936-82.933 67.896C313.136 112.246 285.552 103.82 256 103.82c-66.729 0-123.429 42.957-143.965 102.724l-83.397-68.276h-.014C71.23 56.123 157.06 0 256 0c62.115 0 119.068 22.126 163.404 58.936z"
                   ></path>
                 </svg>
-                <p>Login with Google</p>
+                <p>使用Google登录</p>
               </a>
-              {/* <button
-                  aria-label="Login with Facebook"
-                  role="button"
-                  className="flex w-full items-center justify-center space-x-3 rounded-md border p-4 focus:ring-2 focus:ring-violet-400 focus:ring-offset-1 dark:border-gray-400"
-                >
-                  <FontAwesomeIcon
-                    icon={faFacebook} 
-                    size={'lg'}
-                  />
-                  <p>Login with Facebook</p>
-                </button> */}
             </div>
           </>
         )}

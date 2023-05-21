@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRequestPasswordResetMutation, TRequestPasswordReset } from '~/data-provider';
+import { useRequestPasswordResetMutation, TRequestPasswordReset } from '../../data-provider';
 
 function RequestPasswordReset() {
   const {
@@ -15,7 +15,7 @@ function RequestPasswordReset() {
 
   const onSubmit = (data: TRequestPasswordReset) => {
     requestPasswordReset.mutate(data, {
-      onSuccess: (data) => {
+      onSuccess: (data: any) => {
         setSuccess(true);
         setResetLink(data.link);
       },
@@ -31,17 +31,17 @@ function RequestPasswordReset() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white pt-6 sm:pt-0">
       <div className="mt-6 w-96 overflow-hidden bg-white px-6 py-4 sm:max-w-md sm:rounded-lg">
-        <h1 className="mb-4 text-center text-3xl font-semibold">Reset your password</h1>
+        <h1 className="mb-4 text-center text-3xl font-semibold">请输入电子邮件来重置密码</h1>
         {success && (
           <div
             className="relative mt-4 rounded border border-green-400 bg-green-100 px-4 py-3 text-green-700"
             role="alert"
           >
-            Click{' '}
+            点击{' '}
             <a className="text-green-600 hover:underline" href={resetLink}>
-              HERE
+              这里
             </a>{' '}
-            to reset your password.
+            重置你的密码。
             {/* An email has been sent with instructions on how to reset your password. */}
           </div>
         )}
@@ -50,8 +50,7 @@ function RequestPasswordReset() {
             className="relative mt-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
             role="alert"
           >
-            There was a problem resetting your password. There was no user found with the email
-            address provided. Please try again.
+            重置密码时出现问题。没有找到使用提供的电子邮件地址的用户，请重试。
           </div>
         )}
         <form
@@ -68,18 +67,18 @@ function RequestPasswordReset() {
                 autoComplete="off"
                 aria-label="Email"
                 {...register('email', {
-                  required: 'Email is required',
+                  required: 'Email是必填项',
                   minLength: {
                     value: 3,
-                    message: 'Email must be at least 6 characters'
+                    message: '电子邮件至少需要6个字符'
                   },
                   maxLength: {
                     value: 120,
-                    message: 'Email should not be longer than 120 characters'
+                    message: '电子邮件长度不能超过120个字符'
                   },
                   pattern: {
                     value: /\S+@\S+\.\S+/,
-                    message: 'You must enter a valid email address'
+                    message: '请输入有效的电子邮件地址'
                   }
                 })}
                 aria-invalid={!!errors.email}
@@ -90,7 +89,7 @@ function RequestPasswordReset() {
                 htmlFor="email"
                 className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
               >
-                Email address
+                电子邮件
               </label>
             </div>
             {errors.email && (
@@ -106,7 +105,7 @@ function RequestPasswordReset() {
               disabled={!!errors.email}
               className="w-full rounded-sm border border-transparent bg-green-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-600 focus:outline-none active:bg-green-500"
             >
-              Continue
+              继续
             </button>
           </div>
         </form>

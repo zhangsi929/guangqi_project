@@ -1,7 +1,19 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-20 00:45:58
+ * @LastEditTime: 2023-05-20 23:44:31
+ * @FilePath: /guangqi/client/src/components/Auth/ResetPassword.tsx
+ * @Description:
+ *
+ * ResetPassword组件
+ *
+ * 版权所有 © 2023 Ethan Zhang，保留所有权利。
+ */
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useResetPasswordMutation, TResetPassword } from '~/data-provider';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useResetPasswordMutation, TResetPassword } from '../../data-provider';
+import { useRouter } from 'next/router';
 
 function ResetPassword() {
   const {
@@ -12,11 +24,13 @@ function ResetPassword() {
   } = useForm<TResetPassword>();
   const resetPassword = useResetPasswordMutation();
   const [resetError, setResetError] = useState<boolean>(false);
-  const [params] = useSearchParams();
-  const navigate = useNavigate();
+  // const [params] = useSearchParams();
+  const router = useRouter();
+  const { query } = router;
   const password = watch('password');
 
   const onSubmit = (data: TResetPassword) => {
+    // 从查询参数中获取令牌和用户ID，并将其添加到数据对象中
     resetPassword.mutate(data, {
       onError: () => {
         setResetError(true);
@@ -28,19 +42,19 @@ function ResetPassword() {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-white pt-6 sm:pt-0">
         <div className="mt-6 w-96 overflow-hidden bg-white px-6 py-4 sm:max-w-md sm:rounded-lg">
-          <h1 className="mb-4 text-center text-3xl font-semibold">Password Reset Success</h1>
+          <h1 className="mb-4 text-center text-3xl font-semibold">密码重置成功</h1>
           <div
             className="relative mb-8 mt-4 rounded border border-green-400 bg-green-100 px-4 py-3 text-center text-green-700"
             role="alert"
           >
-            You may now login with your new password.
+            您现在可以使用新密码登录。
           </div>
           <button
-            onClick={() => navigate('/login')}
+            onClick={() => router.push('/login')}
             aria-label="Sign in"
             className="w-full transform rounded-sm bg-green-500 px-4 py-3 tracking-wide text-white transition-colors duration-200 hover:bg-green-600 focus:bg-green-600 focus:outline-none"
           >
-            Continue
+            继续
           </button>
         </div>
       </div>
@@ -49,17 +63,17 @@ function ResetPassword() {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-white pt-6 sm:pt-0">
         <div className="mt-6 w-96 overflow-hidden bg-white px-6 py-4 sm:max-w-md sm:rounded-lg">
-          <h1 className="mb-4 text-center text-3xl font-semibold">Reset your password</h1>
+          <h1 className="mb-4 text-center text-3xl font-semibold">重置您的密码</h1>
           {resetError && (
             <div
               className="relative mt-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
               role="alert"
             >
-              This password reset token is no longer valid.{' '}
+              此密码重置令牌已不再有效。{' '}
               <a className="font-semibold text-green-600 hover:underline" href="/forgot-password">
-                Click here
+                点击这里
               </a>{' '}
-              to try again.
+              重试。
             </div>
           )}
           <form
@@ -73,29 +87,29 @@ function ResetPassword() {
                 <input
                   type="hidden"
                   id="token"
-                  value={params.get('token')}
-                  {...register('token', { required: 'Unable to process: No valid reset token' })}
+                  value={query.token}
+                  {...register('token', { required: '无法处理：无有效的重置令牌' })}
                 />
                 <input
                   type="hidden"
                   id="userId"
-                  value={params.get('userId')}
-                  {...register('userId', { required: 'Unable to process: No valid user id' })}
+                  value={query.userId}
+                  {...register('userId', { required: '无法处理：无有效的用户ID' })}
                 />
                 <input
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  aria-label="Password"
+                  aria-label="密码"
                   {...register('password', {
-                    required: 'Password is required',
+                    required: '密码是必填项',
                     minLength: {
                       value: 8,
-                      message: 'Password must be at least 8 characters'
+                      message: '密码至少为8个字符'
                     },
                     maxLength: {
                       value: 40,
-                      message: 'Password must be less than 40 characters'
+                      message: '密码长度不能超过40个字符'
                     }
                   })}
                   aria-invalid={!!errors.password}
@@ -106,7 +120,7 @@ function ResetPassword() {
                   htmlFor="password"
                   className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
                 >
-                  Password
+                  密码
                 </label>
               </div>
 
@@ -122,14 +136,14 @@ function ResetPassword() {
                 <input
                   type="password"
                   id="confirm_password"
-                  aria-label="Confirm Password"
+                  aria-label="确认密码"
                   // uncomment to prevent pasting in confirm field
                   onPaste={(e) => {
                     e.preventDefault();
                     return false;
                   }}
                   {...register('confirm_password', {
-                    validate: (value) => value === password || 'Passwords do not match'
+                    validate: (value) => value === password || '密码不匹配'
                   })}
                   aria-invalid={!!errors.confirm_password}
                   className="peer block w-full appearance-none rounded-t-md border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-green-500 focus:outline-none focus:ring-0"
@@ -139,7 +153,7 @@ function ResetPassword() {
                   htmlFor="confirm_password"
                   className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
                 >
-                  Confirm Password
+                  确认密码
                 </label>
               </div>
               {errors.confirm_password && (
@@ -165,10 +179,10 @@ function ResetPassword() {
               <button
                 disabled={!!errors.password || !!errors.confirm_password}
                 type="submit"
-                aria-label="Submit registration"
+                aria-label="提交注册"
                 className="w-full transform rounded-sm bg-green-500 px-4 py-3 tracking-wide text-white transition-colors duration-200 hover:bg-green-600 focus:bg-green-600 focus:outline-none"
               >
-                Continue
+                继续
               </button>
             </div>
           </form>
