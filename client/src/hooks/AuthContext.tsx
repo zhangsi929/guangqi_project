@@ -1,4 +1,14 @@
-import {
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-19 23:36:29
+ * @LastEditTime: 2023-05-20 17:23:32
+ * @FilePath: /guangqi/client/src/hooks/AuthContext.tsx
+ * @Description: AuthContext.tsx
+ * 
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ */
+
+import React, {
   useState,
   useCallback,
   useEffect,
@@ -7,6 +17,7 @@ import {
   createContext,
   useContext
 } from 'react';
+
 import {
   TUser,
   TLoginResponse,
@@ -16,8 +27,8 @@ import {
   useGetUserQuery,
   useRefreshTokenMutation,
   TLoginUser
-} from '~/data-provider';
-import { useNavigate, useLocation } from 'react-router-dom';
+} from '../data-provider';
+import router from 'next/router';
 
 export type TAuthContext = {
   user: TUser | undefined;
@@ -45,14 +56,10 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  const navigate = useNavigate();
-
   const loginUser = useLoginUserMutation();
   const logoutUser = useLogoutUserMutation();
   const userQuery = useGetUserQuery({ enabled: !!token });
   const refreshToken = useRefreshTokenMutation();
-
-  const location = useLocation();
 
   const setUserContext = (userContext: TUserContext) => {
     const { token, isAuthenticated, user, redirect } = userContext;
@@ -60,14 +67,16 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       setUser(user);
     }
     setToken(token);
-    setTokenHeader(token);
+    if (token) {
+      setTokenHeader(token);
+    }
     setIsAuthenticated(isAuthenticated);
     if (redirect) {
-      navigate(redirect);
+      router.push('/login')
     }
   };
 
-  const getCookieValue = (key) => {
+  const getCookieValue = (key: any) => {
     let keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
     return keyValue ? keyValue[2] : null;
   };
@@ -79,7 +88,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         setUserContext({ token, isAuthenticated: true, user, redirect: '/chat/new' });
       },
       onError: (error) => {
-        setError(error.message);
+        setError((error as any).message);
       }
     });
   };
@@ -100,7 +109,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         });
       },
       onError: (error) => {
-        setError(error.message);
+        setError((error as any).message);
       }
     });
   };
@@ -109,8 +118,8 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     if (userQuery.data) {
       setUser(userQuery.data);
     } else if (userQuery.isError) {
-      setError(userQuery.error.message);
-      navigate('/login');
+      setError((userQuery.error as any).message);
+      router.push('/login')
     }
     if (error && isAuthenticated) {
       setError(undefined);
@@ -121,7 +130,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         // debugger;
         setUserContext({ token: tokenFromCookie, isAuthenticated: true, user: userQuery.data });
       } else {
-        navigate('/login');
+        router.push('/login')
       }
     }
   }, [token, isAuthenticated, userQuery.data, userQuery.isError]);

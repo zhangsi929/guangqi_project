@@ -1,3 +1,13 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-19 23:37:23
+ * @LastEditTime: 2023-05-20 17:13:37
+ * @FilePath: /guangqi/client/src/hooks/ThemeContext.jsx
+ * @Description: Dark mode <> light mode
+ * 
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ */
+
 //ThemeContext.js
 // source: https://plainenglish.io/blog/light-and-dark-mode-in-react-web-application-with-tailwind-css-89674496b942
 
