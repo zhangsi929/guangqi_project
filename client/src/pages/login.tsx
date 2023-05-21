@@ -1,17 +1,21 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:40:45
- * @LastEditTime: 2023-05-20 17:58:30
+ * @LastEditTime: 2023-05-20 20:55:38
  * @FilePath: /guangqi/client/src/pages/login.tsx
- * @Description: 
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
+import { AuthContextProvider } from '../hooks/AuthContext';
+import ApiErrorWatcher from '../components/Auth/ApiErrorWatcher';
 import Login from '../components/Auth/Login';
 
 export default function LoginPage() {
-  // just test this route is working, and return a text to show
   return (
-    "test login page"
+    <AuthContextProvider>
+      <Login />
+      <ApiErrorWatcher />
+    </AuthContextProvider>
   );
 }
