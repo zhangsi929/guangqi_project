@@ -1,8 +1,19 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-20 00:45:58
+ * @LastEditTime: 2023-05-20 21:32:31
+ * @FilePath: /guangqi/client/src/components/Auth/Login.tsx
+ * @Description:
+ *
+ * 'react-hook-form'是一个帮助您轻松验证表单且具有良好性能的库。
+ *
+ * 版权所有 2023 Ethan Zhang，保留所有权利。
+ */
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { TLoginUser } from '~/data-provider';
-import { useAuthContext } from '~/hooks/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { TLoginUser } from '../../data-provider';
+import { useAuthContext } from '../../hooks/AuthContext';
+import { useRouter } from 'next/router';
 
 function Login() {
   const { login, error, isAuthenticated } = useAuthContext();
@@ -12,35 +23,34 @@ function Login() {
     formState: { errors }
   } = useForm<TLoginUser>();
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/chat/new');
+      // router.push('/chat/new');
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, router]);
 
-  const SERVER_URL = import.meta.env.DEV
-    ? import.meta.env.VITE_SERVER_URL_DEV
-    : import.meta.env.VITE_SERVER_URL_PROD;
-  const showGoogleLogin = import.meta.env.VITE_SHOW_GOOGLE_LOGIN_OPTION === 'true';
+  const SERVER_URL = process.env.NEXT_PUBLIC_DEV
+    ? process.env.NEXT_PUBLIC_SERVER_URL_DEV
+    : process.env.NEXT_PUBLIC_SERVER_URL_PROD;
+  const showGoogleLogin = process.env.NEXT_PUBLIC_SHOW_GOOGLE_LOGIN_OPTION === 'true'; // we don't need this
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white pt-6 sm:pt-0">
       <div className="mt-6 w-96 overflow-hidden bg-white px-6 py-4 sm:max-w-md sm:rounded-lg">
-        <h1 className="mb-4 text-center text-3xl font-semibold">Welcome back</h1>
+        <h1 className="mb-4 text-center text-3xl font-semibold">欢迎回来</h1>
         {error && (
           <div
             className="relative mt-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"
             role="alert"
           >
-            Unable to login with the information provided. Please check your credentials and try
-            again.
+            亲～很抱歉，您提供的信息无法登录哦！请您耐心检查一下您的账号凭证，然后再试一次呢！感谢您的理解和支持！么么哒～💖
           </div>
         )}
         <form
           className="mt-6"
-          aria-label="Login form"
+          aria-label="登录表单"
           method="POST"
           onSubmit={handleSubmit((data) => login(data))}
         >
@@ -50,20 +60,20 @@ function Login() {
                 type="email"
                 id="email"
                 autoComplete="email"
-                aria-label="Email"
+                aria-label="电子邮件"
                 {...register('email', {
-                  required: 'Email is required',
+                  required: '电子邮件是必填项',
                   minLength: {
                     value: 3,
-                    message: 'Email must be at least 6 characters'
+                    message: '电子邮件至少需要6个字符'
                   },
                   maxLength: {
                     value: 120,
-                    message: 'Email should not be longer than 120 characters'
+                    message: '电子邮件长度不能超过120个字符'
                   },
                   pattern: {
                     value: /\S+@\S+\.\S+/,
-                    message: 'You must enter a valid email address'
+                    message: '请输入有效的电子邮件地址'
                   }
                 })}
                 aria-invalid={!!errors.email}
@@ -74,7 +84,7 @@ function Login() {
                 htmlFor="email"
                 className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
               >
-                Email address
+                电子邮件地址
               </label>
             </div>
             {errors.email && (
@@ -90,16 +100,16 @@ function Login() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
-                aria-label="Password"
+                aria-label="密码"
                 {...register('password', {
-                  required: 'Password is required',
+                  required: '密码是必填项',
                   minLength: {
                     value: 8,
-                    message: 'Password must be at least 8 characters'
+                    message: '密码至少需要8个字符'
                   },
                   maxLength: {
                     value: 40,
-                    message: 'Password must be less than 40 characters'
+                    message: '密码长度不能超过40个字符'
                   }
                 })}
                 aria-invalid={!!errors.password}
@@ -110,7 +120,7 @@ function Login() {
                 htmlFor="password"
                 className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
               >
-                Password
+                密码
               </label>
             </div>
 
@@ -122,23 +132,23 @@ function Login() {
             )}
           </div>
           <a href="/forgot-password" className="text-sm text-green-500 hover:underline">
-            Forgot Password?
+            忘记密码？
           </a>
           <div className="mt-6">
             <button
-              aria-label="Sign in"
+              aria-label="登录"
               type="submit"
               className="w-full transform rounded-sm bg-green-500 px-4 py-3 tracking-wide text-white transition-colors duration-200 hover:bg-green-600 focus:bg-green-600 focus:outline-none"
             >
-              Continue
+              继续
             </button>
           </div>
         </form>
         <p className="my-4 text-center text-sm font-light text-gray-700">
           {' '}
-          Don't have an account?{' '}
+          还没有账号？{' '}
           <a href="/register" className="p-1 text-green-500 hover:underline">
-            Sign up
+            注册
           </a>
         </p>
         {showGoogleLogin && (
@@ -175,7 +185,7 @@ function Login() {
                     d="m419.404 58.936-82.933 67.896C313.136 112.246 285.552 103.82 256 103.82c-66.729 0-123.429 42.957-143.965 102.724l-83.397-68.276h-.014C71.23 56.123 157.06 0 256 0c62.115 0 119.068 22.126 163.404 58.936z"
                   ></path>
                 </svg>
-                <p>Login with Google</p>
+                <p>使用 Google 登录</p>
               </a>
 
               {/* <a 
