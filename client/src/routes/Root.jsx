@@ -1,14 +1,13 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:43:07
- * @LastEditTime: 2023-05-21 00:50:27
- * @FilePath: /guangqi/client/src/routes/Root.tsx
+ * @LastEditTime: 2023-05-22 00:15:39
+ * @FilePath: /guangqi/client/src/routes/Root.jsx
  * @Description: 
  * 
  * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
  */
 import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
 import MessageHandler from '../components/MessageHandler';
 import Nav from '../components/Nav';
 import MobileNav from '../components/Nav/MobileNav';
@@ -20,7 +19,13 @@ import {
 import store from '../store';
 import { useSetRecoilState } from 'recoil';
 import { useAuthContext } from '../hooks/AuthContext';
-export default function Root() {
+import { AppProps } from 'next/app'
+// type RootProps = {
+//   Component: AppProps["Component"];
+//   pageProps: AppProps["pageProps"];
+// };
+
+export default function Root({ Component, pageProps }) {
   const [navVisible, setNavVisible] = useState(false);
 
   const setIsSearchEnabled = useSetRecoilState(store.isSearchEnabled);
@@ -63,7 +68,7 @@ export default function Root() {
         <div className="flex h-full w-full flex-1 flex-col bg-gray-50">
           <div className="transition-width relative flex h-full w-full flex-1 flex-col items-stretch overflow-hidden bg-white pt-10 dark:bg-gray-800 md:pt-0">
             <MobileNav setNavVisible={setNavVisible} />
-            <Outlet />
+            <Component {...pageProps} />
           </div>
         </div>
       </div>

@@ -1,21 +1,31 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-19 23:18:49
+ * @LastEditTime: 2023-05-21 23:48:49
+ * @FilePath: /guangqi/client/src/pages/_app.tsx
+ * @Description:
+ *
+ * _app.js: this is the root file of the code base. It is quite like the index.js file in create-react-app.
+ * Here, you can apply any global style(s), add new themes, provide context to the whole application, and so on.
+ * This file gives some shared context/parent component to all the pages in the application.
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
+
 // pages/_app.tsx
-import "../styles/style.css";
-import "../styles/mobile.css";
-import {
-  QueryClient,
-  QueryClientProvider,
-  QueryCache,
-} from "@tanstack/react-query";
-import {
-  ApiErrorBoundaryProvider,
-  useApiErrorBoundary,
-} from "../hooks/ApiErrorBoundaryContext";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { RecoilRoot } from "recoil";
-import { ThemeProvider } from "../hooks/ThemeContext";
-import { ScreenshotProvider } from "../utils/screenshotContext";
-import type { AppProps } from "next/app";
-import React from "react";
+import '../styles/style.css';
+import '../styles/mobile.css';
+import { QueryClient, QueryClientProvider, QueryCache } from '@tanstack/react-query';
+import { ApiErrorBoundaryProvider, useApiErrorBoundary} from '../hooks/ApiErrorBoundaryContext';
+import { AuthContextProvider } from '../hooks/AuthContext';
+import ApiErrorWatcher from '../components/Auth/ApiErrorWatcher';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { RecoilRoot } from 'recoil';
+import { ThemeProvider } from '../hooks/ThemeContext';
+import { ScreenshotProvider } from '../utils/screenshotContext';
+import type { AppProps } from 'next/app';
+import React from 'react';
+import Root from '../routes/Root';
 
 type MyError = {
   response?: {
@@ -28,18 +38,14 @@ function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient({
     queryCache: new QueryCache({
       onError: (error: unknown) => {
-        if (
-          typeof error === "object" &&
-          error !== null &&
-          "response" in error
-        ) {
+        if (typeof error === 'object' && error !== null && 'response' in error) {
           const err = error as MyError;
           if (err.response?.status === 401) {
             setError(error);
           }
         }
-      },
-    }),
+      }
+    })
   });
 
   return (
@@ -47,10 +53,11 @@ function App({ Component, pageProps }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
           <ThemeProvider initialTheme="light">
-            <Component {...pageProps} />
-            {process.env.NODE_ENV === "development" && (
-              <ReactQueryDevtools initialIsOpen={false} />
-            )}
+            <AuthContextProvider>
+            <Root Component={Component} pageProps={pageProps} />
+            {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+            <ApiErrorWatcher />
+            </AuthContextProvider>
           </ThemeProvider>
         </RecoilRoot>
       </QueryClientProvider>
