@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:36:29
- * @LastEditTime: 2023-05-20 17:23:32
+ * @LastEditTime: 2023-05-21 20:05:30
  * @FilePath: /guangqi/client/src/hooks/AuthContext.tsx
  * @Description: AuthContext.tsx
  * 
@@ -72,7 +72,8 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     }
     setIsAuthenticated(isAuthenticated);
     if (redirect) {
-      router.push('/login')
+      // TODO: 暂时是为了不要把我push到login页面
+      // router.push('/login')
     }
   };
 
@@ -119,7 +120,8 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       setUser(userQuery.data);
     } else if (userQuery.isError) {
       setError((userQuery.error as any).message);
-      router.push('/login')
+      // TODO: 暂时是为了不要把我push到login页面, 这个起了主要作用
+      // router.push('/login')
     }
     if (error && isAuthenticated) {
       setError(undefined);
@@ -130,7 +132,8 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         // debugger;
         setUserContext({ token: tokenFromCookie, isAuthenticated: true, user: userQuery.data });
       } else {
-        router.push('/login')
+      // TODO: 暂时是为了不要把我push到login页面
+      // router.push('/login')
       }
     }
   }, [token, isAuthenticated, userQuery.data, userQuery.isError]);

@@ -1,16 +1,3 @@
-/*
- * @Author: Ethan Zhang
- * @Date: 2023-05-20 14:08:36
- * @LastEditTime: 2023-05-20 14:32:44
- * @FilePath: /guangqi/client/src/utils/screenshotContext.jsx
- * 
- * @Description: In summary, this file provides a context (ScreenshotContext) 
- *                  and custom hook (useScreenshot) for capturing screenshots of a specific HTML node, 
- *                  and a ScreenshotProvider component to wrap components that need access to the screenshot functionality.
- *
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
- */
-
 import React, { createContext, useRef, useContext, useCallback } from 'react';
 import html2canvas from 'html2canvas';
 
