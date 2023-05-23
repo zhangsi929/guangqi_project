@@ -1,11 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:43:07
- * @LastEditTime: 2023-05-22 00:15:39
+ * @LastEditTime: 2023-05-22 22:50:10
  * @FilePath: /guangqi/client/src/routes/Root.jsx
- * @Description: 
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 import React, { useEffect, useState } from 'react';
 import MessageHandler from '../components/MessageHandler';
@@ -19,7 +19,7 @@ import {
 import store from '../store';
 import { useSetRecoilState } from 'recoil';
 import { useAuthContext } from '../hooks/AuthContext';
-import { AppProps } from 'next/app'
+import { AppProps } from 'next/app';
 // type RootProps = {
 //   Component: AppProps["Component"];
 //   pageProps: AppProps["pageProps"];

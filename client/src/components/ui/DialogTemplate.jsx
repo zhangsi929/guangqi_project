@@ -1,3 +1,12 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-21 17:59:28
+ * @LastEditTime: 2023-05-22 23:37:07
+ * @FilePath: /guangqi/client/src/components/ui/DialogTemplate.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import { forwardRef } from 'react';
 import {
   DialogClose,
@@ -10,15 +19,7 @@ import {
 import { cn } from 'src/utils/';
 
 const DialogTemplate = forwardRef((props, ref) => {
-  const {
-    title,
-    description,
-    main,
-    buttons,
-    leftButtons,
-    selection,
-    className
-  } = props;
+  const { title, description, main, buttons, leftButtons, selection, className } = props;
   const { selectHandler, selectClasses, selectText } = selection || {};
 
   const defaultSelect =

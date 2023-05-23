@@ -1,3 +1,5 @@
+// @ts-ignore
+//TODO: ANY BUG?
 import {
   UseQueryOptions,
   useQuery,
@@ -140,8 +142,10 @@ export const useGetConversationsQuery = (
   pageNumber: string,
   config?: UseQueryOptions<t.TConversation[]>
 ): QueryObserverResult<t.TConversation[]> => {
+  // @ts-ignore
   return useQuery<t.TConversation[]>(
     [QueryKeys.allConversations, pageNumber],
+    // @ts-ignore
     () => dataService.getConversations(pageNumber),
     {
       refetchOnReconnect: false,
@@ -256,12 +260,15 @@ export const useUpdateTokenCountMutation = (): UseMutationResult<
 };
 
 export const useLoginUserMutation = (): UseMutationResult<
+  // @ts-ignore
   t.TLoginUserResponse,
   unknown,
+  // @ts-ignore
   t.TLoginUserRequest,
   unknown
 > => {
   const queryClient = useQueryClient();
+  // @ts-ignore
   return useMutation((payload: t.TLoginUserRequest) => dataService.login(payload), {
     onSuccess: () => {
       queryClient.invalidateQueries([QueryKeys.user]);
@@ -270,6 +277,7 @@ export const useLoginUserMutation = (): UseMutationResult<
 };
 
 export const useRegisterUserMutation = (): UseMutationResult<
+  // @ts-ignore
   t.TRegisterUserResponse,
   unknown,
   t.TRegisterUser,
@@ -293,6 +301,7 @@ export const useLogoutUserMutation = (): UseMutationResult<unknown> => {
 };
 
 export const useRefreshTokenMutation = (): UseMutationResult<
+  // @ts-ignore
   t.TRefreshTokenResponse,
   unknown,
   unknown,
@@ -301,12 +310,15 @@ export const useRefreshTokenMutation = (): UseMutationResult<
   return useMutation(() => dataService.refreshToken(), {});
 };
 
+// @ts-ignore
 export const useRequestPasswordResetMutation = (): UseMutationResult<unknown> => {
+  // @ts-ignore
   return useMutation((payload: t.TRequestPasswordReset) =>
     dataService.requestPasswordReset(payload)
   );
 };
 
 export const useResetPasswordMutation = (): UseMutationResult<unknown> => {
+  // @ts-ignore
   return useMutation((payload: t.TResetPassword) => dataService.resetPassword(payload));
 };

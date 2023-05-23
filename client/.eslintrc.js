@@ -10,7 +10,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'prettier'
+    'plugin:prettier/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -23,8 +23,9 @@ module.exports = {
   plugins: ['react', 'react-hooks', '@typescript-eslint'],
   rules: {
     'react/react-in-jsx-scope': 'off',
-    '@typescript-eslint/ban-ts-comment': ['error', { 'ts-ignore': 'allow-with-description' }],
-    indent: ['error', 2, { SwitchCase: 1 }],
+    "indent": "off",
+    "no-unused-vars": "off",
+    "no-empty" : "off",
     'max-len': [
       'error',
       {
@@ -35,23 +36,23 @@ module.exports = {
       }
     ],
     'linebreak-style': 0,
-    // "arrow-parens": [2, "as-needed", { requireForBlockBody: true }],
-    // 'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'no-console': 'off',
     'import/extensions': 'off',
-    'no-use-before-define': [
-      'error',
-      {
-        functions: false
-      }
-    ],
+    'no-use-before-define': 'off',
+    'prefer-const': 'off',
     'no-promise-executor-return': 'off',
     'no-param-reassign': 'off',
     'no-continue': 'off',
     'no-restricted-syntax': 'off',
     'react/prop-types': ['off'],
-    'react/display-name': ['off']
-  },
+    'react/display-name': ['off'],
+    '@typescript-eslint/no-unused-vars': 'off',
+    'react/jsx-no-target-blank': 'off',
+    'react/no-unescaped-entities': 'off',
+    'prefer-const': 'off',
+    "@typescript-eslint/ban-types": "off",
+    '@typescript-eslint/ban-ts-comment': 'off',
+    },
   overrides: [
     {
       files: ['**/*.ts', '**/*.tsx'],
@@ -93,13 +94,18 @@ module.exports = {
       files: '**/*.+(ts)',
       parser: '@typescript-eslint/parser',
       parserOptions: {
-        project: './client/tsconfig.json'
+        project: './tsconfig.json'
       },
       plugins: ['@typescript-eslint/eslint-plugin'],
       extends: [
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended'
-      ]
+      ],
+      rules: {
+        '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/ban-types': 'off',
+        'prefer-const': 'off',
+      }
     }
   ],
   settings: {

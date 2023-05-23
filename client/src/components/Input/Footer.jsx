@@ -1,11 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 17:38:09
- * @LastEditTime: 2023-05-21 19:32:01
+ * @LastEditTime: 2023-05-22 22:49:49
  * @FilePath: /guangqi/client/src/components/Input/Footer.jsx
- * @Description: 
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 import React from 'react';
 

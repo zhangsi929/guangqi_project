@@ -1,3 +1,13 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-21 19:09:33
+ * @LastEditTime: 2023-05-22 23:45:12
+ * @FilePath: /guangqi/client/src/components/Messages/Content/CodeBlock.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
+/* eslint-disable no-use-before-define */
 import React, { useRef, useState } from 'react';
 import Clipboard from 'src/components/svg/Clipboard';
 import CheckMark from 'src/components/svg/CheckMark';

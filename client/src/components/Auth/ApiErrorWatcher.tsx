@@ -1,11 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-20 00:45:58
- * @LastEditTime: 2023-05-20 21:17:22
+ * @LastEditTime: 2023-05-22 22:50:03
  * @FilePath: /guangqi/client/src/components/Auth/ApiErrorWatcher.tsx
- * @Description: 
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 import React from 'react';
 import { useApiErrorBoundary } from '../../hooks/ApiErrorBoundaryContext';

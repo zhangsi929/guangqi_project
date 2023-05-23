@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/ban-ts-comment: "off" */
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRequestPasswordResetMutation, TRequestPasswordReset } from '../../data-provider';

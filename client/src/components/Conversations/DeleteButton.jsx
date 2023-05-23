@@ -1,11 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-22 00:17:00
- * @LastEditTime: 2023-05-22 00:17:48
+ * @LastEditTime: 2023-05-22 22:49:56
  * @FilePath: /guangqi/client/src/components/Conversations/DeleteButton.jsx
- * @Description: 
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 import { useEffect } from 'react';
 import TrashIcon from '../svg/TrashIcon';

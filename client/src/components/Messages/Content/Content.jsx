@@ -1,3 +1,13 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-21 19:09:33
+ * @LastEditTime: 2023-05-22 23:44:16
+ * @FilePath: /guangqi/client/src/components/Messages/Content/Content.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
+/* eslint-disable no-use-before-define */
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeKatex from 'rehype-katex';

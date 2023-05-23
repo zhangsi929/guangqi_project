@@ -1,11 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:36:29
- * @LastEditTime: 2023-05-21 20:05:30
+ * @LastEditTime: 2023-05-22 22:57:01
  * @FilePath: /guangqi/client/src/hooks/AuthContext.tsx
  * @Description: AuthContext.tsx
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 
 import React, {
@@ -132,8 +132,8 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         // debugger;
         setUserContext({ token: tokenFromCookie, isAuthenticated: true, user: userQuery.data });
       } else {
-      // TODO: 暂时是为了不要把我push到login页面
-      // router.push('/login')
+        // TODO: 暂时是为了不要把我push到login页面
+        // router.push('/login')
       }
     }
   }, [token, isAuthenticated, userQuery.data, userQuery.isError]);

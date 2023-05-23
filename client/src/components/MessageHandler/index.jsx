@@ -1,14 +1,14 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:44:51
- * @LastEditTime: 2023-05-21 02:37:35
+ * @LastEditTime: 2023-05-22 22:47:59
  * @FilePath: /guangqi/client/src/components/MessageHandler/index.jsx
- * @Description: 
- * 
+ * @Description:
+ *
  * This is the actual place to call API, using react hooks and custom hooks
- * 
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ *
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 
 import { useEffect, useState } from 'react';

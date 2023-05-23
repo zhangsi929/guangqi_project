@@ -1,3 +1,12 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-21 19:09:33
+ * @LastEditTime: 2023-05-22 22:49:33
+ * @FilePath: /guangqi/client/src/components/Messages/MultiMessage.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import Message from './Message';
@@ -42,18 +51,18 @@ export default function MultiMessage({
       <>
         {messagesTree
           ? messagesTree.map((message) => (
-            <Message
-              key={message.messageId}
-              conversation={conversation}
-              message={message}
-              scrollToBottom={scrollToBottom}
-              currentEditId={currentEditId}
-              setCurrentEditId={null}
-              siblingIdx={1}
-              siblingCount={1}
-              setSiblingIdx={null}
-            />
-          ))
+              <Message
+                key={message.messageId}
+                conversation={conversation}
+                message={message}
+                scrollToBottom={scrollToBottom}
+                currentEditId={currentEditId}
+                setCurrentEditId={null}
+                siblingIdx={1}
+                siblingCount={1}
+                setSiblingIdx={null}
+              />
+            ))
           : null}
       </>
     );

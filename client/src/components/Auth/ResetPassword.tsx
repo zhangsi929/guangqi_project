@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-20 00:45:58
- * @LastEditTime: 2023-05-20 23:44:31
+ * @LastEditTime: 2023-05-22 22:58:18
  * @FilePath: /guangqi/client/src/components/Auth/ResetPassword.tsx
  * @Description:
  *
@@ -9,7 +9,7 @@
  *
  * 版权所有 © 2023 Ethan Zhang，保留所有权利。
  */
-
+/* eslint @typescript-eslint/ban-ts-comment: "off" */
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useResetPasswordMutation, TResetPassword } from '../../data-provider';

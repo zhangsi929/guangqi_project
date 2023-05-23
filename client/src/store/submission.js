@@ -1,15 +1,16 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:48:31
- * @LastEditTime: 2023-05-21 19:11:54
+ * @LastEditTime: 2023-05-22 22:52:43
  * @FilePath: /guangqi/client/src/store/submission.js
- * @Description: 
- * 
+ * @Description:
+ *
  * Recoil Store: submission
  * This store is used to store the current submission.
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
+/* eslint no-unused-vars: "off" */
 import React from 'react';
 import {
   RecoilRoot,

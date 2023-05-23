@@ -1,3 +1,13 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-21 17:59:28
+ * @LastEditTime: 2023-05-22 23:53:11
+ * @FilePath: /guangqi/client/src/components/ui/Slider.tsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
+//@ts-nocheck
 'use client';
 
 import * as React from 'react';

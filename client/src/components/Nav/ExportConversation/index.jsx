@@ -1,3 +1,12 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-21 00:55:49
+ * @LastEditTime: 2023-05-22 23:02:14
+ * @FilePath: /guangqi/client/src/components/Nav/ExportConversation/index.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import { useState, forwardRef } from 'react';
 import { useRecoilValue } from 'recoil';
 import { Download } from 'lucide-react';

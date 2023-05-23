@@ -1,9 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:19:10
- * @LastEditTime: 2023-05-20 16:53:08
+ * @LastEditTime: 2023-05-22 22:49:11
  * @FilePath: /guangqi/client/src/hooks/ApiErrorBoundaryContext.tsx
  * @Description:
+ *
+ * This file is used to provide a context for error handling.
  *
  * The ApiErrorBoundaryProvider provides an error state and setError function to its child components.
  * Any component inside this provider can use useApiErrorBoundary to access this state and function.
@@ -17,29 +19,25 @@
 // TIP: react node:
 // This is particularly useful in typing functions or components that can return or accept a wide variety of potential renderable items, as is often the case in React.
 
-import React, { useState, ReactNode } from "react";
+import React, { useState, ReactNode } from 'react';
 
 export type ApiError = {
   error: any;
   setError: (error: any) => void;
 };
 
-const ApiErrorBoundaryContext = React.createContext<ApiError | undefined>(
-  undefined
-);
+const ApiErrorBoundaryContext = React.createContext<ApiError | undefined>(undefined);
 
 export const ApiErrorBoundaryProvider = ({
   value,
-  children,
+  children
 }: {
   value?: ApiError;
   children: ReactNode;
 }) => {
   const [error, setError] = useState(false);
   return (
-    <ApiErrorBoundaryContext.Provider
-      value={value ? value : { error, setError }}
-    >
+    <ApiErrorBoundaryContext.Provider value={value ? value : { error, setError }}>
       {children}
     </ApiErrorBoundaryContext.Provider>
   );
@@ -49,9 +47,7 @@ export const useApiErrorBoundary = () => {
   const context = React.useContext(ApiErrorBoundaryContext);
 
   if (context === undefined) {
-    throw new Error(
-      "useApiErrorBoundary must be used inside ApiErrorBoundaryProvider"
-    );
+    throw new Error('useApiErrorBoundary must be used inside ApiErrorBoundaryProvider');
   }
 
   return context;

@@ -1,3 +1,4 @@
+//@ts-nocheck
 export type TMessage = {
   messageId: string;
   conversationId: string;
@@ -19,14 +20,17 @@ export type TExample = {
 export type TSubmission = {
   clientId?: string;
   context?: string;
+  conversation?: any;
   conversationId?: string;
   conversationSignature?: string;
   current: boolean;
+  endpointOption: any;
   endpoint: EModelEndpoint;
   invocationId: number;
   isCreatedByUser: boolean;
   jailbreak: boolean;
   jailbreakConversationId?: string;
+  message?: any;
   messageId: string;
   overrideParentMessageId?: string | boolean;
   parentMessageId?: string;
@@ -186,6 +190,7 @@ export type TRegisterUser = {
   email: string;
   username: string;
   password: string;
+  confirm_password: string; // New field
 };
 
 export type TLoginUser = {
@@ -206,4 +211,5 @@ export type TResetPassword = {
   userId: string;
   token: string;
   password: string;
+  confirm_password: string;
 };

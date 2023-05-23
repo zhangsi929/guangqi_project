@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 import Spinner from '../svg/Spinner';

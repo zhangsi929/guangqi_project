@@ -22,7 +22,9 @@ const getIcon = (props) => {
           className="rounded-sm"
           src={
             user?.avatar ||
-            `https://api.dicebear.com/6.x/initials/svg?seed=${user?.name || 'User'}&fontFamily=Verdana&fontSize=36`
+            `https://api.dicebear.com/6.x/initials/svg?seed=${
+              user?.name || 'User'
+            }&fontFamily=Verdana&fontSize=36`
           }
           alt="avatar"
         />
@@ -44,8 +46,8 @@ const getIcon = (props) => {
         model && model.toLowerCase().startsWith('gpt-4')
           ? '#AB68FF'
           : chatGptLabel
-            ? `rgba(16, 163, 127, ${button ? 0.75 : 1})`
-            : `rgba(16, 163, 127, ${button ? 0.75 : 1})`;
+          ? `rgba(16, 163, 127, ${button ? 0.75 : 1})`
+          : `rgba(16, 163, 127, ${button ? 0.75 : 1})`;
       name = chatGptLabel || 'ChatGPT';
     } else if (endpoint === 'google') {
       const { modelLabel } = props;

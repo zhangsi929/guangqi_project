@@ -17,7 +17,7 @@ export default function Chat() {
   const { newConversation } = store.useConversation();
   const router = useRouter();
   const conversationId = router.query.conversationId;
-  
+
   // Replace useNavigate with useRouter
   const navigate = (path) => router.push(path);
 

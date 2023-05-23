@@ -1,11 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:37:23
- * @LastEditTime: 2023-05-20 18:30:43
+ * @LastEditTime: 2023-05-22 22:56:57
  * @FilePath: /guangqi/client/src/hooks/ThemeContext.jsx
  * @Description: Dark mode <> light mode
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 
 //ThemeContext.js
@@ -41,7 +41,7 @@ export const ThemeProvider = ({ initialTheme, children }) => {
 
       root.classList.remove(isDark ? 'light' : 'dark');
       root.classList.add(rawTheme);
-  
+
       localStorage.setItem('color-theme', rawTheme);
     }
   };

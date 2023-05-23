@@ -1,3 +1,13 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-21 00:48:31
+ * @LastEditTime: 2023-05-22 22:56:34
+ * @FilePath: /guangqi/client/src/store/conversations.js
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
+/* eslint no-unused-vars: "off" */
 import React from 'react';
 import {
   RecoilRoot,

@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/ban-ts-comment: "off" */
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';

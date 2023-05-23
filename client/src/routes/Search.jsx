@@ -1,11 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 22:25:04
- * @LastEditTime: 2023-05-22 00:18:06
+ * @LastEditTime: 2023-05-22 22:48:36
  * @FilePath: /guangqi/client/src/routes/Search.jsx
- * @Description: 
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

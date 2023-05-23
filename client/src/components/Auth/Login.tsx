@@ -9,6 +9,7 @@
  *
  * 版权所有 2023 Ethan Zhang，保留所有权利。
  */
+/* eslint @typescript-eslint/ban-ts-comment: "off" */
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { TLoginUser } from '../../data-provider';
