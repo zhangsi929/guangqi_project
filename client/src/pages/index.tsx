@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:45:41
- * @LastEditTime: 2023-05-22 22:56:51
+ * @LastEditTime: 2023-05-23 00:58:53
  * @FilePath: /guangqi/client/src/pages/index.tsx
  * @Description:
  *
@@ -20,9 +20,25 @@ export default function HomePage() {
   };
 
   return (
-    <div>
-      <h1>Welcome to Our Chat Application!</h1>
-      <button onClick={handleStartChat}>Start Chat</button>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+      textAlign: 'center',
+      background: '#f5f5f5'
+    }}>
+      <h1 style={{marginBottom: '20px'}}>搭建中</h1>
+      <button style={{
+        padding: '10px 20px',
+        fontSize: '16px',
+        borderRadius: '5px',
+        border: 'none',
+        cursor: 'pointer',
+        background: '#0070f3',
+        color: 'white'
+      }} onClick={handleStartChat}>预览界面</button>
     </div>
   );
 }
