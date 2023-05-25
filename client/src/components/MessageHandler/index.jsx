@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:44:51
- * @LastEditTime: 2023-05-22 22:47:59
+ * @LastEditTime: 2023-05-23 23:50:07
  * @FilePath: /guangqi/client/src/components/MessageHandler/index.jsx
  * @Description:
  *
@@ -169,8 +169,7 @@ export default function MessageHandler() {
   const abortConversation = (conversationId) => {
     console.log(submission);
     const { endpoint } = submission?.conversation || {};
-
-    fetch(`/api/ask/${endpoint}/abort`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/ask/${endpoint}/abort`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -199,9 +198,9 @@ export default function MessageHandler() {
 
     let { message } = submission;
 
-    const { server, payload } = createPayload(submission); //server is url
-
-    const events = new SSE(server, {
+    const { server, payload } = createPayload(submission); //server is url: '/api/ask/openAI' no prefix
+    const url = process.env.NEXT_PUBLIC_API_BASE_URL + server; // '/api/ask/openAI'
+    const events = new SSE(url, {
       payload: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
     });

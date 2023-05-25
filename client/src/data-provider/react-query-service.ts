@@ -10,8 +10,6 @@ import {
 } from '@tanstack/react-query';
 import * as t from './types';
 import * as dataService from './data-service';
-import axios from 'axios';
-
 export enum QueryKeys {
   messages = 'messsages',
   allConversations = 'allConversations',

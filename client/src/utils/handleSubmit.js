@@ -15,6 +15,7 @@ const useMessageHandler = () => {
 
   const [messages, setMessages] = useRecoilState(store.messages);
 
+  // the place we trigger api call
   const ask = (
     { text, parentMessageId = null, conversationId = null, messageId = null },
     { isRegenerate = false } = {}

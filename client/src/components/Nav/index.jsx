@@ -106,7 +106,7 @@ export default function Nav({ navVisible, setNavVisible }) {
         setPageNumber(pages);
       } else {
         if (!isSearching) {
-          conversations = conversations.sort(
+          conversations = conversations?.sort(
             (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
           );
         }

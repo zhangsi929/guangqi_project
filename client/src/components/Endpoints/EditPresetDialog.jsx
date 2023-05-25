@@ -3,7 +3,7 @@ import Examples from './Google/Examples.jsx';
 import MessagesSquared from 'src/components/svg/MessagesSquared.jsx';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import filenamify from 'filenamify';
-import axios from 'axios';
+import axios from 'src/data-provider/axios';
 import exportFromJSON from 'export-from-json';
 import DialogTemplate from '../ui/DialogTemplate';
 import { Dialog, DialogClose, DialogButton } from '../ui/Dialog.tsx';

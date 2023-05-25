@@ -1,3 +1,12 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-14 20:20:58
+ * @LastEditTime: 2023-05-23 23:02:32
+ * @FilePath: /guangqi/frontend/src/components/TextInput.tsx
+ * @Description: 
+ * 
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ */
 // deprecated, use chat.tsx instead
 
 import React, { useState, useEffect} from 'react';
