@@ -34,6 +34,7 @@ jobs:
       run: |
         # SSH into the EC2 instance, stop the current Docker container, and run the new one
         ssh -o StrictHostKeyChecking=no ec2-user@13.215.125.105 "\
+        docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} && \
         docker pull ethan929/guangqi:${{ github.sha }} && \
         docker container stop nodejs || true && \
         docker container rm nodejs || true && \
