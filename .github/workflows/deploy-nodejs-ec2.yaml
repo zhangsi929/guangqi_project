@@ -33,6 +33,12 @@ jobs:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Deploy to EC2
+      env:
+        HOST: 0.0.0.0
+        NODE_ENV: production
+        MONGO_URI: mongodb://mongodb:27017/chatgpt-clone
+        MEILI_HOST: http://meilisearch:7700
+        MEILI_HTTP_ADDR: meilisearch:7700
       run: |
         # SSH into the EC2 instance, stop the current Docker container, and run the new one
         ssh -o StrictHostKeyChecking=no ec2-user@13.215.125.105 "\
@@ -40,4 +46,11 @@ jobs:
         docker pull ethan929/guangqi:${{ github.sha }} && \
         docker container stop nodejs || true && \
         docker container rm nodejs || true && \
-        docker run -d --name nodejs -p 443:3080 ethan929/guangqi:${{ github.sha }}"
+        docker run -d --name nodejs -p 443:3080 \
+        -e HOST=${{ env.HOST }} \
+        -e NODE_ENV=${{ env.NODE_ENV }} \
+        -e MONGO_URI=${{ env.MONGO_URI }} \
+        -e MEILI_HOST=${{ env.MEILI_HOST }} \
+        -e MEILI_HTTP_ADDR=${{ env.MEILI_HTTP_ADDR }} \
+        ethan929/guangqi:${{ github.sha }}"
+
