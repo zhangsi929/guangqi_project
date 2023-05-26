@@ -19,11 +19,13 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
     - name: Build, tag, and push Docker image to Docker Hub
       run: |
         cd newbackend
-        docker build -t ethan929/guangqi:${{ github.sha }} .
-        docker push ethan929/guangqi:${{ github.sha }}
+        docker buildx build --platform linux/arm64 --push -t ethan929/guangqi:${{ github.sha }} .
 
     - name: Install SSH key
       uses: webfactory/ssh-agent@v0.5.2
@@ -38,4 +40,4 @@ jobs:
         docker pull ethan929/guangqi:${{ github.sha }} && \
         docker container stop nodejs || true && \
         docker container rm nodejs || true && \
-        docker run -d --name nodejs -p 3080:3080 ethan929/guangqi:${{ github.sha }}"
+        docker run -d --name nodejs -p 443:3080 ethan929/guangqi:${{ github.sha }}"
