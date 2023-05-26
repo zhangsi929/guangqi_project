@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:40:45
- * @LastEditTime: 2023-05-20 20:55:38
+ * @LastEditTime: 2023-05-25 01:31:13
  * @FilePath: /guangqi/client/src/pages/login.tsx
  * @Description:
  *
@@ -13,9 +13,6 @@ import Login from '../components/Auth/Login';
 
 export default function LoginPage() {
   return (
-    <AuthContextProvider>
       <Login />
-      <ApiErrorWatcher />
-    </AuthContextProvider>
   );
 }

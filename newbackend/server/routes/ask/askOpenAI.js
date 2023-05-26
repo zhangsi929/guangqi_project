@@ -10,7 +10,7 @@ const requireJwtAuth = require('../../../middleware/requireJwtAuth');
 
 const abortControllers = new Map();
 
-router.post('/abort', async (req, res) => {
+router.post('/abort', requireJwtAuth, async (req, res) => {
   const { abortKey } = req.body;
   console.log(`req.body`, req.body);
   if (!abortControllers.has(abortKey)) {
@@ -27,7 +27,7 @@ router.post('/abort', async (req, res) => {
   res.send(JSON.stringify(ret));
 });
 
-router.post('/', async (req, res) => {
+router.post('/', requireJwtAuth, async (req, res) => {
   const {
     endpoint,
     text,

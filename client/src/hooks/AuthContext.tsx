@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:36:29
- * @LastEditTime: 2023-05-22 22:57:01
+ * @LastEditTime: 2023-05-25 01:15:57
  * @FilePath: /guangqi/client/src/hooks/AuthContext.tsx
  * @Description: AuthContext.tsx
  *
@@ -73,7 +73,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     setIsAuthenticated(isAuthenticated);
     if (redirect) {
       // TODO: 暂时是为了不要把我push到login页面
-      // router.push('/login')
+      router.push(redirect)
     }
   };
 
@@ -130,10 +130,11 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       const tokenFromCookie = getCookieValue('token');
       if (tokenFromCookie) {
         // debugger;
+        console.log('tokenFromCookie', tokenFromCookie);
         setUserContext({ token: tokenFromCookie, isAuthenticated: true, user: userQuery.data });
       } else {
         // TODO: 暂时是为了不要把我push到login页面
-        // router.push('/login')
+        router.push('/login')
       }
     }
   }, [token, isAuthenticated, userQuery.data, userQuery.isError]);
@@ -188,6 +189,8 @@ const useAuthContext = () => {
   if (context === undefined) {
     throw new Error('useAuthContext should be used inside AuthProvider');
   }
+
+  console.log('Token value useAuthContext zhnag:', context.token); // Add this console log
 
   return context;
 };

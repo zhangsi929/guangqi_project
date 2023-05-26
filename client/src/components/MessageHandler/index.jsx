@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:44:51
- * @LastEditTime: 2023-05-23 23:50:07
+ * @LastEditTime: 2023-05-25 00:46:48
  * @FilePath: /guangqi/client/src/components/MessageHandler/index.jsx
  * @Description:
  *
@@ -26,7 +26,6 @@ export default function MessageHandler() {
   const setConversation = useSetRecoilState(store.conversation);
   const resetLatestMessage = useResetRecoilState(store.latestMessage);
   const { token } = useAuthContext();
-
   const { refreshConversations } = store.useConversations();
 
   const messageHandler = (data, submission) => {
@@ -204,6 +203,8 @@ export default function MessageHandler() {
       payload: JSON.stringify(payload),
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
     });
+
+    console.log('Token zhang hahahahahha:', token); // Log the token value
 
     events.onmessage = (e) => {
       const data = JSON.parse(e.data);
