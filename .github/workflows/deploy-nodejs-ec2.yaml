@@ -55,7 +55,7 @@ jobs:
         docker pull ethan929/guangqi:${{ github.sha }} && \
         docker container stop nodejs || true && \
         docker container rm nodejs || true && \
-        docker run -d --name nodejs -p 80:3080 \
+        docker run -d --name nodejs -p 443:3080 \
         -e HOST=0.0.0.0 \
         -e NODE_ENV=production \
         -e MONGO_URI='${{ env.MONGO_URI }}' \
