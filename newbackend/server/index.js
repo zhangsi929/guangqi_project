@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-23 21:08:38
- * @LastEditTime: 2023-05-27 00:04:56
+ * @LastEditTime: 2023-05-27 00:13:02
  * @FilePath: /guangqi/newbackend/server/index.js
  * @Description:
  *
@@ -16,6 +16,8 @@ const cors = require("cors");
 const routes = require("./routes");
 const errorController = require("./controllers/error.controller");
 const passport = require("passport");
+const fs = require("fs");
+const https = require("https");
 
 const port = process.env.PORT || 3080;
 const host = process.env.HOST || "localhost";
@@ -100,16 +102,25 @@ const projectPath = path.join(__dirname, "..", "..", "client");
 
 let messageCount = 0;
 process.on("uncaughtException", (err) => {
-  if (!err.message.includes("fetch failed")) {
-    console.error("There was an uncaught error:", err.message);
-  }
-
-  if (err.message.includes("fetch failed")) {
+  const errorMessage = err.message || "Unknown error";
+  const stackTrace = err.stack || "No stack trace available";
+  
+  console.error(`There was an uncaught error: ${errorMessage}`);
+  console.error(`Stack trace: ${stackTrace}`);
+  
+  if (errorMessage.includes("fetch failed")) {
     if (messageCount === 0) {
       console.error("Meilisearch error, search will be disabled");
       messageCount++;
     }
+  } else if (errorMessage.includes("MongoDB")) {
+    console.error("Database connection error");
+  } else if (errorMessage.includes("SSL")) {
+    console.error("SSL certificate error");
   } else {
+    // Failing fast is often a good approach if we can't handle the specific error,
+    // but be sure to implement proper recovery mechanism in your production environment.
+    console.error("An unexpected error occurred, terminating process.");
     process.exit(1);
   }
 });
