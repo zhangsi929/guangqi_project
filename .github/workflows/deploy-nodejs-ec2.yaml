@@ -51,14 +51,15 @@ jobs:
 
 
       run: |
-        # SSH into the EC2 instance, stop the current Docker container, and run the new one
-        ssh -o StrictHostKeyChecking=no ec2-user@13.215.125.105 "\
+        ssh -o StrictHostKeyChecking=no ec2-user@13.215.125.105 '
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} && \
         docker pull ethan929/guangqi:${{ github.sha }} && \
-        docker run --name nodejs -p 80:3080 \
-        -e MONGO_URI=${{ env.MONGO_URI }} \
+        docker container stop nodejs || true && \
+        docker container rm nodejs || true && \
+        docker run -d --name nodejs -p 80:3080 \
         -e HOST=${{ env.HOST }} \
         -e NODE_ENV=${{ env.NODE_ENV }} \
+        -e MONGO_URI=${{ env.MONGO_URI }} \
         -e MEILI_HOST=${{ env.MEILI_HOST }} \
         -e MEILI_HTTP_ADDR=${{ env.MEILI_HTTP_ADDR }} \
         -e MEILI_MASTER_KEY=${{ env.MEILI_MASTER_KEY }} \
@@ -70,6 +71,6 @@ jobs:
         -e SEARCH=${{ env.SEARCH }} \
         -e JWT_SECRET_PROD=${{ env.JWT_SECRET_PROD }} \
         -e SESSION_EXPIRY=${{ env.SESSION_EXPIRY }} \
-        ethan929/guangqi:${{ github.sha }}"
+        ethan929/guangqi:${{ github.sha }}'
 
 
