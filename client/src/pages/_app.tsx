@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:18:49
- * @LastEditTime: 2023-05-22 23:07:32
+ * @LastEditTime: 2023-05-27 00:59:55
  * @FilePath: /guangqi/client/src/pages/_app.tsx
  * @Description:
  *
@@ -32,7 +32,7 @@ type MyError = {
     status?: number;
   };
 };
-const NoLayoutPages = ['/login']; // Add paths of pages that should not use Root layout
+const NoLayoutPages = ['/login', '/register', '/forgot-password', '/reset-password']; // Add paths of pages that should not use Root layout
 
 // we have two functions because useApiErrorBoundary() is a hook and we can't use hooks outside of components AND it need to be used in the ApiErrorBoundaryProvider
 function App({ Component, pageProps, router }: AppProps) {
