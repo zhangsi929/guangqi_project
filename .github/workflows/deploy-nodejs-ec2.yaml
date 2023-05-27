@@ -60,7 +60,6 @@ jobs:
         -e HOST=0.0.0.0 \
         -e NODE_ENV=production \
         -e MONGO_URI=${{ env.MONGO_URI }} \
-        -e MEILI_HOST=${{ env.MEILI_HOST }} \
         ethan929/guangqi:${{ github.sha }}'
 
 
