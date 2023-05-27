@@ -1,3 +1,15 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 21:07:51
+ * @LastEditTime: 2023-05-26 20:16:20
+ * @FilePath: /guangqi/newbackend/lib/db/connectDb.js
+ * @Description: 
+ * 
+ * connetct to mongodb
+ * 
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ */
+
 require('dotenv').config();
 const mongoose = require('mongoose');
 const MONGO_URI = process.env.MONGO_URI;

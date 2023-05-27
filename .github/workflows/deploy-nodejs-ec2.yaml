@@ -36,9 +36,20 @@ jobs:
       env:
         HOST: 0.0.0.0
         NODE_ENV: production
-        MONGO_URI: mongodb://mongodb:27017/chatgpt-clone
+        MONGO_URI: ${{ secrets.MONGO_URI }}
         MEILI_HOST: http://meilisearch:7700
         MEILI_HTTP_ADDR: meilisearch:7700
+        MEILI_MASTER_KEY: DrhYf7zENyR6AlUCKmnz0eYASOQdl6zxH7s7MKFSfFCt
+        OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+        OPENAI_MODELS: gpt-3.5-turbo
+        BINGAI_TOKEN: "user_provided"
+        CHATGPT_TOKEN: "user_provided"
+        CHATGPT_MODELS: text-davinci-002-render-sha,gpt-4
+        SEARCH: false
+        JWT_SECRET_PROD: 461b9ff6d77580874e0754a498a72946f705ad1e6f475d5e2b7d3d20bb8afe0e
+        SESSION_EXPIRY: 1 * 60 * 60 * 24 * 7
+
+
       run: |
         # SSH into the EC2 instance, stop the current Docker container, and run the new one
         ssh -o StrictHostKeyChecking=no ec2-user@13.215.125.105 "\
