@@ -49,7 +49,6 @@ jobs:
         JWT_SECRET_PROD: 461b9ff6d77580874e0754a498a72946f705ad1e6f475d5e2b7d3d20bb8afe0e
         SESSION_EXPIRY: 604800
 
-
       run: |
         ssh -o StrictHostKeyChecking=no ec2-user@13.215.125.105 "\
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} && \
@@ -61,6 +60,16 @@ jobs:
         -e NODE_ENV=production \
         -e MONGO_URI='${{ env.MONGO_URI }}' \
         -e MEILI_HOST='${{ env.MEILI_HOST }}' \
+        -e MEILI_HTTP_ADDR='${{ env.MEILI_HTTP_ADDR }}' \
+        -e MEILI_MASTER_KEY='${{ env.MEILI_MASTER_KEY }}' \
+        -e OPENAI_KEY='${{ env.OPENAI_KEY }}' \
+        -e OPENAI_MODELS='${{ env.OPENAI_MODELS }}' \
+        -e BINGAI_TOKEN='${{ env.BINGAI_TOKEN }}' \
+        -e CHATGPT_TOKEN='${{ env.CHATGPT_TOKEN }}' \
+        -e CHATGPT_MODELS='${{ env.CHATGPT_MODELS }}' \
+        -e SEARCH='${{ env.SEARCH }}' \
+        -e JWT_SECRET_PROD='${{ env.JWT_SECRET_PROD }}' \
+        -e SESSION_EXPIRY='${{ env.SESSION_EXPIRY }}' \
         ethan929/guangqi:${{ github.sha }}"
 
 
