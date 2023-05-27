@@ -56,10 +56,13 @@ jobs:
         docker pull ethan929/guangqi:${{ github.sha }} && \
         docker container stop nodejs || true && \
         docker container rm nodejs || true && \
-        docker run -d --name nodejs -p 80:3080 \
+        CMD="docker run -d --name nodejs -p 80:3080 \
         -e HOST=0.0.0.0 \
         -e NODE_ENV=production \
         -e MONGO_URI=${{ env.MONGO_URI }} \
-        ethan929/guangqi:${{ github.sha }}'
+        -e MEILI_HOST=${{ env.MEILI_HOST }} \
+        ethan929/guangqi:${{ github.sha }}" && \
+        echo $CMD && \
+        eval $CMD'
 
 
