@@ -42,12 +42,12 @@ jobs:
         MEILI_MASTER_KEY: DrhYf7zENyR6AlUCKmnz0eYASOQdl6zxH7s7MKFSfFCt
         OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
         OPENAI_MODELS: gpt-3.5-turbo
-        BINGAI_TOKEN: "user_provided"
-        CHATGPT_TOKEN: "user_provided"
+        BINGAI_TOKEN: user_provided
+        CHATGPT_TOKEN: user_provided
         CHATGPT_MODELS: text-davinci-002-render-sha,gpt-4
         SEARCH: false
         JWT_SECRET_PROD: 461b9ff6d77580874e0754a498a72946f705ad1e6f475d5e2b7d3d20bb8afe0e
-        SESSION_EXPIRY: 1 * 60 * 60 * 24 * 7
+        SESSION_EXPIRY: 604800
 
 
       run: |
@@ -63,5 +63,15 @@ jobs:
         -e MONGO_URI=${{ env.MONGO_URI }} \
         -e MEILI_HOST=${{ env.MEILI_HOST }} \
         -e MEILI_HTTP_ADDR=${{ env.MEILI_HTTP_ADDR }} \
-        ethan929/guangqi:${{ github.sha }}"
+        -e MEILI_MASTER_KEY=${{ env.MEILI_MASTER_KEY }} \
+        -e OPENAI_KEY=${{ env.OPENAI_KEY }} \
+        -e OPENAI_MODELS=${{ env.OPENAI_MODELS }} \
+        -e BINGAI_TOKEN=${{ env.BINGAI_TOKEN }} \
+        -e CHATGPT_TOKEN=${{ env.CHATGPT_TOKEN }} \
+        -e CHATGPT_MODELS=${{ env.CHATGPT_MODELS }} \
+        -e SEARCH=${{ env.SEARCH }} \
+        -e JWT_SECRET_PROD=${{ env.JWT_SECRET_PROD }} \
+        -e SESSION_EXPIRY=${{ env.SESSION_EXPIRY }} \
+        ethan929/guangqi:${{ github.sha }}
+
 
