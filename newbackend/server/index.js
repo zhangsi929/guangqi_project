@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-23 21:08:38
- * @LastEditTime: 2023-05-27 00:13:02
+ * @LastEditTime: 2023-05-27 00:24:52
  * @FilePath: /guangqi/newbackend/server/index.js
  * @Description:
  *
@@ -59,17 +59,26 @@ const projectPath = path.join(__dirname, "..", "..", "client");
   app.use("/api/tokenizer", routes.tokenizer);
   app.use("/api/endpoints", routes.endpoints);
 
-  
   // SSL Certificate files
-  const privateKey = fs.readFileSync("ssl/private.key", "utf8");
-  const certificate = fs.readFileSync("ssl/api_siyuhub_com.crt", "utf8");
+  const privateKey = fs.readFileSync(
+    path.join(__dirname, "ssl", "private.key"),
+    "utf8"
+  );
+  const certificate = fs.readFileSync(
+    path.join(__dirname, "ssl", "api_siyuhub_com.crt"),
+    "utf8"
+  );
   const ca = [
     fs.readFileSync(
-      "ssl/Sectigo_RSA_Domain_Validation_Secure_Server_CA.crt",
+      path.join(
+        __dirname,
+        "ssl",
+        "Sectigo_RSA_Domain_Validation_Secure_Server_CA.crt"
+      ),
       "utf8"
     ),
     fs.readFileSync(
-      "ssl/USERTrust_RSA_Certification_Authority.crt",
+      path.join(__dirname, "ssl", "USERTrust_RSA_Certification_Authority.crt"),
       "utf8"
     ),
   ];
@@ -104,10 +113,10 @@ let messageCount = 0;
 process.on("uncaughtException", (err) => {
   const errorMessage = err.message || "Unknown error";
   const stackTrace = err.stack || "No stack trace available";
-  
+
   console.error(`There was an uncaught error: ${errorMessage}`);
   console.error(`Stack trace: ${stackTrace}`);
-  
+
   if (errorMessage.includes("fetch failed")) {
     if (messageCount === 0) {
       console.error("Meilisearch error, search will be disabled");
