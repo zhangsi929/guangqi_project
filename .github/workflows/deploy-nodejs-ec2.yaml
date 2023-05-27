@@ -51,18 +51,16 @@ jobs:
 
 
       run: |
-        ssh -o StrictHostKeyChecking=no ec2-user@13.215.125.105 '
+        ssh -o StrictHostKeyChecking=no ec2-user@13.215.125.105 "\
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} && \
         docker pull ethan929/guangqi:${{ github.sha }} && \
         docker container stop nodejs || true && \
         docker container rm nodejs || true && \
-        CMD="docker run -d --name nodejs -p 80:3080 \
+        docker run -d --name nodejs -p 80:3080 \
         -e HOST=0.0.0.0 \
         -e NODE_ENV=production \
-        -e MONGO_URI=${{ env.MONGO_URI }} \
-        -e MEILI_HOST=${{ env.MEILI_HOST }} \
-        ethan929/guangqi:${{ github.sha }}" && \
-        echo $CMD && \
-        eval $CMD'
+        -e MONGO_URI='${{ env.MONGO_URI }}' \
+        -e MEILI_HOST='${{ env.MEILI_HOST }}' \
+        ethan929/guangqi:${{ github.sha }}"
 
 
