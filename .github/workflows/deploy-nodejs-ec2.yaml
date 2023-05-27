@@ -72,6 +72,6 @@ jobs:
         -e SEARCH=${{ env.SEARCH }} \
         -e JWT_SECRET_PROD=${{ env.JWT_SECRET_PROD }} \
         -e SESSION_EXPIRY=${{ env.SESSION_EXPIRY }} \
-        ethan929/guangqi:${{ github.sha }}
+        ethan929/guangqi:${{ github.sha }}"
 
 
