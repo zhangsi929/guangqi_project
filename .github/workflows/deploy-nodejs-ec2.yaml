@@ -55,10 +55,10 @@ jobs:
         ssh -o StrictHostKeyChecking=no ec2-user@13.215.125.105 "\
         docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} && \
         docker pull ethan929/guangqi:${{ github.sha }} && \
-        echo docker run --name nodejs -p 80:3080 \
+        docker run --name nodejs -p 80:3080 \
+        -e MONGO_URI=${{ env.MONGO_URI }} \
         -e HOST=${{ env.HOST }} \
         -e NODE_ENV=${{ env.NODE_ENV }} \
-        -e MONGO_URI=${{ env.MONGO_URI }} \
         -e MEILI_HOST=${{ env.MEILI_HOST }} \
         -e MEILI_HTTP_ADDR=${{ env.MEILI_HTTP_ADDR }} \
         -e MEILI_MASTER_KEY=${{ env.MEILI_MASTER_KEY }} \
