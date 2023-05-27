@@ -179,7 +179,7 @@ const EditPresetDialog = ({ open, onOpenChange, preset: _preset, title }) => {
                     onClick={triggerExamples}
                   >
                     <MessagesSquared className="mr-1 w-[14px]" />
-                    {(showExamples ? 'Hide' : 'Show') + ' Examples'}
+                    {(showExamples ? 'Hide' : 'Show') + ' 您可以这样问'}
                   </Button>
                 )}
               </div>

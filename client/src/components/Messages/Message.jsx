@@ -198,7 +198,7 @@ export default function Message({
                       Save & Submit
                     </button>
                     <button className="btn btn-neutral relative" onClick={() => enterEdit(true)}>
-                      Cancel
+                      取消
                     </button>
                   </div>
                 </div>

@@ -3,19 +3,21 @@
  * @Date: 2023-05-23 21:07:51
  * @LastEditTime: 2023-05-26 20:16:20
  * @FilePath: /guangqi/newbackend/lib/db/connectDb.js
- * @Description: 
- * 
+ * @Description:
+ *
  * connetct to mongodb
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 
-require('dotenv').config();
-const mongoose = require('mongoose');
+require("dotenv").config();
+const mongoose = require("mongoose");
 const MONGO_URI = process.env.MONGO_URI;
 
 if (!MONGO_URI) {
-  throw new Error('Please define the MONGO_URI environment variable inside .env.local');
+  throw new Error(
+    "Please define the MONGO_URI environment variable inside .env.local"
+  );
 }
 
 /**
@@ -38,13 +40,13 @@ async function connectDb() {
     const opts = {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      bufferCommands: false
+      bufferCommands: false,
       // bufferMaxEntries: 0,
       // useFindAndModify: true,
       // useCreateIndex: true
     };
 
-    mongoose.set('strictQuery', true);
+    mongoose.set("strictQuery", true);
     cached.promise = mongoose.connect(MONGO_URI, opts).then((mongoose) => {
       return mongoose;
     });

@@ -1,3 +1,12 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 19:51:25
+ * @LastEditTime: 2023-05-27 02:27:38
+ * @FilePath: /guangqi/client/src/components/Nav/NewChat.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import React from 'react';
 import store from 'src/store';
 
@@ -30,7 +39,7 @@ export default function NewChat() {
         <line x1="12" y1="5" x2="12" y2="19" />
         <line x1="5" y1="12" x2="19" y2="12" />
       </svg>
-      New chat
+      新对话
     </a>
   );
 }

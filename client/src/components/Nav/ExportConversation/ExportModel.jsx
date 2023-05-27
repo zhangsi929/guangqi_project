@@ -37,11 +37,11 @@ export default function ExportModel({ open, onOpenChange }) {
   );
 
   const typeOptions = [
-    { value: 'screenshot', display: 'screenshot (.png)' },
-    { value: 'text', display: 'text (.txt)' },
+    { value: 'screenshot', display: '截图 (.png)' },
+    { value: 'text', display: '文本 (.txt)' },
     { value: 'markdown', display: 'markdown (.md)' },
     { value: 'json', display: 'json (.json)' },
-    { value: 'csv', display: 'csv (.csv)' }
+    { value: 'csv', display: '表格 (.csv)' }
   ]; //,, 'webpage'];
 
   useEffect(() => {
@@ -317,7 +317,7 @@ export default function ExportModel({ open, onOpenChange }) {
             <div className="grid w-full gap-6 sm:grid-cols-2">
               <div className="col-span-1 flex flex-col items-start justify-start gap-2">
                 <Label htmlFor="filename" className="text-left text-sm font-medium">
-                  Filename
+                  文件名
                 </Label>
                 <Input
                   id="filename"
@@ -420,7 +420,7 @@ export default function ExportModel({ open, onOpenChange }) {
               onClick={exportConversation}
               className="dark:hover:gray-400 border-gray-700 bg-green-600 text-white hover:bg-green-700 dark:hover:bg-green-800"
             >
-              Export
+              导出
             </DialogButton>
           </>
         }

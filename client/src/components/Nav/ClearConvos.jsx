@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:55:49
- * @LastEditTime: 2023-05-22 23:02:09
+ * @LastEditTime: 2023-05-27 02:20:11
  * @FilePath: /guangqi/client/src/components/Nav/ClearConvos.jsx
  * @Description:
  *
@@ -34,7 +34,7 @@ const ClearConvos = ({ open, onOpenChange }) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTemplate
         title="Clear conversations"
-        description="Are you sure you want to clear all conversations? This is irreversible."
+        description="您确认要清除所有对话吗？此操作无法撤消。"
         selection={{
           selectHandler: clickHandler,
           selectClasses: 'bg-red-600 hover:bg-red-700 dark:hover:bg-red-800 text-white',

@@ -42,60 +42,66 @@ export default function Landing() {
           <div className="mb-8 flex flex-1 flex-col gap-3.5 md:mb-auto">
             <h2 className="m-auto flex items-center gap-3 text-lg font-normal md:flex-col md:gap-2">
               <SunIcon />
-              Examples
+              您可以这样问
             </h2>
             <ul className="m-auto flex w-full flex-col gap-3.5 sm:max-w-md">
               <button
                 onClick={clickHandler}
                 className="w-full rounded-md bg-gray-50 p-3 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-gray-900"
               >
-                &quot;Explain quantum computing in simple terms&quot; →
+                &quot;可以帮我写一份入团申请书吗&quot; →
               </button>
               <button
                 onClick={clickHandler}
                 className="w-full rounded-md bg-gray-50 p-3 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-gray-900"
               >
-                &quot;Got any creative ideas for a 10 year old&apos;s birthday?&quot; →
+                &quot;请帮我制定一个国庆假期去九寨沟的旅游计划&quot; →
               </button>
               <button
                 onClick={clickHandler}
                 className="w-full rounded-md bg-gray-50 p-3 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-gray-900"
               >
-                &quot;How do I make an HTTP request in Javascript?&quot; →
+                &quot;请用python程序解决鸡兔同笼问题&quot; →
+              </button>
+              <button
+                onClick={clickHandler}
+                className="w-full rounded-md bg-gray-50 p-3 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-gray-900"
+              >
+                &quot;你是现在最红的饶舌歌手，请创作一首 Rap，主题是母亲节&quot; →
               </button>
             </ul>
           </div>
           <div className="mb-8 flex flex-1 flex-col gap-3.5 md:mb-auto">
             <h2 className="m-auto flex items-center gap-3 text-lg font-normal md:flex-col md:gap-2">
               <LightningIcon />
-              Capabilities
+              我具备的能力
             </h2>
             <ul className="m-auto flex w-full flex-col gap-3.5 sm:max-w-md">
               <li className="w-full rounded-md bg-gray-50 p-3 dark:bg-white/5">
-                Remembers what user said earlier in the conversation
+                可以记住我们的对话，并根据上下文进行回复
               </li>
               <li className="w-full rounded-md bg-gray-50 p-3 dark:bg-white/5">
-                Allows user to provide follow-up corrections
+                我如果出错了您可以指正我，我会尽量改正
               </li>
               <li className="w-full rounded-md bg-gray-50 p-3 dark:bg-white/5">
-                Trained to decline inappropriate requests
+                自动过滤有害信息，保护您的隐私
               </li>
             </ul>
           </div>
           <div className="mb-8 flex flex-1 flex-col gap-3.5 md:mb-auto">
             <h2 className="m-auto flex items-center gap-3 text-lg font-normal md:flex-col md:gap-2">
               <CautionIcon />
-              Limitations
+              我需要改进的地方
             </h2>
             <ul className="m-auto flex w-full flex-col gap-3.5 sm:max-w-md">
               <li className="w-full rounded-md bg-gray-50 p-3 dark:bg-white/5">
-                May occasionally generate incorrect information
+                有时会产生不完全正确的内容，需要您指正
               </li>
               <li className="w-full rounded-md bg-gray-50 p-3 dark:bg-white/5">
-                May occasionally produce harmful instructions or biased content
+                有时会产生不合逻辑的内容，需要您指正
               </li>
               <li className="w-full rounded-md bg-gray-50 p-3 dark:bg-white/5">
-                Limited knowledge of world and events after 2021
+                信息基于2021年之前的数据，可能不会包含最新的信息
               </li>
             </ul>
           </div>

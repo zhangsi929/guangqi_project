@@ -40,7 +40,7 @@ const ExportConversation = forwardRef(() => {
         onClick={clickHandler}
       >
         <Download size={16} />
-        Export conversation
+        导出对话
       </button>
 
       <ExportModel open={open} onOpenChange={setOpen} />

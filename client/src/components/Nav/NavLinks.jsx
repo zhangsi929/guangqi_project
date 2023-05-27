@@ -81,7 +81,7 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
                       exportable ? 'cursor-pointer text-white' : 'cursor-not-allowed text-gray-400'
                     )}
                     svg={() => <Download size={16} />}
-                    text="Export conversation"
+                    text="导出对话"
                     clickHandler={clickHandler}
                   />
                 </Menu.Item>
@@ -93,7 +93,7 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
                   <NavLink
                     className="flex w-full cursor-pointer items-center gap-3 px-3 py-3 text-sm text-white transition-colors duration-200 hover:bg-gray-700"
                     svg={() => <TrashIcon />}
-                    text="Clear conversations"
+                    text="清除对话"
                     clickHandler={() => setShowClearConvos(true)}
                   />
                 </Menu.Item>

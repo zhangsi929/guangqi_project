@@ -1,3 +1,12 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 19:51:25
+ * @LastEditTime: 2023-05-27 02:25:33
+ * @FilePath: /guangqi/client/src/components/Nav/DarkMode.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import { forwardRef, useContext } from 'react';
 import DarkModeIcon from '../svg/DarkModeIcon';
 import LightModeIcon from '../svg/LightModeIcon';
@@ -7,7 +16,7 @@ const DarkMode = forwardRef(() => {
   const { theme, setTheme } = useContext(ThemeContext);
 
   const clickHandler = () => setTheme(theme === 'dark' ? 'light' : 'dark');
-  const mode = theme === 'dark' ? 'Light mode' : 'Dark mode';
+  const mode = theme === 'dark' ? '明亮模式' : '黑夜模式';
 
   return (
     <button
