@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:18:49
- * @LastEditTime: 2023-05-27 00:59:55
+ * @LastEditTime: 2023-05-27 01:18:21
  * @FilePath: /guangqi/client/src/pages/_app.tsx
  * @Description:
  *
@@ -55,17 +55,20 @@ function App({ Component, pageProps, router }: AppProps) {
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
           <ThemeProvider initialTheme="light">
-            <AuthContextProvider>
-              {NoLayoutPages.includes(router.pathname) ? (
+            {router.pathname === '/login' ? (
+              <AuthContextProvider>
                 <Component {...pageProps} />
-              ) : (
+                <ApiErrorWatcher />
+              </AuthContextProvider>
+            ) : NoLayoutPages.includes(router.pathname) ? (
+              <Component {...pageProps} />
+            ) : (
+              <AuthContextProvider>
                 <Root Component={Component} pageProps={pageProps} />
-              )}
-              {process.env.NODE_ENV === 'development' && (
-                <ReactQueryDevtools initialIsOpen={false} />
-              )}
-              <ApiErrorWatcher />
-            </AuthContextProvider>
+                <ApiErrorWatcher />
+              </AuthContextProvider>
+            )}
+            {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
           </ThemeProvider>
         </RecoilRoot>
       </QueryClientProvider>
