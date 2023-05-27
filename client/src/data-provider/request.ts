@@ -1,15 +1,14 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-23 19:51:25
- * @LastEditTime: 2023-05-23 22:49:41
+ * @LastEditTime: 2023-05-27 00:35:30
  * @FilePath: /guangqi/client/src/data-provider/request.ts
- * @Description: 
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 import { AxiosRequestConfig } from 'axios';
 import axios from './axios';
-
 
 async function _get<T>(url: string, options?: AxiosRequestConfig): Promise<T> {
   const response = await axios.get(url, { ...options });
