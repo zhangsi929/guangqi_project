@@ -3,12 +3,14 @@ import { Fragment, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import SearchBar from './SearchBar';
 import TrashIcon from '../svg/TrashIcon';
+import UserIcon from '../svg/UserIcon';
 import { Download } from 'lucide-react';
 import NavLink from './NavLink';
 import ExportModel from './ExportConversation/ExportModel';
 import ClearConvos from './ClearConvos';
 import DarkMode from './DarkMode';
 import Logout from './Logout';
+import UserDashboard from './UserDashBoard';
 import { useAuthContext } from 'src/hooks/AuthContext';
 import { cn } from 'src/utils/';
 import DotsIcon from '../svg/DotsIcon';
@@ -81,7 +83,7 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
                       exportable ? 'cursor-pointer text-white' : 'cursor-not-allowed text-gray-400'
                     )}
                     svg={() => <Download size={16} />}
-                    text="导出对话"
+                    text="下载聊天记录"
                     clickHandler={clickHandler}
                   />
                 </Menu.Item>
@@ -95,6 +97,17 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
                     svg={() => <TrashIcon />}
                     text="清除对话"
                     clickHandler={() => setShowClearConvos(true)}
+                  />
+                </Menu.Item>
+                <Menu.Item as="div">
+                  <NavLink
+                    className={cn(
+                      'flex w-full cursor-pointer items-center gap-3 px-3 py-3 text-sm text-white transition-colors duration-200 hover:bg-gray-700',
+                      false ? 'cursor-pointer text-white' : 'cursor-not-allowed text-gray-400'
+                    )}
+                    svg={() => <UserIcon />}
+                    text="我的账户 (开发中)"
+                    clickHandler={clickHandler}
                   />
                 </Menu.Item>
                 <div className="my-1.5 h-px bg-white/20" role="none" />

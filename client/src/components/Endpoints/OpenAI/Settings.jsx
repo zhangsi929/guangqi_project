@@ -76,7 +76,7 @@ function Settings(props) {
           </div>
           <div className="grid w-full items-center gap-2">
             <Label htmlFor="promptPrefix" className="text-left text-sm font-medium">
-              Prompt Prefix <small className="opacity-40">(default: blank)</small>
+              指令前缀 <small className="opacity-40">(默认: 空白)</small>
             </Label>
             <TextareaAutosize
               id="promptPrefix"

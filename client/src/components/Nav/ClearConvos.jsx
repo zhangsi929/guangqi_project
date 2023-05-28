@@ -1,9 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:55:49
- * @LastEditTime: 2023-05-27 02:20:11
+ * @LastEditTime: 2023-05-27 19:14:30
  * @FilePath: /guangqi/client/src/components/Nav/ClearConvos.jsx
  * @Description:
+ *
+ * 点击删除对话跳出来对话框
  *
  * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */

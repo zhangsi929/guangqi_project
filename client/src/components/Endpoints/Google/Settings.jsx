@@ -62,7 +62,7 @@ function Settings(props) {
           </div>
           <div className="grid w-full items-center gap-2">
             <Label htmlFor="modelLabel" className="text-left text-sm font-medium">
-              Custom Name <small className="opacity-40">(default: blank)</small>
+              方案名称 <small className="opacity-40">(默认: 空白)</small>
             </Label>
             <Input
               id="modelLabel"

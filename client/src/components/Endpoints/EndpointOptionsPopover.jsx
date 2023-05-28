@@ -1,3 +1,14 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 19:51:25
+ * @LastEditTime: 2023-05-27 19:31:01
+ * @FilePath: /guangqi/client/src/components/Endpoints/EndpointOptionsPopover.jsx
+ * @Description:
+ *
+ * 跳出来选温度的那个对话框
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import React from 'react';
 import { Button } from '../ui/Button.tsx';
 import CrossIcon from '../svg/CrossIcon';
@@ -36,7 +47,7 @@ function EndpointOptionsPopover({
               onClick={saveAsPreset}
             >
               <Save className="mr-1 w-[14px]" />
-              Save as preset
+              保存为我的个性化GPT
             </Button>
             {additionalButton && (
               <Button

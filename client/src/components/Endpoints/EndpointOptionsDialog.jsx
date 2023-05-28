@@ -1,3 +1,14 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 19:51:25
+ * @LastEditTime: 2023-05-27 19:41:06
+ * @FilePath: /guangqi/client/src/components/Endpoints/EndpointOptionsDialog.jsx
+ * @Description:
+ *
+ * 点击保存preset 跳出来的那个
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import exportFromJSON from 'export-from-json';
@@ -66,7 +77,7 @@ const EndpointOptionsDialog = ({ open, onOpenChange, preset: _preset, title }) =
                 onClick={saveAsPreset}
                 className="dark:hover:gray-400 border-gray-700 bg-green-600 text-white hover:bg-green-700 dark:hover:bg-green-800"
               >
-                Save As Preset
+                保存我的个性化方案
               </DialogButton>
             </>
           }

@@ -1,3 +1,12 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 19:51:25
+ * @LastEditTime: 2023-05-27 20:13:14
+ * @FilePath: /guangqi/client/src/components/Endpoints/SaveAsPresetDialog.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import DialogTemplate from '../ui/DialogTemplate';
@@ -35,11 +44,11 @@ const SaveAsPresetDialog = ({ open, onOpenChange, preset }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTemplate
-        title="Save As Preset"
+        title=""
         main={
           <div className="grid w-full items-center gap-2">
             <Label htmlFor="chatGptLabel" className="text-left text-sm font-medium">
-              Preset Name
+              方案名称
             </Label>
             <Input
               id="chatGptLabel"
@@ -56,7 +65,7 @@ const SaveAsPresetDialog = ({ open, onOpenChange, preset }) => {
         selection={{
           selectHandler: submitPreset,
           selectClasses: 'bg-green-600 hover:bg-green-700 dark:hover:bg-green-800 text-white',
-          selectText: 'Save'
+          selectText: '保存'
         }}
       />
     </Dialog>

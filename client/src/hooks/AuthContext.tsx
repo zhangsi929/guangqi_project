@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:36:29
- * @LastEditTime: 2023-05-27 00:36:09
+ * @LastEditTime: 2023-05-27 02:48:55
  * @FilePath: /guangqi/client/src/hooks/AuthContext.tsx
  * @Description: AuthContext.tsx
  *
@@ -121,7 +121,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     } else if (userQuery.isError) {
       setError((userQuery.error as any).message);
       // TODO: 暂时是为了不要把我push到login页面, 这个起了主要作用
-      // router.push('/login')
+      router.push('/login');
     }
     if (error && isAuthenticated) {
       setError(undefined);

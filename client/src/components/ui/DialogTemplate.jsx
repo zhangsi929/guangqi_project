@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 17:59:28
- * @LastEditTime: 2023-05-22 23:37:07
+ * @LastEditTime: 2023-05-27 20:14:32
  * @FilePath: /guangqi/client/src/components/ui/DialogTemplate.jsx
  * @Description:
  *
@@ -36,7 +36,7 @@ const DialogTemplate = forwardRef((props, ref) => {
       <DialogFooter>
         <div>{leftButtons ? leftButtons : null}</div>
         <div className="flex gap-2">
-          <DialogClose className="dark:hover:gray-400 border-gray-700">Cancel</DialogClose>
+          <DialogClose className="dark:hover:gray-400 border-gray-700">取消</DialogClose>
           {buttons ? buttons : null}
           {selection ? (
             <DialogClose

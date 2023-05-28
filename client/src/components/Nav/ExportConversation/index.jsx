@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:55:49
- * @LastEditTime: 2023-05-22 23:02:14
+ * @LastEditTime: 2023-05-27 18:46:55
  * @FilePath: /guangqi/client/src/components/Nav/ExportConversation/index.jsx
  * @Description:
  *
@@ -40,7 +40,7 @@ const ExportConversation = forwardRef(() => {
         onClick={clickHandler}
       >
         <Download size={16} />
-        导出对话
+        下载聊天记录
       </button>
 
       <ExportModel open={open} onOpenChange={setOpen} />
