@@ -310,7 +310,7 @@ export default function ExportModel({ open, onOpenChange }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTemplate
-        title="Export conversation"
+        title="下载对话"
         className="max-w-full sm:max-w-2xl"
         main={
           <div className="flex w-full flex-col items-center gap-6">
@@ -332,7 +332,7 @@ export default function ExportModel({ open, onOpenChange }) {
               </div>
               <div className="col-span-1 flex flex-col items-start justify-start gap-2">
                 <Label htmlFor="type" className="text-left text-sm font-medium">
-                  Type
+                  文件类型
                 </Label>
                 <Dropdown
                   id="type"
@@ -420,7 +420,7 @@ export default function ExportModel({ open, onOpenChange }) {
               onClick={exportConversation}
               className="dark:hover:gray-400 border-gray-700 bg-green-600 text-white hover:bg-green-700 dark:hover:bg-green-800"
             >
-              导出
+              下载
             </DialogButton>
           </>
         }

@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { useRecoilValue } from 'recoil';

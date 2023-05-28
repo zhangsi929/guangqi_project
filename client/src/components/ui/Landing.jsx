@@ -13,7 +13,7 @@ export default function Landing() {
   const [showingTemplates, setShowingTemplates] = useState(false);
   const setText = useSetRecoilState(store.text);
   const conversation = useRecoilValue(store.conversation);
-  const { title = 'New Chat' } = conversation || {};
+  const { title = '新对话' } = conversation || {};
 
   useDocumentTitle(title);
 

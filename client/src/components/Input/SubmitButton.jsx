@@ -71,7 +71,7 @@ export default function SubmitButton({
         >
           <div className="m-1 mr-0 rounded-md p-2 pb-[10px] pt-[10px] align-middle text-xs group-hover:bg-gray-100 group-disabled:hover:bg-transparent dark:group-hover:bg-gray-900 dark:group-hover:text-gray-400 dark:group-disabled:hover:bg-transparent">
             <Settings className="mr-1 inline-block w-[18px]" />
-            Set Token First
+            请先设置此项服务的令牌密码
           </div>
         </button>
         <SetTokenDialog

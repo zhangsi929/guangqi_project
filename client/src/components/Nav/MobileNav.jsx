@@ -1,3 +1,12 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 19:51:25
+ * @LastEditTime: 2023-05-27 21:00:32
+ * @FilePath: /guangqi/client/src/components/Nav/MobileNav.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -6,7 +15,7 @@ import store from 'src/store';
 export default function MobileNav({ setNavVisible }) {
   const conversation = useRecoilValue(store.conversation);
   const { newConversation } = store.useConversation();
-  const { title = 'New Chat' } = conversation || {};
+  const { title = '新对话' } = conversation || {};
 
   return (
     <div className="fixed left-0 right-0 top-0 z-10 flex items-center border-b border-white/20 bg-gray-800 pl-1 pt-1 text-gray-200 sm:pl-3 md:hidden">
@@ -33,7 +42,7 @@ export default function MobileNav({ setNavVisible }) {
           <line x1="3" y1="18" x2="21" y2="18" />
         </svg>
       </button>
-      <h1 className="flex-1 text-center text-base font-normal">{title || 'New Chat'}</h1>
+      <h1 className="flex-1 text-center text-base font-normal">{title || '新对话'}</h1>
       <button type="button" className="px-3" onClick={() => newConversation()}>
         <svg
           stroke="currentColor"

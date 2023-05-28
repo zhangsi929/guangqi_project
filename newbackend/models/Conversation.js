@@ -1,13 +1,13 @@
 // const { Conversation } = require('./plugins');
-const Conversation = require('./schema/convoSchema');
-const { getMessages, deleteMessages } = require('./Message');
+const Conversation = require("./schema/convoSchema");
+const { getMessages, deleteMessages } = require("./Message");
 
 const getConvo = async (user, conversationId) => {
   try {
     return await Conversation.findOne({ user, conversationId }).exec();
   } catch (error) {
     console.log(error);
-    return { message: 'Error getting single conversation' };
+    return { message: "Error getting single conversation" };
   }
 };
 
@@ -21,13 +21,17 @@ module.exports = {
         update.conversationId = newConversationId;
       }
 
-      return await Conversation.findOneAndUpdate({ conversationId: conversationId, user }, update, {
-        new: true,
-        upsert: true
-      }).exec();
+      return await Conversation.findOneAndUpdate(
+        { conversationId: conversationId, user },
+        update,
+        {
+          new: true,
+          upsert: true,
+        }
+      ).exec();
     } catch (error) {
       console.log(error);
-      return { message: 'Error saving conversation' };
+      return { message: "Error saving conversation" };
     }
   },
   getConvosByPage: async (user, pageNumber = 1, pageSize = 14) => {
@@ -42,7 +46,7 @@ module.exports = {
       return { conversations: convos, pages: totalPages, pageNumber, pageSize };
     } catch (error) {
       console.log(error);
-      return { message: 'Error getting conversations' };
+      return { message: "Error getting conversations" };
     }
   },
   getConvosQueried: async (user, convoIds, pageNumber = 1, pageSize = 14) => {
@@ -61,7 +65,7 @@ module.exports = {
         promises.push(
           Conversation.findOne({
             user,
-            conversationId: convo.conversationId
+            conversationId: convo.conversationId,
           }).exec()
         )
       );
@@ -94,11 +98,11 @@ module.exports = {
         pageSize,
         // will handle a syncing solution soon
         filter: new Set(deletedConvoIds),
-        convoMap
+        convoMap,
       };
     } catch (error) {
       console.log(error);
-      return { message: 'Error fetching conversations' };
+      return { message: "Error fetching conversations" };
     }
   },
   getConvo,
@@ -111,18 +115,22 @@ module.exports = {
         return null;
       } else {
         // TypeError: Cannot read properties of null (reading 'title')
-        return convo?.title || 'New Chat';
+        return convo?.title || "新对话";
       }
     } catch (error) {
       console.log(error);
-      return { message: 'Error getting conversation title' };
+      return { message: "Error getting conversation title" };
     }
   },
   deleteConvos: async (user, filter) => {
-    let toRemove = await Conversation.find({ ...filter, user }).select('conversationId');
+    let toRemove = await Conversation.find({ ...filter, user }).select(
+      "conversationId"
+    );
     const ids = toRemove.map((instance) => instance.conversationId);
     let deleteCount = await Conversation.deleteMany({ ...filter, user }).exec();
-    deleteCount.messages = await deleteMessages({ conversationId: { $in: ids } });
+    deleteCount.messages = await deleteMessages({
+      conversationId: { $in: ids },
+    });
     return deleteCount;
-  }
+  },
 };

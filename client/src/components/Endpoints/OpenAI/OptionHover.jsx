@@ -1,12 +1,21 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 19:51:25
+ * @LastEditTime: 2023-05-27 20:48:47
+ * @FilePath: /guangqi/client/src/components/Endpoints/OpenAI/OptionHover.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import React from 'react';
 import { HoverCardPortal, HoverCardContent } from 'src/components/ui/HoverCard.tsx';
 
 const types = {
-  temp: 'Higher values = more random, while lower values = more focused and deterministic. We recommend altering this or Top P but not both.',
-  max: "The max tokens to generate. The total length of input tokens and generated tokens is limited by the model's context length.",
-  topp: 'An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered. We recommend altering this or temperature but not both.',
-  freq: "Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.",
-  pres: "Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics."
+  temp: '如果你调高这个值，程序的输出结果就会更随机；调低这个值，程序的输出就会更集中，更确定。建议你调整这个值或者 Top P，但不建议同时调整两者。',
+  max: '这个参数表示你想让程序最多生成多少个汉子。输入的单词数量加上生成的单词数量不能超过模型的最大限制。',
+  topp: '同样影响输出内容的多样性和想象力。建议你调整这个值或者 temperature，但不建议同时调整两者。',
+  freq: '数值调高这样可以降低程序重复同一句话的可能性',
+  pres: '数值调高可以增加程序谈论新话题的可能性'
 };
 
 function OptionHover({ type, side }) {

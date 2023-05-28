@@ -60,7 +60,7 @@ function Settings(props) {
           </div>
           <div className="grid w-full items-center gap-2">
             <Label htmlFor="chatGptLabel" className="text-left text-sm font-medium">
-              Custom Name <small className="opacity-40">(default: blank)</small>
+              方案名称 <small className="opacity-40">(默认: 空白)</small>
             </Label>
             <Input
               id="chatGptLabel"
@@ -76,14 +76,14 @@ function Settings(props) {
           </div>
           <div className="grid w-full items-center gap-2">
             <Label htmlFor="promptPrefix" className="text-left text-sm font-medium">
-              指令前缀 <small className="opacity-40">(默认: 空白)</small>
+              对话环境 <small className="opacity-40">(默认: 空白)</small>
             </Label>
             <TextareaAutosize
               id="promptPrefix"
               disabled={readonly}
               value={promptPrefix || ''}
               onChange={(e) => setPromptPrefix(e.target.value || null)}
-              placeholder="Set custom instructions. Defaults to: 'You are ChatGPT, a large language model trained by OpenAI.'"
+              placeholder="如果你希望GPT以特定的角色进行对话（如医生、律师、或者历史上的某个人物等），比如: Hey ChatGpt, 假设现在你是著名的流行音乐歌手周杰伦. 同样，你也可以通过设置前缀来引导模型的对话内容。例如，如果你希望模型告诉你关于天气的信息，你可以设置前缀为: 告诉我关于天气的信息。"
               className={cn(
                 defaultTextProps,
                 'flex max-h-[300px] min-h-[100px] w-full resize-none px-3 py-2 '
@@ -96,7 +96,7 @@ function Settings(props) {
             <HoverCardTrigger className="grid w-full items-center gap-2">
               <div className="flex justify-between">
                 <Label htmlFor="temp-int" className="text-left text-sm font-medium">
-                  Temperature <small className="opacity-40">(default: 1)</small>
+                  想象力 Temperature <small className="opacity-40">(default: 1)</small>
                 </Label>
                 <InputNumber
                   id="temp-int"
@@ -133,7 +133,7 @@ function Settings(props) {
             <HoverCardTrigger className="grid w-full items-center gap-2">
               <div className="flex justify-between">
                 <Label htmlFor="top-p-int" className="text-left text-sm font-medium">
-                  Top P <small className="opacity-40">(default: 1)</small>
+                  多样性 Top P <small className="opacity-40">(默认值: 1)</small>
                 </Label>
                 <InputNumber
                   id="top-p-int"
@@ -171,7 +171,7 @@ function Settings(props) {
             <HoverCardTrigger className="grid w-full items-center gap-2">
               <div className="flex justify-between">
                 <Label htmlFor="freq-penalty-int" className="text-left text-sm font-medium">
-                  Frequency Penalty <small className="opacity-40">(default: 0)</small>
+                  Frequency Penalty <small className="opacity-40">(默认值: 0)</small>
                 </Label>
                 <InputNumber
                   id="freq-penalty-int"
@@ -209,7 +209,7 @@ function Settings(props) {
             <HoverCardTrigger className="grid w-full items-center gap-2">
               <div className="flex justify-between">
                 <Label htmlFor="pres-penalty-int" className="text-left text-sm font-medium">
-                  Presence Penalty <small className="opacity-40">(default: 0)</small>
+                  Presence Penalty <small className="opacity-40">(默认值: 0)</small>
                 </Label>
                 <InputNumber
                   id="pres-penalty-int"
