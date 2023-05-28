@@ -67,7 +67,7 @@ function Settings(props) {
               disabled={readonly}
               value={chatGptLabel || ''}
               onChange={(e) => setChatGptLabel(e.target.value || null)}
-              placeholder="Set a custom name for ChatGPT"
+              placeholder="设置您的ChatGPT方案名称。"
               className={cn(
                 defaultTextProps,
                 'flex h-10 max-h-10 w-full resize-none px-3 py-2 focus:outline-none focus:ring-0 focus:ring-opacity-0 focus:ring-offset-0'
@@ -96,7 +96,7 @@ function Settings(props) {
             <HoverCardTrigger className="grid w-full items-center gap-2">
               <div className="flex justify-between">
                 <Label htmlFor="temp-int" className="text-left text-sm font-medium">
-                  想象力 Temperature <small className="opacity-40">(default: 1)</small>
+                  想象力 Temperature <small className="opacity-40">(默认值: 1)</small>
                 </Label>
                 <InputNumber
                   id="temp-int"
@@ -171,7 +171,7 @@ function Settings(props) {
             <HoverCardTrigger className="grid w-full items-center gap-2">
               <div className="flex justify-between">
                 <Label htmlFor="freq-penalty-int" className="text-left text-sm font-medium">
-                  Frequency Penalty <small className="opacity-40">(默认值: 0)</small>
+                  重复性 Frequency Penalty <small className="opacity-40">(默认值: 0)</small>
                 </Label>
                 <InputNumber
                   id="freq-penalty-int"
@@ -209,7 +209,7 @@ function Settings(props) {
             <HoverCardTrigger className="grid w-full items-center gap-2">
               <div className="flex justify-between">
                 <Label htmlFor="pres-penalty-int" className="text-left text-sm font-medium">
-                  Presence Penalty <small className="opacity-40">(默认值: 0)</small>
+                  对话可能性 Presence Penalty <small className="opacity-40">(默认值: 0)</small>
                 </Label>
                 <InputNumber
                   id="pres-penalty-int"

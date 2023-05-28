@@ -131,7 +131,7 @@ export default function NewConversationMenu() {
           >
             {icon}
             <span className="max-w-0 overflow-hidden whitespace-nowrap px-0 text-slate-600 transition-all group-hover:max-w-[80px] group-hover:px-2 group-data-[state=open]:max-w-[80px] group-data-[state=open]:px-2 dark:text-slate-300">
-              New Topic
+              高级设置
             </span>
           </Button>
         </DropdownMenuTrigger>
@@ -143,7 +143,7 @@ export default function NewConversationMenu() {
             className="cursor-pointer dark:text-gray-300"
             onClick={() => setShowEndpoints((prev) => !prev)}
           >
-            {showEndpoints ? 'Hide ' : 'Show '} Endpoints
+            {showEndpoints ? '隐藏 ' : '显示 '} 选项
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup
@@ -168,7 +168,7 @@ export default function NewConversationMenu() {
               className="cursor-pointer mr-auto "
               onClick={() => setShowPresets((prev) => !prev)}
             >
-              {showPresets ? 'Hide ' : 'Show '} Presets
+              {showPresets ? '隐藏 ' : '显示 '} 语境
             </span>
             <FileUpload onFileSelected={onFileSelected} />
             <Dialog>

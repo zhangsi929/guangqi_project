@@ -4,7 +4,7 @@ import { Listbox, Transition } from '@headlessui/react';
 import { cn } from 'src/utils/';
 
 function SelectDropDown({
-  title = 'Model',
+  title = '模型',
   value,
   disabled,
   setValue,
