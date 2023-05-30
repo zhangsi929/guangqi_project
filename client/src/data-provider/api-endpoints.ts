@@ -1,3 +1,12 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 19:51:25
+ * @LastEditTime: 2023-05-29 18:02:26
+ * @FilePath: /guangqi/client/src/data-provider/api-endpoints.ts
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 export const user = () => {
   return `/api/auth/user`;
 };
@@ -80,4 +89,8 @@ export const requestPasswordReset = () => {
 
 export const resetPassword = () => {
   return '/api/auth/resetPassword';
+};
+
+export const getUserStats = () => {
+  return '/api/user/stats';
 };

@@ -213,3 +213,15 @@ export type TResetPassword = {
   password: string;
   confirm_password: string;
 };
+
+export type TUserStats = {
+  name: string;
+  username: string;
+  email: string;
+  avatar: string;
+  token_balance: number;
+  used_token: number;
+  api_balance: number;
+  used_api: number;
+  membership_level: number;
+};

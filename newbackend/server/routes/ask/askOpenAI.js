@@ -1,91 +1,122 @@
-const express = require('express');
-const crypto = require('crypto');
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 21:08:38
+ * @LastEditTime: 2023-05-29 00:22:23
+ * @FilePath: /guangqi/newbackend/server/routes/ask/askOpenAI.js
+ * @Description:
+ *
+ * AbortController. This is a built-in JavaScript API that allows you to cancel ongoing tasks. In this script, it's used to abort ongoing requests to the OpenAI API.
+ * uses the crypto module to generate unique IDs for messages and conversations, and it interacts with a database to store and retrieve conversations.
+ *
+ *
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
+
+const express = require("express");
+const crypto = require("crypto");
 const router = express.Router();
-const addToCache = require('./addToCache');
-const { getOpenAIModels } = require('../endpoints');
-const { titleConvo, askClient } = require('../../../app/');
-const { saveMessage, getConvoTitle, saveConvo, getConvo } = require('../../../models');
-const { handleError, sendMessage, createOnProgress, handleText } = require('./handlers');
-const requireJwtAuth = require('../../../middleware/requireJwtAuth');
+const addToCache = require("./addToCache");
+const { getOpenAIModels } = require("../endpoints");
+const { titleConvo, askClient } = require("../../../app/");
+const {
+  saveMessage,
+  getConvoTitle,
+  saveConvo,
+  getConvo,
+  updateUserUsage,
+} = require("../../../models");
+const {
+  handleError,
+  sendMessage,
+  createOnProgress,
+  handleText,
+} = require("./handlers");
+const requireJwtAuth = require("../../../middleware/requireJwtAuth");
 
 const abortControllers = new Map();
 
-router.post('/abort', requireJwtAuth, async (req, res) => {
+function countTokens(str) {
+  return str.split(" ").length;
+}
+
+//The /abort endpoint allows the client to cancel an ongoing request.
+//It uses the abortKey provided in the request body to find the corresponding AbortController and call its abortAsk method.
+router.post("/abort", requireJwtAuth, async (req, res) => {
   const { abortKey } = req.body;
   console.log(`req.body`, req.body);
   if (!abortControllers.has(abortKey)) {
-    return res.status(404).send('Request not found');
+    return res.status(404).send("Request not found");
   }
 
   const { abortController } = abortControllers.get(abortKey);
 
   abortControllers.delete(abortKey);
   const ret = await abortController.abortAsk();
-  console.log('Aborted request', abortKey);
-  console.log('Aborted message:', ret);
+  console.log("Aborted request", abortKey);
+  console.log("Aborted message:", ret);
 
   res.send(JSON.stringify(ret));
 });
 
-router.post('/', requireJwtAuth, async (req, res) => {
+router.post("/", requireJwtAuth, async (req, res) => {
   const {
     endpoint,
     text,
     overrideParentMessageId = null,
     parentMessageId,
-    conversationId: oldConversationId
+    conversationId: oldConversationId,
   } = req.body;
-  if (text.length === 0) return handleError(res, { text: 'Prompt empty or too short' });
-  if (endpoint !== 'openAI') return handleError(res, { text: 'Illegal request' });
+  if (text.length === 0)
+    return handleError(res, { text: "Prompt empty or too short" });
+  if (endpoint !== "openAI")
+    return handleError(res, { text: "Illegal request" });
 
   // build user message
   const conversationId = oldConversationId || crypto.randomUUID();
   const isNewConversation = !oldConversationId;
   const userMessageId = crypto.randomUUID();
-  const userParentMessageId = parentMessageId || '00000000-0000-0000-0000-000000000000';
+  const userParentMessageId =
+    parentMessageId || "00000000-0000-0000-0000-000000000000";
   const userMessage = {
     messageId: userMessageId,
-    sender: 'User',
+    sender: "User",
     text,
     parentMessageId: userParentMessageId,
     conversationId,
-    isCreatedByUser: true
+    isCreatedByUser: true,
   };
 
   // build endpoint option
   const endpointOption = {
-    model: req.body?.model ?? 'gpt-3.5-turbo',
+    model: req.body?.model ?? "gpt-3.5-turbo",
     chatGptLabel: req.body?.chatGptLabel ?? null,
     promptPrefix: req.body?.promptPrefix ?? null,
     temperature: req.body?.temperature ?? 1,
     top_p: req.body?.top_p ?? 1,
     presence_penalty: req.body?.presence_penalty ?? 0,
-    frequency_penalty: req.body?.frequency_penalty ?? 0
+    frequency_penalty: req.body?.frequency_penalty ?? 0,
   };
 
   const availableModels = getOpenAIModels();
-  if (availableModels.find((model) => model === endpointOption.model) === undefined)
-    return handleError(res, { text: 'Illegal request: model' });
+  if (
+    availableModels.find((model) => model === endpointOption.model) ===
+    undefined
+  )
+    return handleError(res, { text: "Illegal request: model" });
 
-  console.log('ask log', {
+  console.log("ask log", {
     userMessage,
     endpointOption,
-    conversationId
+    conversationId,
   });
-  if (!req.user) {
-    // handle error, for example return a 401 status
-    console.log('no user!!!!!!!!!!!!jkjlkjlk!');
-  } else {
-    console.log('req: ', req);
-    console.log('req.user 123123', req.user);
-  }
   if (!overrideParentMessageId) {
     await saveMessage(userMessage);
     await saveConvo(req.user.id, {
       ...userMessage,
       ...endpointOption,
       conversationId,
-      endpoint
+      endpoint,
     });
   }
   // eslint-disable-next-line no-use-before-define
@@ -97,7 +128,7 @@ router.post('/', requireJwtAuth, async (req, res) => {
     preSendRequest: true,
     overrideParentMessageId,
     req,
-    res
+    res,
   });
 });
 
@@ -109,18 +140,22 @@ const ask = async ({
   preSendRequest = true,
   overrideParentMessageId = null,
   req,
-  res
+  res,
 }) => {
-  let { text, parentMessageId: userParentMessageId, messageId: userMessageId } = userMessage;
+  let {
+    text,
+    parentMessageId: userParentMessageId,
+    messageId: userMessageId,
+  } = userMessage;
   const userId = req.user.id;
   let responseMessageId = crypto.randomUUID();
 
   res.writeHead(200, {
-    Connection: 'keep-alive',
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache, no-transform',
-    'Access-Control-Allow-Origin': '*',
-    'X-Accel-Buffering': 'no'
+    Connection: "keep-alive",
+    "Content-Type": "text/event-stream",
+    "Cache-Control": "no-cache, no-transform",
+    "Access-Control-Allow-Origin": "*",
+    "X-Accel-Buffering": "no",
   });
 
   if (preSendRequest) sendMessage(res, { message: userMessage, created: true });
@@ -134,16 +169,16 @@ const ask = async ({
           lastSavedTimestamp = currentTimestamp;
           saveMessage({
             messageId: responseMessageId,
-            sender: endpointOption?.chatGptLabel || 'ChatGPT',
+            sender: endpointOption?.chatGptLabel || "ChatGPT",
             conversationId,
             parentMessageId: overrideParentMessageId || userMessageId,
             text: text,
             unfinished: true,
             cancelled: false,
-            error: false
+            error: false,
           });
         }
-      }
+      },
     });
 
     let abortController = new AbortController();
@@ -152,24 +187,29 @@ const ask = async ({
 
       const responseMessage = {
         messageId: responseMessageId,
-        sender: endpointOption?.chatGptLabel || 'ChatGPT',
+        sender: endpointOption?.chatGptLabel || "ChatGPT",
         conversationId,
         parentMessageId: overrideParentMessageId || userMessageId,
         text: getPartialText(),
         unfinished: false,
         cancelled: true,
-        error: false
+        error: false,
       };
 
       saveMessage(responseMessage);
-      await addToCache({ endpoint: 'openAI', endpointOption, userMessage, responseMessage });
+      await addToCache({
+        endpoint: "openAI",
+        endpointOption,
+        userMessage,
+        responseMessage,
+      });
 
       return {
         title: await getConvoTitle(req.user.id, conversationId),
         final: true,
         conversation: await getConvo(req.user.id, conversationId),
         requestMessage: userMessage,
-        responseMessage: responseMessage
+        responseMessage: responseMessage,
       };
     };
     const abortKey = conversationId;
@@ -185,21 +225,29 @@ const ask = async ({
       onProgress: progressCallback.call(null, {
         res,
         text,
-        parentMessageId: overrideParentMessageId || userMessageId
+        parentMessageId: overrideParentMessageId || userMessageId,
       }),
       abortController,
-      userId
+      userId,
+    });
+
+    // Update user usage after the SSE call to OpenAI API
+    const userTokens = countTokens(userMessage.text);
+    const responseTokens = countTokens(response.text);
+    await updateUserUsage(userId, {
+      api: 1,
+      tokens: userTokens + responseTokens,
     });
 
     abortControllers.delete(abortKey);
-    console.log('CLIENT RESPONSE', response);
+    console.log("CLIENT RESPONSE", response);
 
     const newConversationId = response.conversationId || conversationId;
     const newUserMassageId = response.parentMessageId || userMessageId;
     const newResponseMessageId = response.messageId;
 
     // STEP1 generate response message
-    response.text = response.response || '**ChatGPT refused to answer.**';
+    response.text = response.response || "**ChatGPT refused to answer.**";
 
     let responseMessage = {
       conversationId: newConversationId,
@@ -207,30 +255,33 @@ const ask = async ({
       newMessageId: newResponseMessageId,
       parentMessageId: overrideParentMessageId || newUserMassageId,
       text: await handleText(response),
-      sender: endpointOption?.chatGptLabel || 'ChatGPT',
+      sender: endpointOption?.chatGptLabel || "ChatGPT",
       unfinished: false,
       cancelled: false,
-      error: false
+      error: false,
     };
 
     await saveMessage(responseMessage);
     responseMessage.messageId = newResponseMessageId;
 
     // STEP2 update the conversation
-    let conversationUpdate = { conversationId: newConversationId, endpoint: 'openAI' };
+    let conversationUpdate = {
+      conversationId: newConversationId,
+      endpoint: "openAI",
+    };
     if (conversationId != newConversationId)
       if (isNewConversation) {
         // change the conversationId to new one
         conversationUpdate = {
           ...conversationUpdate,
           conversationId: conversationId,
-          newConversationId: newConversationId
+          newConversationId: newConversationId,
         };
       } else {
         // create new conversation
         conversationUpdate = {
           ...conversationUpdate,
-          ...endpointOption
+          ...endpointOption,
         };
       }
 
@@ -246,7 +297,7 @@ const ask = async ({
       await saveMessage({
         ...userMessage,
         messageId: userMessageId,
-        newMessageId: newUserMassageId
+        newMessageId: newUserMassageId,
       });
     userMessageId = newUserMassageId;
 
@@ -255,33 +306,33 @@ const ask = async ({
       final: true,
       conversation: await getConvo(req.user.id, conversationId),
       requestMessage: userMessage,
-      responseMessage: responseMessage
+      responseMessage: responseMessage,
     });
     res.end();
 
-    if (userParentMessageId == '00000000-0000-0000-0000-000000000000') {
+    if (userParentMessageId == "00000000-0000-0000-0000-000000000000") {
       const title = await titleConvo({
         endpoint: endpointOption?.endpoint,
         text,
         response: responseMessage,
-        oaiApiKey
+        oaiApiKey,
       });
       await saveConvo(req.user.id, {
         conversationId: conversationId,
-        title
+        title,
       });
     }
   } catch (error) {
     console.error(error);
     const errorMessage = {
       messageId: responseMessageId,
-      sender: endpointOption?.chatGptLabel || 'ChatGPT',
+      sender: endpointOption?.chatGptLabel || "ChatGPT",
       conversationId,
       parentMessageId: overrideParentMessageId || userMessageId,
       unfinished: false,
       cancelled: false,
       error: true,
-      text: error.message
+      text: error.message,
     };
     await saveMessage(errorMessage);
     handleError(res, errorMessage);

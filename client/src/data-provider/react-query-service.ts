@@ -1,3 +1,15 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 19:51:25
+ * @LastEditTime: 2023-05-29 18:23:04
+ * @FilePath: /guangqi/client/src/data-provider/react-query-service.ts
+ * @Description:
+ *
+ * By passing t.TUserStats to QueryObserverResult, you're saying that the data property of this result object will be of type t.TUserStats.
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
+
 // @ts-ignore
 //TODO: ANY BUG?
 import {
@@ -19,7 +31,8 @@ export enum QueryKeys {
   endpoints = 'endpoints',
   presets = 'presets',
   searchResults = 'searchResults',
-  tokenCount = 'tokenCount'
+  tokenCount = 'tokenCount',
+  userStats = 'userStats'
 }
 
 export const useAbortRequestWithMessage = (): UseMutationResult<
@@ -319,4 +332,16 @@ export const useRequestPasswordResetMutation = (): UseMutationResult<unknown> =>
 export const useResetPasswordMutation = (): UseMutationResult<unknown> => {
   // @ts-ignore
   return useMutation((payload: t.TResetPassword) => dataService.resetPassword(payload));
+};
+
+export const useGetUserStatsQuery = (
+  config?: UseQueryOptions<t.TUserStats>
+): QueryObserverResult<t.TUserStats> => {
+  return useQuery<t.TUserStats>([QueryKeys.userStats], () => dataService.getUserStats(), {
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+    retry: false,
+    ...config
+  });
 };

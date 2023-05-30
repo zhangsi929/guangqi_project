@@ -1,9 +1,12 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-23 21:08:32
- * @LastEditTime: 2023-05-27 21:00:08
+ * @LastEditTime: 2023-05-28 21:58:58
  * @FilePath: /guangqi/newbackend/models/schema/convoSchema.js
  * @Description:
+ *
+ * 这个文件定义了一个名为 "convoSchema" 的 MongoDB 数据模型。模型定义了一个会话（"Conversation"）在数据库中的结构，并用于创建和操作数据库中的会话数据。
+ * 此外，如果环境变量中存在 MEILI_HOST 和 MEILI_MASTER_KEY，那么这个模型会使用 mongoMeili 插件，用于将数据索引到 MeiliSearch，一个开源的搜索引擎。
  *
  * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */

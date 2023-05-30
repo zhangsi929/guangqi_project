@@ -1,7 +1,22 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 21:08:32
+ * @LastEditTime: 2023-05-28 22:07:38
+ * @FilePath: /guangqi/newbackend/models/Conversation.js
+ * @Description:
+ *
+ * 这个 JavaScript 文件主要是处理与会话（Conversation）相关的数据库操作。它导入了前面定义的 "Conversation" 数据模型和一些消息（Message）相关的操作。
+ *  这个文件导出了一些函数，这些函数可以对 Conversation 数据库进行查询、更新、删除等操作
+ * 这个文件的主要目的是为了提供一种方式来操作和管理会话数据，包括获取会话、保存会话、获取会话标题和删除会话等。
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 // const { Conversation } = require('./plugins');
+
 const Conversation = require("./schema/convoSchema");
 const { getMessages, deleteMessages } = require("./Message");
 
+//在 module.exports 之外定义函数，可以使得函数在文件内部被多次重用。例如，在你的文件中，getConvo 函数在 getConvoTitle 函数中被使用。
 const getConvo = async (user, conversationId) => {
   try {
     return await Conversation.findOne({ user, conversationId }).exec();
@@ -106,6 +121,7 @@ module.exports = {
     }
   },
   getConvo,
+  // getConvoTitle 这个函数获取一个会话的标题。如果会话不存在或者标题为 null，它将返回 "新对话"。
   /* chore: this method is not properly error handled */
   getConvoTitle: async (user, conversationId) => {
     try {
@@ -122,6 +138,7 @@ module.exports = {
       return { message: "Error getting conversation title" };
     }
   },
+  //这个函数删除一个用户的一组会话，并返回删除的数量。
   deleteConvos: async (user, filter) => {
     let toRemove = await Conversation.find({ ...filter, user }).select(
       "conversationId"

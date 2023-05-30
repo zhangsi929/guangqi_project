@@ -8,6 +8,7 @@ import UserIcon from '../svg/UserIcon';
 import { Download } from 'lucide-react';
 import NavLink from './NavLink';
 import ExportModel from './ExportConversation/ExportModel';
+import UserModel from './User/UserModel';
 import ClearConvos from './ClearConvos';
 import DarkMode from './DarkMode';
 import Logout from './Logout';
@@ -17,10 +18,12 @@ import { cn } from 'src/utils/';
 import DotsIcon from '../svg/DotsIcon';
 
 import store from 'src/store';
+import { on } from 'events';
 
 export default function NavLinks({ clearSearch, isSearchEnabled }) {
   const [showExports, setShowExports] = useState(false);
   const [showClearConvos, setShowClearConvos] = useState(false);
+  const [showUser, setShowUser] = useState(false);
   const { user } = useAuthContext();
 
   const conversation = useRecoilValue(store.conversation) || {};
@@ -32,6 +35,10 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
 
   const clickHandler = () => {
     if (exportable) setShowExports(true);
+  };
+
+  const clickHandlerUser = () => {
+    setShowUser(true);
   };
 
   return (
@@ -104,11 +111,11 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
                   <NavLink
                     className={cn(
                       'flex w-full cursor-pointer items-center gap-3 px-3 py-3 text-sm text-white transition-colors duration-200 hover:bg-gray-700',
-                      false ? 'cursor-pointer text-white' : 'cursor-not-allowed text-gray-400'
+                      true ? 'cursor-pointer text-white' : 'cursor-not-allowed text-gray-400'
                     )}
                     svg={() => <UserIcon />}
                     text="我的账户 (开发中)"
-                    clickHandler={clickHandler}
+                    clickHandler={clickHandlerUser}
                   />
                 </Menu.Item>
                 <div className="my-1.5 h-px bg-white/20" role="none" />
@@ -120,6 +127,7 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
           </>
         )}
       </Menu>
+      {showUser && <UserModel open={showUser} onOpenChange={setShowUser} />}
       {showExports && <ExportModel open={showExports} onOpenChange={setShowExports} />}
       {showClearConvos && <ClearConvos open={showClearConvos} onOpenChange={setShowClearConvos} />}
     </>
