@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:45:41
- * @LastEditTime: 2023-05-23 01:04:59
+ * @LastEditTime: 2023-05-29 22:20:49
  * @FilePath: /guangqi/client/src/pages/index.tsx
  * @Description:
  *
@@ -11,41 +11,14 @@
  * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function HomePage() {
   const router = useRouter();
 
-  const handleStartChat = () => {
+  useEffect(() => {
     router.push('/chat/new');
-  };
+  }, [router]);
 
-  return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        textAlign: 'center',
-        background: '#f5f5f5'
-      }}
-    >
-      <h1 style={{ marginBottom: '20px' }}>搭建中</h1>
-      <button
-        style={{
-          padding: '10px 20px',
-          fontSize: '16px',
-          borderRadius: '5px',
-          border: 'none',
-          cursor: 'pointer',
-          background: '#0070f3',
-          color: 'white'
-        }}
-        onClick={handleStartChat}
-      >
-        预览界面
-      </button>
-    </div>
-  );
+  return null;
 }
