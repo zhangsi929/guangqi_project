@@ -27,7 +27,14 @@ function Registration() {
 
   const onRegisterUserFormSubmit = (data: TRegisterUser) => {
     registerUser.mutate(data, {
-      onSuccess: () => {
+      onSuccess: (response: any) => {
+        const token = response?.data?.token; // Assuming the token is accessible in the response data
+
+        // Add the token as a cookie
+        document.cookie = `token=${token}; path=/; expires=${new Date(
+          Date.now() + 1000 * 60 * 60 * 24 * 7
+        ).toUTCString()}`;
+
         router.push('/chat/new');
       },
       onError: (error: any) => {

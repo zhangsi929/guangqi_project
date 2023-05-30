@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:36:29
- * @LastEditTime: 2023-05-27 02:48:55
+ * @LastEditTime: 2023-05-29 21:10:18
  * @FilePath: /guangqi/client/src/hooks/AuthContext.tsx
  * @Description: AuthContext.tsx
  *
@@ -87,7 +87,13 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       onSuccess: (data: TLoginResponse) => {
         const { user, token } = data;
         setUserContext({ token, isAuthenticated: true, user, redirect: '/chat/new' });
+        // Set the token as a cookie
+        document.cookie = `token=${token}; path=/; expires=${new Date(
+          Date.now() + 1000 * 60 * 60 * 24 * 7
+        ).toUTCString()}`;
       },
+      // // Set the token as a session cookie
+      // document.cookie = `token=${token}; path=/`;
       onError: (error) => {
         setError((error as any).message);
       }
@@ -133,7 +139,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         console.log('tokenFromCookie', tokenFromCookie);
         setUserContext({ token: tokenFromCookie, isAuthenticated: true, user: userQuery.data });
       } else {
-        // TODO: 暂时是为了不要把我push到login页面
+        // TODO: 暂时是为了不要把我push到login页面, bug: token 没有存在cookie里
         router.push('/login');
       }
     }
@@ -189,9 +195,6 @@ const useAuthContext = () => {
   if (context === undefined) {
     throw new Error('useAuthContext should be used inside AuthProvider');
   }
-
-  console.log('Token value useAuthContext zhnag:', context.token); // Add this console log
-
   return context;
 };
 

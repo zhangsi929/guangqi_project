@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-20 00:45:58
- * @LastEditTime: 2023-05-25 01:26:08
+ * @LastEditTime: 2023-05-29 19:48:19
  * @FilePath: /guangqi/client/src/components/Auth/Login.tsx
  * @Description:
  *
@@ -28,7 +28,7 @@ function Login() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      // router.push('/chat/new');
+      router.push('/chat/new');
     }
   }, [isAuthenticated, router]);
 
