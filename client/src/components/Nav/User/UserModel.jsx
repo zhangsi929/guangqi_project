@@ -1,11 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:55:49
- * @LastEditTime: 2023-05-29 19:06:10
+ * @LastEditTime: 2023-05-29 19:23:28
  * @FilePath: /guangqi/client/src/components/Nav/User/UserModel.jsx
  * @Description:
  *
- * 点击删除对话跳出来对话框
+ * 我的账户
  *
  * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */

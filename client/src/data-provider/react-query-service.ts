@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-23 19:51:25
- * @LastEditTime: 2023-05-29 18:23:04
+ * @LastEditTime: 2023-05-29 19:28:50
  * @FilePath: /guangqi/client/src/data-provider/react-query-service.ts
  * @Description:
  *
@@ -340,7 +340,7 @@ export const useGetUserStatsQuery = (
   return useQuery<t.TUserStats>([QueryKeys.userStats], () => dataService.getUserStats(), {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
     retry: false,
     ...config
   });
