@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:18:49
- * @LastEditTime: 2023-05-27 01:18:21
+ * @LastEditTime: 2023-05-30 21:53:55
  * @FilePath: /guangqi/client/src/pages/_app.tsx
  * @Description:
  *
@@ -49,7 +49,9 @@ function App({ Component, pageProps, router }: AppProps) {
       }
     })
   });
-
+  if (router.pathname === '/') {
+    return <Component {...pageProps} />;
+  }
   return (
     <ScreenshotProvider>
       <QueryClientProvider client={queryClient}>
