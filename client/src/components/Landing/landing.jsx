@@ -7,7 +7,7 @@ const LandingPage = () => {
   return (
     <>
       <Head>
-        <title>Smart Health Monitoring Wristwatch</title>
+        <title>思渝AI Chatgpt中国</title>
         <link rel="stylesheet" href="https://unpkg.com/tailwindcss@next/dist/tailwind.min.css" />
         <link
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700"
