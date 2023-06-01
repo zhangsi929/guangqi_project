@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:55:49
- * @LastEditTime: 2023-05-29 19:23:28
+ * @LastEditTime: 2023-05-31 21:51:05
  * @FilePath: /guangqi/client/src/components/Nav/User/UserModel.jsx
  * @Description:
  *
@@ -18,6 +18,12 @@ import { useGetUserStatsQuery } from 'src/data-provider';
 const ClearConvos = ({ open, onOpenChange }) => {
   const getUserStatsQuery = useGetUserStatsQuery();
   const { data, error, isLoading } = getUserStatsQuery;
+  const membership_map = {
+    0: '专属内测',
+    1: 'GPT黄金会员',
+    2: 'GPT白金会员',
+    3: 'GPT星钻会员'
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -45,6 +51,11 @@ const ClearConvos = ({ open, onOpenChange }) => {
               <div className="col-span-1 flex flex-col items-start justify-start gap-2">
                 <Label htmlFor="type" className="text-left text-sm font-medium">
                   剩余对话次数: {data?.api_balance}
+                </Label>
+              </div>
+              <div className="col-span-1 flex flex-col items-start justify-start gap-2">
+                <Label htmlFor="type" className="text-left text-sm font-medium">
+                  会员: {membership_map[data?.membership_level]}
                 </Label>
               </div>
             </div>

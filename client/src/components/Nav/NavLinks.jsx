@@ -12,7 +12,6 @@ import UserModel from './User/UserModel';
 import ClearConvos from './ClearConvos';
 import DarkMode from './DarkMode';
 import Logout from './Logout';
-import UserDashboard from './UserDashBoard';
 import { useAuthContext } from 'src/hooks/AuthContext';
 import { cn } from 'src/utils/';
 import DotsIcon from '../svg/DotsIcon';
