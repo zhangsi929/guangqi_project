@@ -113,7 +113,7 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
                       true ? 'cursor-pointer text-white' : 'cursor-not-allowed text-gray-400'
                     )}
                     svg={() => <UserIcon />}
-                    text="我的账户 (开发中)"
+                    text="我的账户"
                     clickHandler={clickHandlerUser}
                   />
                 </Menu.Item>

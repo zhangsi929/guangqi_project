@@ -91,17 +91,17 @@ export default function Landing() {
           <div className="mb-8 flex flex-1 flex-col gap-3.5 md:mb-auto">
             <h2 className="m-auto flex items-center gap-3 text-lg font-normal md:flex-col md:gap-2">
               <CautionIcon />
-              我需要改进的地方
+              注意事项
             </h2>
             <ul className="m-auto flex w-full flex-col gap-3.5 sm:max-w-md">
               <li className="w-full rounded-md bg-gray-50 p-3 dark:bg-white/5">
-                有时会产生不完全正确的内容，需要您指正
+                虽然ChatGPT非常强大在回答问题和提供信息方面通常都很准确。不要依赖此作为您的唯一信息源，特别是在涉及重要决策时。对于医疗、法律等专业领域的问题，建议您咨询相关领域的专家。
               </li>
               <li className="w-full rounded-md bg-gray-50 p-3 dark:bg-white/5">
-                有时会产生不合逻辑的内容，需要您指正
+                虽然ChatGPT是一个人工智能，但它的用途应该始终符合适当的行为规范。恶意使用，滥用或其他不适当的行为可能会导致您的使用权限被剥夺。
               </li>
               <li className="w-full rounded-md bg-gray-50 p-3 dark:bg-white/5">
-                信息基于2021年之前的数据，可能不会包含最新的信息
+                虽然ChatGPT能够模拟真人对话，但它不能提供专业的心理健康支持。如果您正在经历危机或心理困扰，建议您联系专业的心理健康服务。
               </li>
             </ul>
           </div>
