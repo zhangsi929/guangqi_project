@@ -19,7 +19,7 @@ const LandingPage = () => {
         <nav>
           <div className="container mx-auto px-6 py-2 flex justify-between items-center">
             <a className="font-bold text-6xl lg:text-10xl" href="#">
-              思渝AI - ChatGpt中国
+              思渝AI - ChatGPT中国
             </a>
             <div className="block lg:hidden">
               <button className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-teal-500 appearance-none focus:outline-none">
@@ -126,25 +126,25 @@ const LandingPage = () => {
               <div className="w-full md:w-1/3 px-2 mb-4">
                 <div className="bg-white rounded shadow py-2">
                   <p className="text-gray-800 text-base px-6 mb-5">
-                    作为一名写作爱好者，ChatGPT软件让我感觉像是找到了我的创作伙伴。我可以随时向它询问关于情节设定、角色塑造的建议，甚至在我遇到写作瓶颈时，它都能提供我意想不到的灵感。这款软件非常理解我，让我的写作过程更加顺畅，更加愉快。
+                    我热爱写作，而ChatGPT就像我的创作搭档。无论我需要在情节设计、角色塑造上寻找灵感，还是需要解决写作中遇到的困境，它总能提供出色的建议。有了这款软件的陪伴，我的写作之旅变得更加顺畅，也更加有趣。{' '}
                   </p>
-                  <p className="text-gray-500 text-xs md:text-sm px-6">John Doe</p>
+                  <p className="text-gray-500 text-xs md:text-sm px-6">Amelia Parker</p>
                 </div>
               </div>
               <div className="w-full md:w-1/3 px-2 mb-4">
                 <div className="bg-white rounded shadow py-2">
                   <p className="text-gray-800 text-base px-6 mb-5">
-                    我是一位自由软件开发者，自从开始使用ChatGPT软件后，我的工作效率大大提升。我可以向它询问关于代码调试、最新编程技术的问题，它总能给出准确且深入的答复。此外，它还能帮我自动写出高质量的代码，这真的是每一个程序员的梦想！
+                    我是一名自由软件开发者，自我发现并开始使用ChatGPT以来，我的工作效率有了质的飞跃。无论我在代码调试、探索最新编程技术时遇到任何问题，它都能提供准确且深入的解答。最让我惊喜的是，它甚至能帮我编写高质量的代码，这实在是程序员的福音！{' '}
                   </p>
-                  <p className="text-gray-500 text-xs md:text-sm px-6">Jane Doe</p>
+                  <p className="text-gray-500 text-xs md:text-sm px-6">Benjamin Foster</p>
                 </div>
               </div>
               <div className="w-full md:w-1/3 px-2 mb-4">
                 <div className="bg-white rounded shadow py-2">
                   <p className="text-gray-800 text-base px-6 mb-5">
-                    作为一名语言教师，ChatGPT软件是个极好的教学辅助工具。它能用各种语言进行流畅对话，帮助学生实践语言运用。同时，它还能给出准确的词汇解释和句子翻译，极大地丰富了我的教学资源。用了这款软件后，我的教学效果大为提升。
+                    我是一名语言教师，对我而言，ChatGPT就是一款绝佳的教学辅助工具。它能用各种语言流畅对话，帮助学生加强语言应用能力。同时，它提供的准确词汇解释和句子翻译，也极大地丰富了我的教学内容。自从使用了这款软件，我的教学质量和效果显著提高。{' '}
                   </p>
-                  <p className="text-gray-500 text-xs md:text-sm px-6">James Doe</p>
+                  <p className="text-gray-500 text-xs md:text-sm px-6">Charlotte Reed</p>
                 </div>
               </div>
             </div>
