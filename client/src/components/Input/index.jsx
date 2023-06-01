@@ -59,6 +59,7 @@ export default function TextChat({ isSearchView = false }) {
   //   return () => resizeObserver.disconnect();
   // }, [inputRef]);
 
+  // 为什么要把submitMessage放在这里而不是child component里面？ 因为这里有text这个state，而且这个state是在这个component里面被改变的，所以放在这里比较合适。
   const submitMessage = () => {
     ask({ text });
     setText('');

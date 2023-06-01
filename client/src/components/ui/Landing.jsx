@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import useDocumentTitle from 'src/hooks/useDocumentTitle';
-import Templates from '../ui/Templates';
 import SunIcon from '../svg/SunIcon';
 import LightningIcon from '../svg/LightningIcon';
 import CautionIcon from '../svg/CautionIcon';
-import ChatIcon from '../svg/ChatIcon';
-
 import store from 'src/store';
 
 export default function Landing() {

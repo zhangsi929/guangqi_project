@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 23:36:29
- * @LastEditTime: 2023-05-29 21:10:18
+ * @LastEditTime: 2023-06-01 00:11:03
  * @FilePath: /guangqi/client/src/hooks/AuthContext.tsx
  * @Description: AuthContext.tsx
  *
@@ -135,8 +135,6 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     if (!token || !isAuthenticated) {
       const tokenFromCookie = getCookieValue('token');
       if (tokenFromCookie) {
-        // debugger;
-        console.log('tokenFromCookie', tokenFromCookie);
         setUserContext({ token: tokenFromCookie, isAuthenticated: true, user: userQuery.data });
       } else {
         // TODO: 暂时是为了不要把我push到login页面, bug: token 没有存在cookie里

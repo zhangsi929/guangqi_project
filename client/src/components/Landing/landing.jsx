@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head'; // import next/head
 import Image from 'next/image'; // import next/image
 import Link from 'next/link';
+import ReactConfetti from 'react-confetti';
 
 const LandingPage = () => {
+  const [showConfetti, setShowConfetti] = useState(true);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+
+  // 使用useEffect在组件首次渲染后启动一个计时器，用于在3秒后停止庆祝效果
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowConfetti(false);
+    }, 3000); // 设置3秒后停止庆祝效果
+    setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    // 清除函数在组件卸载时调用，以防止内存泄漏
+    return () => clearTimeout(timer);
+  }, []); // 传入一个空数组作为依赖，以确保此效应只在组件首次渲染时运行
   return (
     <>
       <Head>
@@ -14,6 +27,7 @@ const LandingPage = () => {
           rel="stylesheet"
         />
       </Head>
+      {showConfetti && <ReactConfetti width={windowSize.width} height={windowSize.height} />}{' '}
       <div className="text-gray-700 bg-white" style={{ fontFamily: 'Source Sans Pro, sans-serif' }}>
         {/* Nav */}
         <nav>

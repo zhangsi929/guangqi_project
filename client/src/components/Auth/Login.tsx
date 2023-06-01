@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-20 00:45:58
- * @LastEditTime: 2023-05-29 19:48:19
+ * @LastEditTime: 2023-06-01 00:16:56
  * @FilePath: /guangqi/client/src/components/Auth/Login.tsx
  * @Description:
  *
@@ -40,7 +40,7 @@ function Login() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white pt-6 sm:pt-0">
       <div className="mt-6 w-96 overflow-hidden bg-white px-6 py-4 sm:max-w-md sm:rounded-lg">
-        <h1 className="mb-4 text-center text-3xl font-semibold">欢迎回来</h1>
+        <h1 className="mb-4 text-center text-3xl font-semibold">登陆您的账号</h1>
         {error && (
           <div
             className="relative mt-4 rounded border border-red-400 bg-red-100 px-4 py-3 text-red-700"

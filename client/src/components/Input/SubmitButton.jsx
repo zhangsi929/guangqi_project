@@ -25,7 +25,7 @@ export default function SubmitButton({
   const setToken = () => {
     setSetTokenDialogOpen(true);
   };
-
+  // 如果正在生成，显示停止按钮
   if (isSubmitting)
     return (
       <button
@@ -61,6 +61,7 @@ export default function SubmitButton({
   //     </div>
   //   </button>
   // );
+  // 和ChatGPT无关, 如果没有令牌，显示设置按钮
   else if (!isTokenProvided && endpoint !== 'openAI') {
     return (
       <>
@@ -81,7 +82,8 @@ export default function SubmitButton({
         />
       </>
     );
-  } else
+  } // 真正的提交位置
+  else
     return (
       <button
         onClick={clickHandler}
