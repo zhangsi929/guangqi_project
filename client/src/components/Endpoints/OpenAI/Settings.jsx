@@ -83,7 +83,7 @@ function Settings(props) {
               disabled={readonly}
               value={promptPrefix || ''}
               onChange={(e) => setPromptPrefix(e.target.value || null)}
-              placeholder="如果你希望GPT以特定的角色进行对话（如医生、律师、或者历史上的某个人物等），比如: Hey ChatGpt, 假设现在你是著名的流行音乐歌手周杰伦. 同样，你也可以通过设置前缀来引导模型的对话内容。例如，如果你希望模型告诉你关于天气的信息，你可以设置前缀为: 告诉我关于天气的信息。"
+              placeholder="如果你希望GPT以特定的角色进行对话（如医生、律师、或者历史上的某个人物等），比如: ChatGPT, 假设现在你是著名的流行音乐歌手周杰伦。在后续的对话中，ChatGPT会以周杰伦的身份进行对话。"
               className={cn(
                 defaultTextProps,
                 'flex max-h-[300px] min-h-[100px] w-full resize-none px-3 py-2 '

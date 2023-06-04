@@ -134,7 +134,7 @@ const LandingPage = () => {
         <section className="bg-gray-100">
           <div className="container mx-auto px-6 py-20">
             <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
-              海外ChatGpt用户体验
+              “最好的境内ChatGPT体验”
             </h2>
             <div className="flex flex-wrap">
               <div className="w-full md:w-1/3 px-2 mb-4">
