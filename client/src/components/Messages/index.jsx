@@ -17,6 +17,7 @@ export default function Messages({ isSearchView = false }) {
   const scrollableRef = useRef(null);
   const messagesEndRef = useRef(null);
 
+  //这两行代码利用了Recoil的useRecoilValue Hook，从Recoil的状态管理库中获取了messagesTree和searchResultMessagesTree。这两个变量可能存储了API返回的消息。
   const messagesTree = useRecoilValue(store.messagesTree);
   const searchResultMessagesTree = useRecoilValue(store.searchResultMessagesTree);
 

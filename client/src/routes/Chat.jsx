@@ -1,6 +1,16 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-05-23 19:51:25
+ * @LastEditTime: 2023-06-03 23:51:20
+ * @FilePath: /guangqi/client/src/routes/Chat.jsx
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { BuyApiModal } from './BuyApiModal';
 
 import Landing from '../components/ui/Landing';
 import Messages from '../components/Messages';
@@ -8,6 +18,8 @@ import TextChat from '../components/Input';
 
 import store from 'src/store';
 import { useGetMessagesByConvoId, useGetConversationByIdMutation } from 'src/data-provider';
+import { useApiBalance } from 'src/store/apiUsage';
+import { useGetUserStatsQuery } from 'src/data-provider';
 
 export default function Chat() {
   const searchQuery = useRecoilValue(store.searchQuery);
@@ -17,13 +29,22 @@ export default function Chat() {
   const { newConversation } = store.useConversation();
   const router = useRouter();
   const conversationId = router.query.conversationId;
-
   // Replace useNavigate with useRouter
   const navigate = (path) => router.push(path);
 
   //disabled by default, we only enable it when messagesTree is null
   const messagesQuery = useGetMessagesByConvoId(conversationId, { enabled: false });
   const getConversationMutation = useGetConversationByIdMutation(conversationId);
+
+  const { saveBalance } = useApiBalance();
+  const getUserStatsQuery = useGetUserStatsQuery();
+  const { data } = getUserStatsQuery;
+
+  useEffect(() => {
+    if (data) {
+      saveBalance(data.api_balance);
+    }
+  }, [data]);
 
   // when conversation changed or conversationId (in url) changed
   useEffect(() => {
@@ -84,6 +105,7 @@ export default function Chat() {
 
   return (
     <>
+      <BuyApiModal />
       {conversationId === 'new' && !messagesTree?.length ? <Landing /> : <Messages />}
       <TextChat />
     </>

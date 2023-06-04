@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:55:49
- * @LastEditTime: 2023-05-31 21:51:05
+ * @LastEditTime: 2023-06-03 23:36:28
  * @FilePath: /guangqi/client/src/components/Nav/User/UserModel.jsx
  * @Description:
  *
@@ -14,6 +14,7 @@ import { Dialog, DialogButton } from 'src/components/ui/Dialog.tsx';
 import DialogTemplate from 'src/components/ui/DialogTemplate.jsx';
 import { Label } from 'src/components/ui/Label.tsx';
 import { useGetUserStatsQuery } from 'src/data-provider';
+import { useApiBalance } from 'src/store/apiUsage'; // Add this line
 
 const ClearConvos = ({ open, onOpenChange }) => {
   const getUserStatsQuery = useGetUserStatsQuery();
@@ -24,6 +25,12 @@ const ClearConvos = ({ open, onOpenChange }) => {
     2: 'GPT白金会员',
     3: 'GPT星钻会员'
   };
+  const { saveBalance } = useApiBalance(); // Add this line
+  useEffect(() => {
+    if (data) {
+      saveBalance(data.api_balance);
+    }
+  }, [data]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-23 19:51:25
- * @LastEditTime: 2023-05-29 19:28:50
+ * @LastEditTime: 2023-06-03 23:34:47
  * @FilePath: /guangqi/client/src/data-provider/react-query-service.ts
  * @Description:
  *
@@ -341,7 +341,8 @@ export const useGetUserStatsQuery = (
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     refetchOnMount: true,
-    retry: false,
+    retry: 3, // 最多重试3次
+    retryDelay: 1000, // 重试延迟1秒
     ...config
   });
 };
