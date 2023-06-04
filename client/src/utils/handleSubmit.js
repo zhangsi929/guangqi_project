@@ -15,7 +15,7 @@ const useMessageHandler = () => {
 
   const [messages, setMessages] = useRecoilState(store.messages);
 
-  // the place we trigger api call
+  // 发送api的地方 sse
   const ask = (
     { text, parentMessageId = null, conversationId = null, messageId = null },
     { isRegenerate = false } = {}

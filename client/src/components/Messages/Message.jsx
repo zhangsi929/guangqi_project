@@ -195,7 +195,7 @@ export default function Message({
                       disabled={isSubmitting}
                       onClick={resubmitMessage}
                     >
-                      Save & Submit
+                      保存 & 发送
                     </button>
                     <button className="btn btn-neutral relative" onClick={() => enterEdit(true)}>
                       取消
