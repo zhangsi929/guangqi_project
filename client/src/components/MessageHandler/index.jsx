@@ -1,11 +1,43 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-21 00:44:51
- * @LastEditTime: 2023-05-25 00:46:48
+ * @LastEditTime: 2023-06-03 21:25:06
  * @FilePath: /guangqi/client/src/components/MessageHandler/index.jsx
  * @Description:
  *
  * This is the actual place to call API, using react hooks and custom hooks
+ * 真正发送消息和返回的地方
+ * User Action
+    |
+    v
+Change `submission` state
+    |
+    v
+Trigger `useEffect` in MessageHandler
+    |
+    v
+Create new API request (URL and payload from `createPayload`)
+    |
+    v
+Create new SSE object for API connection
+    |
+    v
+Open connection and send API request
+    |
+    v
+Trigger `events.onmessage` when API starts returning data
+    |
+    v
+Invoke `finalHandler` or `createdHandler` based on returned data (`final` or `created` field)
+    |
+    v
+Update application state (`messages`, `conversation`) in handler
+    |
+    v
+Trigger re-render and display updated messages in UI
+    |
+    v
+If error at any step, trigger `events.onerror` and invoke `errorHandler` to display error message
  *
  *
  * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
@@ -18,6 +50,7 @@ import createPayload from 'src/data-provider/createPayload';
 import { useAbortRequestWithMessage } from 'src/data-provider';
 import store from 'src/store';
 import { useAuthContext } from 'src/hooks/AuthContext';
+import { useApiBalance } from 'src/store/apiUsage';
 
 export default function MessageHandler() {
   const submission = useRecoilValue(store.submission);
@@ -27,6 +60,7 @@ export default function MessageHandler() {
   const resetLatestMessage = useResetRecoilState(store.latestMessage);
   const { token } = useAuthContext();
   const { refreshConversations } = store.useConversations();
+  const { balance, decrementBalance } = useApiBalance();
 
   const messageHandler = (data, submission) => {
     const { messages, message, initialResponse, isRegenerate = false } = submission;
@@ -149,6 +183,9 @@ export default function MessageHandler() {
       ...prevState,
       ...conversation
     }));
+
+    //更新用户的api balance 个数
+    decrementBalance();
   };
 
   const errorHandler = (data, submission) => {
@@ -181,6 +218,7 @@ export default function MessageHandler() {
       .then((response) => response.json())
       .then((data) => {
         console.log('aborted', data);
+        decrementBalance();
         cancelHandler(data, submission);
       })
       .catch((error) => {

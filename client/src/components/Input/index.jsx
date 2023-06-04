@@ -11,10 +11,14 @@ import AdjustToneButton from './AdjustToneButton';
 import Footer from './Footer';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useMessageHandler } from '../../utils/handleSubmit';
-
 import store from 'src/store';
+// import { useRecoilSnapshot } from 'recoil';
+import { useApiBalance, useShowBuyModal } from 'src/store/apiUsage';
 
 export default function TextChat({ isSearchView = false }) {
+  // const snapshot = useRecoilSnapshot();
+  const { balance } = useApiBalance();
+  const { saveShow } = useShowBuyModal();
   const inputRef = useRef(null);
   const isComposing = useRef(false);
 
@@ -40,6 +44,8 @@ export default function TextChat({ isSearchView = false }) {
   useEffect(() => {
     if (conversation?.conversationId !== 'search') inputRef.current?.focus();
     // setText('');
+    // using snapshot to check value of balance only log atom which key is apiBalance
+    // console.log('snapshot', snapshot.getLoadable(apiBalance).contents); // debug only
   }, [conversation?.conversationId]);
 
   // // controls the height of Bing tone style tabs
@@ -61,6 +67,11 @@ export default function TextChat({ isSearchView = false }) {
 
   // 为什么要把submitMessage放在这里而不是child component里面？ 因为这里有text这个state，而且这个state是在这个component里面被改变的，所以放在这里比较合适。
   const submitMessage = () => {
+    // if balance less or equal than 0, then will pop up a modal to ask user to buy more credits
+    if (balance <= 0) {
+      saveShow(true);
+      return;
+    }
     ask({ text });
     setText('');
   };

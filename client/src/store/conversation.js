@@ -48,6 +48,7 @@ const conversation = atom({
 // current messages of the conversation, must be an array
 // sample structure
 // [{text, sender, messageId, parentMessageId, isCreatedByUser}]
+// 收到消息
 const messages = atom({
   key: 'messages',
   default: []
