@@ -191,6 +191,7 @@ export type TRegisterUser = {
   username: string;
   password: string;
   confirm_password: string; // New field
+  verificationCode: string; // New field
 };
 
 export type TLoginUser = {
