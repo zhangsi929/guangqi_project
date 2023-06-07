@@ -41,7 +41,6 @@ function Registration() {
           ).toUTCString()}`;
           router.push('/chat/new');
         }
-        console.log('zhangsi');
       },
       onError: (error: any) => {
         setError(true);
@@ -109,7 +108,16 @@ function Registration() {
           className="mt-6"
           aria-label="注册表单"
           method="POST"
-          onSubmit={handleSubmit(onRegisterUserFormSubmit)} // 修改这一行
+          onSubmit={handleSubmit(
+            (data) => {
+              console.log('Form validated successfully');
+              onRegisterUserFormSubmit(data);
+            },
+            () => {
+              console.log('Form validation failed');
+              console.log(errors);
+            }
+          )}
         >
           <div className="mb-2">
             <div className="relative">
@@ -192,10 +200,10 @@ function Registration() {
             <div className="relative flex">
               <input
                 type="text"
-                id="verificationCode"
+                id="code"
                 autoComplete="off"
                 aria-label="验证码"
-                {...register('verificationCode', {
+                {...register('code', {
                   required: '验证码是必填项',
                   minLength: {
                     value: 4, // 例如，如果验证码是4位数
@@ -206,11 +214,11 @@ function Registration() {
                     message: '验证码不能超过4位'
                   },
                   pattern: {
-                    value: /^[0-9]{4}$/, // 例如，如果验证码只包含数字
-                    message: '验证码需要是4位数字'
+                    value: /^[A-Za-z0-9]{4}$/, // 如果验证码可以包含字母和数字
+                    message: '验证码需要是4个字母或数字'
                   }
                 })}
-                aria-invalid={!!errors.verificationCode}
+                aria-invalid={!!errors.code}
                 className="peer block w-full appearance-none rounded-t-md border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-green-500 focus:outline-none focus:ring-0"
                 placeholder=" "
               ></input>
