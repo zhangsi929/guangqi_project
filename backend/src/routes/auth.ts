@@ -18,15 +18,15 @@ const transporter = nodemailer.createTransport({
   secure: true,
   secureConnection: false, // TLS requires secureConnection to be false
   tls: {
-    ciphers: "SSLv3"
+    ciphers: "SSLv3",
   },
   requireTLS: true,
   port: 465,
   debug: true,
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD
-  }
+    pass: process.env.EMAIL_PASSWORD,
+  },
 } as any);
 
 authRouter.post("/auth/mailcode", async (req, res) => {
@@ -45,8 +45,10 @@ authRouter.post("/auth/mailcode", async (req, res) => {
 
   try {
     console.log(`Processing verification for email: ${email}`);
-    
-    const result = await client.query("SELECT * FROM users WHERE email = $1", [email]);
+
+    const result = await client.query("SELECT * FROM users WHERE email = $1", [
+      email,
+    ]);
 
     if (result.rows.length > 0) {
       if (result.rows[0].is_verified) {
@@ -75,7 +77,9 @@ authRouter.post("/auth/mailcode", async (req, res) => {
 
       if (insertResult.rowCount === 0) {
         console.error(`Failed to insert new user record for email: ${email}`);
-        return res.status(500).json({ error: "Failed to insert new user record" });
+        return res
+          .status(500)
+          .json({ error: "Failed to insert new user record" });
       }
 
       console.log(`Inserted new user record for email: ${email}`);
@@ -84,7 +88,9 @@ authRouter.post("/auth/mailcode", async (req, res) => {
     // Send email
     transporter.sendMail(mailOptions, (error) => {
       if (error) {
-        console.error(`Error sending email to: ${email}, Error: ${error.message}`);
+        console.error(
+          `Error sending email to: ${email}, Error: ${error.message}`
+        );
         return res.status(500).json({ error: "Error sending email" });
       } else {
         console.log(`Email sent to: ${email}`);
@@ -92,13 +98,16 @@ authRouter.post("/auth/mailcode", async (req, res) => {
       }
     });
   } catch (err) {
-    console.error(`Database error for email: ${email}, Error: ${err instanceof Error ? err.message : 'Unknown error'}`);
+    console.error(
+      `Database error for email: ${email}, Error: ${
+        err instanceof Error ? err.message : "Unknown error"
+      }`
+    );
     res.status(500).json({ error: "DB error" });
   } finally {
     client.release();
   }
 });
-
 
 authRouter.post("/auth/signup", async (req, res) => {
   const email = req.body.email;
@@ -134,7 +143,9 @@ authRouter.post("/auth/signup", async (req, res) => {
 
     if (user.is_verified) {
       console.error(`Email already verified for email: ${email}`);
-      return res.status(400).json({ error: "Email already verified and registered" });
+      return res
+        .status(400)
+        .json({ error: "Email already verified and registered" });
     }
 
     // Hash password
@@ -161,7 +172,9 @@ authRouter.post("/auth/signup", async (req, res) => {
     res.status(200).json({ message: "Sign up succeed" });
   } catch (err) {
     if (err instanceof Error) {
-      console.error(`Error during signup for email: ${email}, Error: ${err.message}`);
+      console.error(
+        `Error during signup for email: ${email}, Error: ${err.message}`
+      );
       res.status(500).json({ error: err.message });
     } else {
       console.error(`Unknown error during signup for email: ${email}`);
@@ -169,8 +182,6 @@ authRouter.post("/auth/signup", async (req, res) => {
     }
   }
 });
-
-
 
 authRouter.post("/auth/login", async (req, res) => {
   const { email, password } = req.body;
@@ -185,7 +196,9 @@ authRouter.post("/auth/login", async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      console.warn(`Login attempt failed for email: ${email}, Error: No user found or email not verified`);
+      console.warn(
+        `Login attempt failed for email: ${email}, Error: No user found or email not verified`
+      );
       return res.status(401).json({
         error: "No user found with this email, or the email is not verified",
       });
@@ -195,12 +208,14 @@ authRouter.post("/auth/login", async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
-      console.warn(`Login attempt failed for email: ${email}, Error: Incorrect password`);
+      console.warn(
+        `Login attempt failed for email: ${email}, Error: Incorrect password`
+      );
       return res.status(401).json({ error: "Incorrect password" });
     }
 
     if (!process.env.JWT_SECRET) {
-      throw new Error('JWT_SECRET is not defined');
+      throw new Error("JWT_SECRET is not defined");
     }
 
     const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {

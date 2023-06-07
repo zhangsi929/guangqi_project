@@ -1,8 +1,9 @@
 /* eslint @typescript-eslint/ban-ts-comment: "off" */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useRegisterUserMutation, TRegisterUser } from '../../data-provider';
+import { useRegisterUserMutation, TRegisterUser, useSendEmail } from '../../data-provider';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 function Registration() {
   const SERVER_URL = process.env.NEXT_PUBLIC_DEV
@@ -24,6 +25,8 @@ function Registration() {
   const registerUser = useRegisterUserMutation();
 
   const password = watch('password');
+
+  const sendEmail = useSendEmail();
 
   const onRegisterUserFormSubmit = (data: TRegisterUser) => {
     // hardcodeed name property of datat as "" to avoid error
@@ -49,10 +52,46 @@ function Registration() {
     });
   };
 
+  // 添加新的状态变量
+  const [countdown, setCountdown] = useState<number>(0);
+  const [emailSent, setEmailSent] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const getVerificationCode = async () => {
     const email = watch('email');
-    console.log(email);
+    setIsLoading(true);
+    try {
+      sendEmail.mutate(
+        { email },
+        {
+          onSuccess: (data) => {
+            console.log(data);
+            setCountdown(60);
+            setEmailSent(true);
+            setIsLoading(false);
+          },
+          onError: (error) => {
+            console.error(error);
+            setEmailSent(false);
+            setIsLoading(false);
+          }
+        }
+      );
+    } catch (error) {
+      console.error(error);
+      setEmailSent(false);
+      setIsLoading(false);
+    }
   };
+
+  // 添加useEffect以更新倒计时
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (countdown > 0) {
+      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+    }
+    return () => clearTimeout(timer); // 清除定时器以避免内存泄漏
+  }, [countdown]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white pt-6 sm:pt-0">
@@ -176,11 +215,19 @@ function Registration() {
                 placeholder=" "
               ></input>
               <button
-                type="button" // 可以是button，因为我们不想提交表单
+                type="button"
                 onClick={() => getVerificationCode()}
                 className="px-3 py-1 text-white bg-blue-500 rounded"
               >
-                获取邮箱验证码
+                {isLoading ? (
+                  <ClipLoader color={'#ffffff'} loading={true} size={15} />
+                ) : countdown !== null && countdown > 0 ? (
+                  `${countdown}秒后重新获取`
+                ) : emailSent === false ? (
+                  '失败，请重试'
+                ) : (
+                  '获取邮箱验证码'
+                )}
               </button>
               <label
                 htmlFor="verification_code"

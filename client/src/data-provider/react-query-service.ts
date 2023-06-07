@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-23 19:51:25
- * @LastEditTime: 2023-06-03 23:34:47
+ * @LastEditTime: 2023-06-06 23:06:36
  * @FilePath: /guangqi/client/src/data-provider/react-query-service.ts
  * @Description:
  *
@@ -332,6 +332,11 @@ export const useRequestPasswordResetMutation = (): UseMutationResult<unknown> =>
 export const useResetPasswordMutation = (): UseMutationResult<unknown> => {
   // @ts-ignore
   return useMutation((payload: t.TResetPassword) => dataService.resetPassword(payload));
+};
+
+export const useSendEmail = (): UseMutationResult<unknown> => {
+  // @ts-ignore
+  return useMutation((payload: any) => dataService.sendEmail(payload));
 };
 
 export const useGetUserStatsQuery = (
