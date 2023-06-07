@@ -1,7 +1,7 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-23 19:51:25
- * @LastEditTime: 2023-05-29 18:02:26
+ * @LastEditTime: 2023-06-06 23:16:34
  * @FilePath: /guangqi/client/src/data-provider/api-endpoints.ts
  * @Description:
  *
@@ -93,4 +93,8 @@ export const resetPassword = () => {
 
 export const getUserStats = () => {
   return '/api/user/stats';
+};
+
+export const sendEmail = () => {
+  return '/api/auth/sendEmailCode';
 };

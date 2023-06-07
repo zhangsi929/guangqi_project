@@ -1,8 +1,9 @@
 /* eslint @typescript-eslint/ban-ts-comment: "off" */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
-import { useRegisterUserMutation, TRegisterUser } from '../../data-provider';
+import { useRegisterUserMutation, TRegisterUser, useSendEmail } from '../../data-provider';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 function Registration() {
   const SERVER_URL = process.env.NEXT_PUBLIC_DEV
@@ -25,7 +26,11 @@ function Registration() {
 
   const password = watch('password');
 
+  const sendEmail = useSendEmail();
+
   const onRegisterUserFormSubmit = (data: TRegisterUser) => {
+    // hardcodeed name property of datat as "" to avoid error
+    data.name = data.username;
     registerUser.mutate(data, {
       onSuccess: (response: any) => {
         const token = response?.token; // Assuming the token is accessible in the response data
@@ -47,6 +52,47 @@ function Registration() {
     });
   };
 
+  // 添加新的状态变量
+  const [countdown, setCountdown] = useState<number>(0);
+  const [emailSent, setEmailSent] = useState<boolean | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const getVerificationCode = async () => {
+    const email = watch('email');
+    setIsLoading(true);
+    try {
+      sendEmail.mutate(
+        { email },
+        {
+          onSuccess: (data) => {
+            console.log(data);
+            setCountdown(60);
+            setEmailSent(true);
+            setIsLoading(false);
+          },
+          onError: (error) => {
+            console.error(error);
+            setEmailSent(false);
+            setIsLoading(false);
+          }
+        }
+      );
+    } catch (error) {
+      console.error(error);
+      setEmailSent(false);
+      setIsLoading(false);
+    }
+  };
+
+  // 添加useEffect以更新倒计时
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (countdown > 0) {
+      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+    }
+    return () => clearTimeout(timer); // 清除定时器以避免内存泄漏
+  }, [countdown]);
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-white pt-6 sm:pt-0">
       <div className="mt-6 w-96 overflow-hidden bg-white px-6 py-4 sm:max-w-md sm:rounded-lg">
@@ -63,50 +109,8 @@ function Registration() {
           className="mt-6"
           aria-label="注册表单"
           method="POST"
-          onSubmit={handleSubmit((data) => onRegisterUserFormSubmit(data))}
+          onSubmit={handleSubmit(onRegisterUserFormSubmit)} // 修改这一行
         >
-          <div className="mb-2">
-            <div className="relative">
-              <input
-                id="name"
-                type="text"
-                autoComplete="name"
-                aria-label="姓名"
-                // 取消下面的注释以防止在确认字段中粘贴
-                onPaste={(e) => {
-                  e.preventDefault();
-                  return false;
-                }}
-                {...register('name', {
-                  required: '姓名是必填项',
-                  minLength: {
-                    value: 3,
-                    message: '姓名至少需要3个字符'
-                  },
-                  maxLength: {
-                    value: 80,
-                    message: '姓名不能超过80个字符'
-                  }
-                })}
-                aria-invalid={!!errors.name}
-                className="peer block w-full appearance-none rounded-t-md border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-green-500 focus:outline-none focus:ring-0"
-                placeholder=" "
-              ></input>
-              <label
-                htmlFor="name"
-                className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
-              >
-                姓名
-              </label>
-            </div>
-
-            {errors.name && (
-              <span role="alert" className="mt-1 text-sm text-red-600">
-                {/* @ts-ignore */}
-                {errors.name.message}
-              </span>
-            )}
-          </div>
           <div className="mb-2">
             <div className="relative">
               <input
@@ -183,6 +187,55 @@ function Registration() {
                 {errors.email.message}
               </span>
             )}
+          </div>
+          <div className="mb-2">
+            <div className="relative flex">
+              <input
+                type="text"
+                id="verificationCode"
+                autoComplete="off"
+                aria-label="验证码"
+                {...register('verificationCode', {
+                  required: '验证码是必填项',
+                  minLength: {
+                    value: 4, // 例如，如果验证码是4位数
+                    message: '验证码需要4位'
+                  },
+                  maxLength: {
+                    value: 4, // 确保验证码不超过4位数
+                    message: '验证码不能超过4位'
+                  },
+                  pattern: {
+                    value: /^[0-9]{4}$/, // 例如，如果验证码只包含数字
+                    message: '验证码需要是4位数字'
+                  }
+                })}
+                aria-invalid={!!errors.verificationCode}
+                className="peer block w-full appearance-none rounded-t-md border-0 border-b-2 border-gray-300 bg-gray-50 px-2.5 pb-2.5 pt-5 text-sm text-gray-900 focus:border-green-500 focus:outline-none focus:ring-0"
+                placeholder=" "
+              ></input>
+              <button
+                type="button"
+                onClick={() => getVerificationCode()}
+                className="px-3 py-1 text-white bg-blue-500 rounded"
+              >
+                {isLoading ? (
+                  <ClipLoader color={'#ffffff'} loading={true} size={15} />
+                ) : countdown !== null && countdown > 0 ? (
+                  `${countdown}秒后重新获取`
+                ) : emailSent === false ? (
+                  '失败，请重试'
+                ) : (
+                  '获取邮箱验证码'
+                )}
+              </button>
+              <label
+                htmlFor="verification_code"
+                className="absolute left-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-green-500"
+              >
+                验证码
+              </label>
+            </div>
           </div>
           <div className="mb-2">
             <div className="relative">

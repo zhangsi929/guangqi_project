@@ -107,3 +107,7 @@ export const resetPassword = (payload: t.TResetPassword) => {
 export function getUserStats(): Promise<t.TUserStats> {
   return request.get(endpoints.getUserStats());
 }
+
+export const sendEmail = (payload: any) => {
+  return request.post(endpoints.sendEmail(), payload);
+};
