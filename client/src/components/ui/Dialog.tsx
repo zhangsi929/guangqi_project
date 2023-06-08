@@ -1,3 +1,26 @@
+/*
+ * @Author: Ethan Zhang
+ * @Date: 2023-06-04 12:33:41
+ * @LastEditTime: 2023-06-07 18:42:14
+ * @FilePath: /guangqi/client/src/components/ui/Dialog.tsx
+ * @Description:
+ *
+ * DialogPrimitive.Portal
+ * 用于将对话框（或其他浮动元素）渲染到页面的根元素之外，以避免对页面布局造成影响
+ * 是一个使用 React Portal 机制创建的组件，它可以将子元素插入到 DOM 树的其他位置，这使得子元素能够从常规的 DOM 层级结构中"突破出来"。
+ *
+ * DialogPrimitive.Overlay
+ * 主要用于控制对话框（或其他浮动元素）背后的遮罩层的样式，包括它的颜色、透明度、背景模糊等
+ *
+ *
+ * “Portal”：这是一个 React 的概念，用于将子组件渲染到父组件 DOM 树之外的位置。
+ * “Overlay”：这是一个常见的 UI 设计概念，通常用于创建一个遮罩层，用于模糊或阻挡背后的内容，以便用户可以专注于前景内容（如对话框、弹出窗口等）。
+ * "Content"：在许多 UI 库和框架中，都有类似的概念，通常指代特定的内容区域，如对话框的主体内容。
+ * "Trigger"：这是一个常见的 UI 设计概念，通常用于触发某些操作，如打开对话框、弹出菜单等。
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
+ */
+
 import * as React from 'react';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { Button } from '../ui/Button';
@@ -48,7 +71,7 @@ const DialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0 fixed z-[999] grid w-full gap-4 rounded-b-lg bg-white p-6 sm:max-w-lg sm:rounded-lg',
+        'animate-in data-[state=open]:fade-in-90 data-[state=open]:slide-in-from-bottom-10 sm:zoom-in-90 data-[state=open]:sm:slide-in-from-bottom-0 fixed z-[999] grid w-full gap-4 rounded-b-lg bg-white p-6 sm:max-w-2/3 sm:rounded-lg',
         'dark:bg-slate-900',
         className
       )}

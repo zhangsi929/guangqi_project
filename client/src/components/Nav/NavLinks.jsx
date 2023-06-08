@@ -5,10 +5,12 @@ import { useRecoilValue } from 'recoil';
 import SearchBar from './SearchBar';
 import TrashIcon from '../svg/TrashIcon';
 import UserIcon from '../svg/UserIcon';
+import PiggyBank from '../svg/PiggyBank';
 import { Download } from 'lucide-react';
 import NavLink from './NavLink';
 import ExportModel from './ExportConversation/ExportModel';
 import UserModel from './User/UserModel';
+import PayModel from './Pay/PayModel';
 import ClearConvos from './ClearConvos';
 import DarkMode from './DarkMode';
 import Logout from './Logout';
@@ -23,6 +25,7 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
   const [showExports, setShowExports] = useState(false);
   const [showClearConvos, setShowClearConvos] = useState(false);
   const [showUser, setShowUser] = useState(false);
+  const [showPay, setShowPay] = useState(false);
   const { user } = useAuthContext();
 
   const conversation = useRecoilValue(store.conversation) || {};
@@ -38,6 +41,10 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
 
   const clickHandlerUser = () => {
     setShowUser(true);
+  };
+
+  const clickHandlerPay = () => {
+    setShowPay(true);
   };
 
   return (
@@ -117,6 +124,17 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
                     clickHandler={clickHandlerUser}
                   />
                 </Menu.Item>
+                <Menu.Item as="div">
+                  <NavLink
+                    className={cn(
+                      'flex w-full cursor-pointer items-center gap-3 px-3 py-3 text-sm text-white transition-colors duration-200 hover:bg-gray-700',
+                      true ? 'cursor-pointer text-white' : 'cursor-not-allowed text-gray-400'
+                    )}
+                    svg={() => <PiggyBank />}
+                    text="账户充值"
+                    clickHandler={clickHandlerPay}
+                  />
+                </Menu.Item>
                 <div className="my-1.5 h-px bg-white/20" role="none" />
                 <Menu.Item as="div">
                   <Logout />
@@ -127,6 +145,7 @@ export default function NavLinks({ clearSearch, isSearchEnabled }) {
         )}
       </Menu>
       {showUser && <UserModel open={showUser} onOpenChange={setShowUser} />}
+      {showPay && <PayModel open={showPay} onOpenChange={setShowPay} />}
       {showExports && <ExportModel open={showExports} onOpenChange={setShowExports} />}
       {showClearConvos && <ClearConvos open={showClearConvos} onOpenChange={setShowClearConvos} />}
     </>

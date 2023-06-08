@@ -1,11 +1,11 @@
 /*
  * @Author: Ethan Zhang
  * @Date: 2023-05-19 22:15:22
- * @LastEditTime: 2023-05-20 18:51:02
+ * @LastEditTime: 2023-06-07 18:40:39
  * @FilePath: /guangqi/client/tailwind.config.js
- * @Description: 
- * 
- * Copyright (c) 2023 Ethan Zhang, All Rights Reserved. 
+ * @Description:
+ *
+ * Copyright (c) 2023 Ethan Zhang, All Rights Reserved.
  */
 // const { fontFamily } = require('tailwindcss/defaultTheme');
 
@@ -20,9 +20,12 @@ module.exports = {
     // },
     fontFamily: {
       sans: ['Söhne', 'sans-serif'],
-      mono: ['Söhne Mono', 'monospace'],	
+      mono: ['Söhne Mono', 'monospace']
     },
     extend: {
+      maxWidth: {
+        '2/3': '66.666667%' // 2/3 in percentage
+      },
       keyframes: {
         'accordion-down': {
           from: { height: 0 },
@@ -39,35 +42,35 @@ module.exports = {
       },
       colors: {
         gray: {
-          '50': '#f7f7f8',
-          '100': '#d9d9e3',
-          '200': '#d9d9e3', // Replacing .bg-gray-200
-          '300': '#c5c5d2',
-          '400': '#acacb1',
-          '500': '#8e8ea0',
-          '600': '#565869',
-          '700': '#40414f', // Replacing .dark .dark:bg-gray-700 and .dark .dark:hover:bg-gray-700:hover
-          '800': '#343541', // Replacing .dark .dark:bg-gray-800, .bg-gray-800, and .dark .dark:hover:bg-gray-800\/90
-          '900': '#202123' // Replacing .dark .dark:bg-gray-900, .bg-gray-900, and .dark .dark:hover:bg-gray-900:hover
+          50: '#f7f7f8',
+          100: '#d9d9e3',
+          200: '#d9d9e3', // Replacing .bg-gray-200
+          300: '#c5c5d2',
+          400: '#acacb1',
+          500: '#8e8ea0',
+          600: '#565869',
+          700: '#40414f', // Replacing .dark .dark:bg-gray-700 and .dark .dark:hover:bg-gray-700:hover
+          800: '#343541', // Replacing .dark .dark:bg-gray-800, .bg-gray-800, and .dark .dark:hover:bg-gray-800\/90
+          900: '#202123' // Replacing .dark .dark:bg-gray-900, .bg-gray-900, and .dark .dark:hover:bg-gray-900:hover
         },
         green: {
-          50: "#f1f9f7",
-          100: "#def2ed",
-          200: "#a6e5d6",
-          300: "#6dc8b9",
-          400: "#41a79d",
-          500: "#10a37f",
-          600: "#126e6b",
-          700: "#0a4f53",
-          800: "#06373e",
-          900: "#031f29",
-        },
+          50: '#f1f9f7',
+          100: '#def2ed',
+          200: '#a6e5d6',
+          300: '#6dc8b9',
+          400: '#41a79d',
+          500: '#10a37f',
+          600: '#126e6b',
+          700: '#0a4f53',
+          800: '#06373e',
+          900: '#031f29'
+        }
       }
     }
   },
   plugins: [
     require('tailwindcss-animate'),
-    require("tailwindcss-radix")(),
+    require('tailwindcss-radix')()
     // require('@tailwindcss/typography'),
   ]
 };
