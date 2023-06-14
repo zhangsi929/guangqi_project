@@ -20,7 +20,7 @@ const LandingPage = () => {
   return (
     <>
       <Head>
-        <title>思渝AI Chatgpt中国</title>
+        <title>思渝AI ChatGPT镜像中国</title>
         <link rel="stylesheet" href="https://unpkg.com/tailwindcss@next/dist/tailwind.min.css" />
         <link
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700"
@@ -33,7 +33,7 @@ const LandingPage = () => {
         <nav>
           <div className="container mx-auto px-6 py-2 flex justify-between items-center">
             <a className="font-bold text-6xl lg:text-10xl" href="#">
-              思渝AI - ChatGPT中国
+              思渝AI - ChatGPT镜像中国
             </a>
             <div className="block lg:hidden">
               <button className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-teal-500 appearance-none focus:outline-none">
