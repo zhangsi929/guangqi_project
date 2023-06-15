@@ -20,7 +20,7 @@ const LandingPage = () => {
   return (
     <>
       <Head>
-        <title>思渝AI ChatGPT镜像中国</title>
+        <title>思渝AI</title>
         <link rel="stylesheet" href="https://unpkg.com/tailwindcss@next/dist/tailwind.min.css" />
         <link
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700"
@@ -33,7 +33,7 @@ const LandingPage = () => {
         <nav>
           <div className="container mx-auto px-6 py-2 flex justify-between items-center">
             <a className="font-bold text-6xl lg:text-10xl" href="#">
-              思渝AI - ChatGPT镜像中国
+              思渝AI
             </a>
             <div className="block lg:hidden">
               <button className="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-800 hover:border-teal-500 appearance-none focus:outline-none">
@@ -67,10 +67,10 @@ const LandingPage = () => {
         >
           <div className="container mx-auto px-6">
             <h2 className="text-4xl font-bold mb-2 text-white">
-              我们百分百还原了ChatGPT的全部功能，更融入了我们独特的创新特性！
+              我们百分百还原了AI的全部功能，更融入了我们独特的创新特性！
             </h2>
             <h3 className="text-1.9xl mb-8 text-gray-200">
-              欢迎来到思渝AI，我们为您带来了未来的AI对话技术，原汁原味的ChatGPT体验在此开启。
+              欢迎来到思渝AI，我们为您带来了未来的AI对话技术，原汁原味的AI助手体验在此开启。
               不论你是科技爱好者，创业者，作家，或者是教育者，你都能在这里找到未知的惊喜和无限的可能。
             </h3>
             <Link href="/login">
@@ -83,7 +83,7 @@ const LandingPage = () => {
         {/* Features */}
         <section className="container mx-auto px-6 p-10">
           <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
-            驾驭未来的AI对话 - 享受最纯粹的ChatGPT体验
+            驾驭未来的AI对话 - 享受最纯粹的AI体验
           </h2>
           <div className="flex items-center flex-wrap mb-20">
             <div className="w-full md:w-1/2">
@@ -125,7 +125,7 @@ const LandingPage = () => {
             <div className="w-full md:w-1/2 pl-10">
               <h4 className="text-3xl text-gray-800 font-bold mb-3">保护隐私，安全无忧</h4>
               <p className="text-gray-600 mb-8">
-                最安全的中文ChatGPT体验。用户密码加密：您的密码对我们来说是个秘密。我们采用最新的加密技术，确保您的密码安全存储，无人能破解。网站SSL加密：我们的网站使用SSL证书进行加密，确保所有传输的数据都是安全的，防止第三方截取和篡改。
+                最安全的中文AI体验。用户密码加密：您的密码对我们来说是个秘密。我们采用最新的加密技术，确保您的密码安全存储，无人能破解。网站SSL加密：我们的网站使用SSL证书进行加密，确保所有传输的数据都是安全的，防止第三方截取和篡改。
               </p>
             </div>
           </div>
@@ -134,13 +134,13 @@ const LandingPage = () => {
         <section className="bg-gray-100">
           <div className="container mx-auto px-6 py-20">
             <h2 className="text-4xl font-bold text-center text-gray-800 mb-8">
-              “最好的境内ChatGPT体验”
+              “最好的境内AI体验”
             </h2>
             <div className="flex flex-wrap">
               <div className="w-full md:w-1/3 px-2 mb-4">
                 <div className="bg-white rounded shadow py-2">
                   <p className="text-gray-800 text-base px-6 mb-5">
-                    我热爱写作，而ChatGPT就像我的创作搭档。无论我需要在情节设计、角色塑造上寻找灵感，还是需要解决写作中遇到的困境，它总能提供出色的建议。有了这款软件的陪伴，我的写作之旅变得更加顺畅，也更加有趣。{' '}
+                    我热爱写作，而AI就像我的创作搭档。无论我需要在情节设计、角色塑造上寻找灵感，还是需要解决写作中遇到的困境，它总能提供出色的建议。有了这款软件的陪伴，我的写作之旅变得更加顺畅，也更加有趣。{' '}
                   </p>
                   <p className="text-gray-500 text-xs md:text-sm px-6">Amelia Parker</p>
                 </div>
@@ -148,7 +148,7 @@ const LandingPage = () => {
               <div className="w-full md:w-1/3 px-2 mb-4">
                 <div className="bg-white rounded shadow py-2">
                   <p className="text-gray-800 text-base px-6 mb-5">
-                    我是一名自由软件开发者，自我发现并开始使用ChatGPT以来，我的工作效率有了质的飞跃。无论我在代码调试、探索最新编程技术时遇到任何问题，它都能提供准确且深入的解答。最让我惊喜的是，它甚至能帮我编写高质量的代码，这实在是程序员的福音！{' '}
+                    我是一名自由软件开发者，自我发现并开始使用AI以来，我的工作效率有了质的飞跃。无论我在代码调试、探索最新编程技术时遇到任何问题，它都能提供准确且深入的解答。最让我惊喜的是，它甚至能帮我编写高质量的代码，这实在是程序员的福音！{' '}
                   </p>
                   <p className="text-gray-500 text-xs md:text-sm px-6">Benjamin Foster</p>
                 </div>
@@ -156,7 +156,7 @@ const LandingPage = () => {
               <div className="w-full md:w-1/3 px-2 mb-4">
                 <div className="bg-white rounded shadow py-2">
                   <p className="text-gray-800 text-base px-6 mb-5">
-                    我是一名语言教师，对我而言，ChatGPT就是一款绝佳的教学辅助工具。它能用各种语言流畅对话，帮助学生加强语言应用能力。同时，它提供的准确词汇解释和句子翻译，也极大地丰富了我的教学内容。自从使用了这款软件，我的教学质量和效果显著提高。{' '}
+                    我是一名语言教师，对我而言，AI就是一款绝佳的教学辅助工具。它能用各种语言流畅对话，帮助学生加强语言应用能力。同时，它提供的准确词汇解释和句子翻译，也极大地丰富了我的教学内容。自从使用了这款软件，我的教学质量和效果显著提高。{' '}
                   </p>
                   <p className="text-gray-500 text-xs md:text-sm px-6">Charlotte Reed</p>
                 </div>
@@ -169,7 +169,7 @@ const LandingPage = () => {
           <div className="container mx-auto px-6 text-center py-20">
             <h2 className="mb-6 text-4xl font-bold text-center text-white">暂时只开放有限的用户</h2>
             <h3 className="my-4 text-2xl text-white">
-              抢先注册，抢先获取思渝AI ChatGPT软件的最新功能，独家预览！
+              抢先注册，抢先获取思渝AI AI软件的最新功能，独家预览！
             </h3>
             <Link href="/login">
               <button className="bg-white font-bold rounded-full mt-6 py-4 px-8 shadow-lg uppercase tracking-wider">
